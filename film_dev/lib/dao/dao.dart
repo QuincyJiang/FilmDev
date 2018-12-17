@@ -51,22 +51,21 @@ class DbManager {
     });
   }
 
-  void copyDb(String dataPath, String favPath, Future<ByteData> devData,
-      Future<ByteData> favData) {
+  void copyDb(String dataPath, String favPath, Future<ByteData> devData, Future<ByteData> favData) {
     File devDb = new File(dataPath);
     File favDb = new File(favPath);
     devDb.exists().then((bool exist) {
       if (!exist) {
         devData.then((ByteData data) {
           writeToFile(data, devDb);
-        });// 拷贝dev数据库到本地文件
-        favDb.exists().then((bool exist) {
-          if (!exist) {
-            favData.then((ByteData data) {
-              writeToFile(data, favDb);
-            });// 拷贝fav数据库到本地
-          }
-        });
+        }); /* 拷贝dev数据库到本地文件*/
+      }
+    });
+    favDb.exists().then((bool exist) {
+      if (!exist) {
+        favData.then((ByteData data) {
+          writeToFile(data, favDb);
+        }); /* 拷贝fav数据库到本地*/
       }
     });
   }

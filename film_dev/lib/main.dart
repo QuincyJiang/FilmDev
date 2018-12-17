@@ -1,4 +1,3 @@
-import 'package:film_dev/dao/dao.dart';
 import 'package:film_dev/pages/splash_page.dart';
 import 'package:flutter/material.dart';
 
