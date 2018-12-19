@@ -14,7 +14,6 @@ class FilmBrandState extends State<FilmBrandSelectPage>{
   void initState() {
     // TODO: implement initState
     super.initState();
-    DeviceUtil.instance.exitFullScreen();
   }
 
   @override
