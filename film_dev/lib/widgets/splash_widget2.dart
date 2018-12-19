@@ -31,7 +31,7 @@ class _SplashWidget2State extends State<SplashWidget2> {
       children: <Widget>[
         ConstrainedBox(
           child: Image.asset(
-            "assets/splash.jpg",
+            "assets/splash2.jpg",
             fit: BoxFit.cover,
           ),
           constraints: new BoxConstraints.expand(),
