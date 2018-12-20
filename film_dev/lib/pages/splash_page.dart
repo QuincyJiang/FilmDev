@@ -21,7 +21,7 @@ class _MyAppState extends State<AppSplashPage> {
   @override
   Widget build(BuildContext context) {
     return new SplashWidget2(
-      seconds: 3,
+      seconds: 5,
       navigateAfterSeconds: FilmBrandSelectPage(),
       description: new Text(
         'The most complete film processing database',

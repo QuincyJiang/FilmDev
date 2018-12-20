@@ -36,23 +36,28 @@ class _SplashWidget2State extends State<SplashWidget2> {
           ),
           constraints: new BoxConstraints.expand(),
         ),
-        ConstrainedBox(
-          child: new Column(
-            children: <Widget>[
-              Padding(
-                padding: EdgeInsets.fromLTRB(0.0, 700, 0.0, 0.0),
-              ),
-              widget.title,
-              Padding(
-                padding: EdgeInsets.fromLTRB(0.0, 20.0, 0.0, 0.0),
-              ),
-              widget.description,
+    ConstrainedBox(
+      constraints: new BoxConstraints.expand(),
+      child: new Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: <Widget>[
+          widget.title,
+          Padding(
+            padding: EdgeInsets.fromLTRB(0.0, 20.0, 0.0, 0.0),
+          ),
+          widget.description,
+          Padding(
+            padding: EdgeInsets.fromLTRB(0.0, 20.0, 0.0, 0.0),
+          ),
+        ],
+      ),
+    ),
+
             ],
           ),
-          constraints: new BoxConstraints.expand(),
-        )
-      ],
-    ));
+    );
   }
 }
 
