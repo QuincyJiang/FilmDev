@@ -1,5 +1,7 @@
 import 'package:film_dev/model/film_info.dart';
 import 'package:flutter/material.dart';
+import 'dart:core';
+import 'package:flare_flutter/flare_actor.dart';
 
 @visibleForTesting
 
@@ -144,8 +146,7 @@ class _FilmBrandSelectPageState extends State<FilmBrandSelectPage> {
   void initState() {
     super.initState();
     List<String> brands = FilmBrand.brands;
-    List<String> types = ["彩色负片","彩色正片","黑白负片"];
-    List<String> model = ["Tmax100","Tmax200","Tmax400"];
+    List<String> types = ["35mm","120mm","散页片"];
     _configItems = <ConfigItem<dynamic>>[
       ConfigItem<String>(
           name: 'Brand/品牌',
@@ -153,11 +154,6 @@ class _FilmBrandSelectPageState extends State<FilmBrandSelectPage> {
           hint: 'Kodak',
           valueToString: (String model) => model,
           builder: (ConfigItem<String> item) {
-            void close() {
-              setState(() {
-                item.isExpanded = false;
-              });
-            }
             return Form(
                 child: Builder(
                     builder: (BuildContext context) {
@@ -180,16 +176,11 @@ class _FilmBrandSelectPageState extends State<FilmBrandSelectPage> {
           }
       ),
       ConfigItem<String>(
-          name: 'Type/类型',
-          value: "彩色负片",
-          hint: '彩色负片',
+          name: 'Format/片幅',
+          value: "35mm",
+          hint: '35mm',
           valueToString: (String model) => model,
           builder: (ConfigItem<String> item) {
-            void close() {
-              setState(() {
-                item.isExpanded = false;
-              });
-            }
             return Form(
                 child: Builder(
                     builder: (BuildContext context) {
@@ -211,38 +202,62 @@ class _FilmBrandSelectPageState extends State<FilmBrandSelectPage> {
             );
           }
       ),
-      ConfigItem<String>(
-          name: 'Model/型号',
-          value: "Tmax 100",
-          hint: 'Tmax 100',
-          valueToString: (String model) => model,
-          builder: (ConfigItem<String> item) {
-            void close() {
-              setState(() {
-                item.isExpanded = false;
-              });
-            }
+      ConfigItem<double>(
+          name: 'ISO',
+          value: 100,
+          hint: '滑动滑块选择ISO',
+          valueToString: (double amount) => '${amount.round()}',
+          builder: (ConfigItem<double> item) {
             return Form(
                 child: Builder(
                     builder: (BuildContext context) {
                       return CollapsibleBody(
-                        child: FormField<String>(
-                            initialValue: item.value,
-                            onSaved: (String result) { item.value = result; },
-                            builder: (FormFieldState<String> field) {
-                              return Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: buildItemChildren(context,field, model)
-                              );
-                            }
+                        child: FormField<double>(
+                          initialValue: item.value,
+                          onSaved: (double value) { item.value = value; },
+                          builder: (FormFieldState<double> field) {
+                            return Padding(
+                              padding: EdgeInsets.fromLTRB(0.0,50,0.0,0.0),
+                              child: new SliderTheme(
+                              data: SliderTheme.of(context).copyWith(
+                                activeTrackColor: Colors.yellow[800] ,
+                                inactiveTrackColor:Colors.black ,
+                                disabledActiveTrackColor: Colors.white,
+                                disabledInactiveTrackColor: Colors.grey,
+                                activeTickMarkColor: Colors.yellow,
+                                inactiveTickMarkColor: Colors.red,
+                                disabledActiveTickMarkColor:Colors.green,
+                                disabledInactiveTickMarkColor:Colors.indigo,
+                                thumbColor:Colors.white,
+                                disabledThumbColor:Colors.brown,
+                                overlayColor:Colors.transparent,
+                                valueIndicatorColor:Colors.yellow[800],
+//                                thumbShape:,
+//                                valueIndicatorShape:,
+//                                showValueIndicator:,
+//                                valueIndicatorTextStyle:,
+                              ),
+                              child: Slider(
+                                min: 2,
+                                max: 3200,
+                                divisions: 200,
+                                activeColor: Colors.orange[100 + (field.value * 5.0).round()],
+                                label: '${field.value.round()}',
+                                value: field.value,
+                                onChanged: (double value){
+                                  field.didChange(processISO(value,FilmIso.iso));
+                                  Form.of(context).save();
+                                },
+                              ),
+                            ));
+                          },
                         ),
                       );
                     }
                 )
             );
           }
-      ),
+      )
     ];
   }
 
@@ -258,6 +273,12 @@ class _FilmBrandSelectPageState extends State<FilmBrandSelectPage> {
             margin: const EdgeInsets.all(24.0),
             child: Column(
               children: <Widget>[
+                Container(
+                  height: 200,
+                  width: 200,
+                  child: new FlareActor("assets/rotate.flr", alignment:Alignment.center, fit:BoxFit.contain, animation:"rotate"),
+                  constraints:  BoxConstraints.expand(height: 200),
+                ),
                 ExpansionPanelList(
                     expansionCallback: (int index, bool isExpanded) {
                       setState(() {
@@ -276,8 +297,13 @@ class _FilmBrandSelectPageState extends State<FilmBrandSelectPage> {
                 child: RaisedButton(
                     onPressed: toSelectResultPage(context),
                 textColor: Colors.white,
-                child: Text("选好了"),),
-                )
+                child: Padding(padding: EdgeInsets.all(10),
+                    child: new Text(
+                      "选好了",
+                      style: new TextStyle(
+                        color: Colors.white
+                      ) ,),),
+                ))
               ],
             )
           ),
@@ -307,4 +333,19 @@ List<Widget> buildItemChildren(BuildContext context,FormFieldState<String> field
         },
         activeColor: Colors.yellow[800],)));
   return widgets;
+}
+
+double processIsoValue(double raw){
+  int times = (raw/50).round();
+  return (50*times).toDouble();
+
+}
+double processISO(double raw,List<double> iso){
+  double current = iso[0];
+  iso.forEach((double iso){
+    if((raw-iso).abs() < (raw-current).abs()){
+      current = iso;
+    }}
+  );
+  return current;
 }
