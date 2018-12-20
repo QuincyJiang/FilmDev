@@ -1,11 +1,7 @@
+import 'package:film_dev/model/film_info.dart';
 import 'package:flutter/material.dart';
 
 @visibleForTesting
-enum Location {
-  Barbados,
-  Bahamas,
-  Bermuda
-}
 
 typedef ConfigItemBodyBuilder<T> = Widget Function(ConfigItem<T> item);
 typedef ValueToString<T> = String Function(T value);
@@ -15,14 +11,12 @@ class DualHeaderWithHint extends StatelessWidget {
     this.name,
     this.value,
     this.hint,
-    this.showHint
+    this.showHint,
   });
-
   final String name;
   final String value;
   final String hint;
   final bool showHint;
-
   Widget _crossFade(Widget first, Widget second, bool isExpanded) {
     return AnimatedCrossFade(
       firstChild: first,
@@ -34,12 +28,10 @@ class DualHeaderWithHint extends StatelessWidget {
       duration: const Duration(milliseconds: 200),
     );
   }
-
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     final TextTheme textTheme = theme.textTheme;
-
     return Row(
         children: <Widget>[
           Expanded(
@@ -76,14 +68,10 @@ class CollapsibleBody extends StatelessWidget {
   const CollapsibleBody({
     this.margin = EdgeInsets.zero,
     this.child,
-    this.onSave,
-    this.onCancel
   });
 
   final EdgeInsets margin;
   final Widget child;
-  final VoidCallback onSave;
-  final VoidCallback onCancel;
 
   @override
   Widget build(BuildContext context) {
@@ -93,6 +81,8 @@ class CollapsibleBody extends StatelessWidget {
     return Column(
         children: <Widget>[
           Container(
+            decoration: BoxDecoration(
+            ),
               margin: const EdgeInsets.only(
                   left: 24.0,
                   right: 24.0,
@@ -105,34 +95,6 @@ class CollapsibleBody extends StatelessWidget {
                   )
               )
           ),
-          const Divider(height: 1.0),
-          Container(
-              padding: const EdgeInsets.symmetric(vertical: 16.0),
-              child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
-                    Container(
-                        margin: const EdgeInsets.only(right: 8.0),
-                        child: FlatButton(
-                            onPressed: onCancel,
-                            child: const Text('CANCEL', style: TextStyle(
-                                color: Colors.black54,
-                                fontSize: 15.0,
-                                fontWeight: FontWeight.w500
-                            ))
-                        )
-                    ),
-                    Container(
-                        margin: const EdgeInsets.only(right: 8.0),
-                        child: FlatButton(
-                            onPressed: onSave,
-                            textTheme: ButtonTextTheme.accent,
-                            child: const Text('SAVE')
-                        )
-                    )
-                  ]
-              )
-          )
         ]
     );
   }
@@ -181,43 +143,73 @@ class _FilmBrandSelectPageState extends State<FilmBrandSelectPage> {
   @override
   void initState() {
     super.initState();
-
+    List<String> brands = FilmBrand.brands;
+    List<String> types = ["彩色负片","彩色正片","黑白负片"];
+    List<String> model = ["Tmax100","Tmax200","Tmax400"];
     _configItems = <ConfigItem<dynamic>>[
       ConfigItem<String>(
-        name: 'Brand/品牌',
-        value: 'Kodak',
-        hint: 'kodak',
-        valueToString: (String value) => value,
-        builder: (ConfigItem<String> item) {
-          void close() {
-            setState(() {
-              item.isExpanded = false;
-            });
+          name: 'Brand/品牌',
+          value: "Kodak",
+          hint: 'Kodak',
+          valueToString: (String model) => model,
+          builder: (ConfigItem<String> item) {
+            void close() {
+              setState(() {
+                item.isExpanded = false;
+              });
+            }
+            return Form(
+                child: Builder(
+                    builder: (BuildContext context) {
+                      return CollapsibleBody(
+                        child: FormField<String>(
+                            initialValue: item.value,
+                            onSaved: (String result) { item.value = result; },
+                            builder: (FormFieldState<String> field) {
+                              return Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: buildItemChildren(context,field, brands)
+                              );
+                            }
+                        ),
+                      );
+                    }
+                )
+            );
           }
-
-          return Form(
-            child: Builder(
-              builder: (BuildContext context) {
-                return CollapsibleBody(
-                  margin: const EdgeInsets.symmetric(horizontal: 16.0),
-                  onSave: () { Form.of(context).save(); close(); },
-                  onCancel: () { Form.of(context).reset(); close(); },
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: TextFormField(
-                      controller: item.textController,
-                      decoration: InputDecoration(
-                        hintText: item.hint,
-                        labelText: item.name,
-                      ),
-                      onSaved: (String value) { item.value = value; },
-                    ),
-                  ),
-                );
-              },
-            ),
-          );
-        },
+      ),
+      ConfigItem<String>(
+          name: 'Type/类型',
+          value: "彩色负片",
+          hint: '彩色负片',
+          valueToString: (String model) => model,
+          builder: (ConfigItem<String> item) {
+            void close() {
+              setState(() {
+                item.isExpanded = false;
+              });
+            }
+            return Form(
+                child: Builder(
+                    builder: (BuildContext context) {
+                      return CollapsibleBody(
+                        child: FormField<String>(
+                            initialValue: item.value,
+                            onSaved: (String result) { item.value = result; },
+                            builder: (FormFieldState<String> field) {
+                              return Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: buildItemChildren(context,field, types)
+                              );
+                            }
+                        ),
+                      );
+                    }
+                )
+            );
+          }
       ),
       ConfigItem<String>(
           name: 'Model/型号',
@@ -234,8 +226,6 @@ class _FilmBrandSelectPageState extends State<FilmBrandSelectPage> {
                 child: Builder(
                     builder: (BuildContext context) {
                       return CollapsibleBody(
-                        onSave: () { Form.of(context).save(); close(); },
-                        onCancel: () { Form.of(context).reset(); close(); },
                         child: FormField<String>(
                             initialValue: item.value,
                             onSaved: (String result) { item.value = result; },
@@ -243,26 +233,7 @@ class _FilmBrandSelectPageState extends State<FilmBrandSelectPage> {
                               return Column(
                                   mainAxisSize: MainAxisSize.min,
                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: <Widget>[
-                                    RadioListTile<String>(
-                                      value: "Tmax 100",
-                                      title: const Text('Tmax 100'),
-                                      groupValue: field.value,
-                                      onChanged: field.didChange,
-                                    ),
-                                    RadioListTile<String>(
-                                      value: "Tmax 200",
-                                      title: const Text('Tmax 200'),
-                                      groupValue: field.value,
-                                      onChanged: field.didChange,
-                                    ),
-                                    RadioListTile<String>(
-                                      value: "Tmax 400",
-                                      title: const Text('Tmax 400'),
-                                      groupValue: field.value,
-                                      onChanged: field.didChange,
-                                    ),
-                                  ]
+                                  children: buildItemChildren(context,field, model)
                               );
                             }
                         ),
@@ -272,45 +243,6 @@ class _FilmBrandSelectPageState extends State<FilmBrandSelectPage> {
             );
           }
       ),
-      ConfigItem<double>(
-          name: 'ISO',
-          value: 100,
-          hint: '滑动滑块选择ISO',
-          valueToString: (double amount) => '${amount.round()}',
-          builder: (ConfigItem<double> item) {
-            void close() {
-              setState(() {
-                item.isExpanded = false;
-              });
-            }
-
-            return Form(
-                child: Builder(
-                    builder: (BuildContext context) {
-                      return CollapsibleBody(
-                        onSave: () { Form.of(context).save(); close(); },
-                        onCancel: () { Form.of(context).reset(); close(); },
-                        child: FormField<double>(
-                          initialValue: item.value,
-                          onSaved: (double value) { item.value = value; },
-                          builder: (FormFieldState<double> field) {
-                            return Slider(
-                              min: 0,
-                              max: 6400,
-                              divisions: 50,
-                              activeColor: Colors.orange[100 + (field.value * 5.0).round()],
-                              label: '${field.value.round()}',
-                              value: field.value,
-                              onChanged: field.didChange,
-                            );
-                          },
-                        ),
-                      );
-                    }
-                )
-            );
-          }
-      )
     ];
   }
 
@@ -324,23 +256,55 @@ class _FilmBrandSelectPageState extends State<FilmBrandSelectPage> {
           bottom: false,
           child: Container(
             margin: const EdgeInsets.all(24.0),
-            child: ExpansionPanelList(
-                expansionCallback: (int index, bool isExpanded) {
-                  setState(() {
-                    _configItems[index].isExpanded = !isExpanded;
-                  });
-                },
-                children: _configItems.map<ExpansionPanel>((ConfigItem<dynamic> item) {
-                  return ExpansionPanel(
-                      isExpanded: item.isExpanded,
-                      headerBuilder: item.headerBuilder,
-                      body: item.build()
-                  );
-                }).toList()
-            ),
+            child: Column(
+              children: <Widget>[
+                ExpansionPanelList(
+                    expansionCallback: (int index, bool isExpanded) {
+                      setState(() {
+                        _configItems[index].isExpanded = !isExpanded;
+                      });
+                    },
+                    children: _configItems.map<ExpansionPanel>((ConfigItem<dynamic> item) {
+                      return ExpansionPanel(
+                          isExpanded: item.isExpanded,
+                          headerBuilder: item.headerBuilder,
+                          body: item.build()
+                      );
+                    }).toList()
+                ),
+                Padding(padding: EdgeInsets.fromLTRB(0.0, 20.0, 0.0, 0.0),
+                child: RaisedButton(
+                    onPressed: toSelectResultPage(context),
+                textColor: Colors.white,
+                child: Text("选好了"),),
+                )
+              ],
+            )
           ),
         ),
       ),
     );
   }
+}
+
+ toSelectResultPage(BuildContext context){
+//  Navigator.of(context).pushReplacement(new MaterialPageRoute(
+//      builder: (BuildContext context) => widget));
+}
+
+
+List<Widget> buildItemChildren(BuildContext context,FormFieldState<String> field,
+    List<String> data) {
+  List<Widget> widgets = new List();
+  if (data != null) data.forEach((data) =>
+      widgets.add(RadioListTile<String>(
+        value: data,
+        title: Text(data),
+        groupValue: field.value,
+        onChanged: (String value){
+          field.didChange(value);
+          Form.of(context).save();
+        },
+        activeColor: Colors.yellow[800],)));
+  return widgets;
 }
