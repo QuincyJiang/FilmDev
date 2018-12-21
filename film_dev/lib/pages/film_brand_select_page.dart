@@ -1,4 +1,5 @@
 import 'package:film_dev/bloc/film_brand_bloc.dart';
+import 'package:film_dev/dao/dao.dart';
 import 'package:film_dev/model/film_info.dart';
 import 'package:film_dev/providers/bloc_provider.dart';
 import 'package:flutter/material.dart';
@@ -28,11 +29,13 @@ class DualHeaderWithHint extends StatelessWidget {
     this.hint,
     this.showHint,
     this.hintClickedCallback,
+    this.index,
   });
   final String name;
   final String value;
   final String hint;
   final bool showHint;
+  final int index;
   final HintCallback hintClickedCallback;
   Widget _crossFade(Widget first, Widget second, bool isExpanded) {
     return AnimatedCrossFade(
@@ -47,6 +50,7 @@ class DualHeaderWithHint extends StatelessWidget {
   }
   @override
   Widget build(BuildContext context) {
+    final FilmInfoBloc infoBloc = BlocProvider.of<FilmInfoBloc>(context);
     final ThemeData theme = Theme.of(context);
     final TextTheme textTheme = theme.textTheme;
     return  GestureDetector(
@@ -71,8 +75,33 @@ class DualHeaderWithHint extends StatelessWidget {
                   child: Container(
                       margin: const EdgeInsets.only(left: 24.0),
                       child: _crossFade(
-                        Text(value, style: textTheme.caption.copyWith(fontSize: 15.0)),
-                        Text(hint, style: textTheme.caption.copyWith(fontSize: 15.0)), showHint
+                          StreamBuilder<FilmInfo>(
+                            stream: infoBloc.outFilmInfo,
+                            initialData: FilmInfo.empty(),
+                            builder: (BuildContext context,AsyncSnapshot<FilmInfo> snapshot){
+                              switch(index){
+                                case 0:
+                                  return Text("${snapshot.data.brand}", style: textTheme.caption.copyWith(fontSize: 15.0));
+                                case 1:
+                                  return Text("${snapshot.data.type}", style: textTheme.caption.copyWith(fontSize: 15.0));
+                                case 2:
+                                  return Text("${snapshot.data.iso}", style: textTheme.caption.copyWith(fontSize: 15.0));
+                              }
+                            }),
+                          StreamBuilder<FilmInfo>(
+                              stream: infoBloc.outFilmInfo,
+                              initialData: FilmInfo.empty(),
+                              builder: (BuildContext context,AsyncSnapshot<FilmInfo> snapshot){
+                                switch(index){
+                                  case 0:
+                                    return Text("${snapshot.data.brand}", style: textTheme.caption.copyWith(fontSize: 15.0));
+                                  case 1:
+                                    return Text("${snapshot.data.type}", style: textTheme.caption.copyWith(fontSize: 15.0));
+                                  case 2:
+                                    return Text("${snapshot.data.iso}", style: textTheme.caption.copyWith(fontSize: 15.0));
+                                }
+                              }),
+                         showHint
                       )
                   )
               )
@@ -131,6 +160,7 @@ class ConfigItem<T> {
     this.builder,
     this.valueToString,
     this.onHintClicked,
+    this.index,
   }) : textController = TextEditingController(text: valueToString(value));
 
   final String name;
@@ -140,6 +170,7 @@ class ConfigItem<T> {
   final ValueToString<T> valueToString;
   T value;
   HintCallback onHintClicked;
+  final index;
 
   ExpansionPanelHeaderBuilder get headerBuilder {
     return (BuildContext context, bool isExpanded) {
@@ -147,6 +178,7 @@ class ConfigItem<T> {
           name: name,
           value: valueToString(value),
           hint: hint,
+          index: index,
           hintClickedCallback: onHintClicked,
           showHint: isExpanded
       );
@@ -162,14 +194,18 @@ class BlocFilmSelectPage extends StatefulWidget {
 }
 
 class _BlocFilmSelectPageState extends State<BlocFilmSelectPage> {
+  FilmInfo info;
   List<ConfigItem<dynamic>> _configItems;
   List<bool> expandedConfig = [false,false,false];
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   @override void initState() {
     super.initState();
+    info = FilmInfo.empty();
     _configItems = <ConfigItem<dynamic>>[
       ConfigItem<String>(name: 'Brand/品牌',
           value: "Kodak",
           hint: 'Kodak',
+          index: 0,
           onHintClicked: () {
             setState(() {
               expandedConfig[0] = !expandedConfig[0];
@@ -191,6 +227,7 @@ class _BlocFilmSelectPageState extends State<BlocFilmSelectPage> {
       ConfigItem<String>(name: 'Format/片幅',
           value: "35mm",
           hint: '35mm',
+          index: 1,
           onHintClicked: () {
             setState(() {
               expandedConfig[1] = !expandedConfig[1];
@@ -212,6 +249,7 @@ class _BlocFilmSelectPageState extends State<BlocFilmSelectPage> {
       ConfigItem<double>(name: 'ISO',
           value: 100,
           hint: '滑动滑块选择ISO',
+          index: 2,
           onHintClicked: () {
             setState(() {
               expandedConfig[2] = !expandedConfig[2];
@@ -243,7 +281,7 @@ class _BlocFilmSelectPageState extends State<BlocFilmSelectPage> {
                         label: '${field.value.round()}',
                         value: field.value,
                         onChanged: (double value) {
-                          field.didChange(processISO(value, FilmIso.iso));
+                          field.didChange(processISO(context,value, FilmIso.iso));
                           Form.of(context).save();
                         },),));
               },),);
@@ -255,6 +293,7 @@ class _BlocFilmSelectPageState extends State<BlocFilmSelectPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       body: SingleChildScrollView(
         padding: EdgeInsets.fromLTRB(0.0, 30.0, 0.0, 0.0),
         child: SafeArea(
@@ -299,7 +338,10 @@ class _BlocFilmSelectPageState extends State<BlocFilmSelectPage> {
                 ),
                 Padding(padding: EdgeInsets.fromLTRB(0.0, 20.0, 0.0, 0.0),
                 child: RaisedButton(
-                    onPressed: toSelectResultPage(context),
+                    onPressed:(){
+                      showConfirmDialog(context);
+                    },
+                  color: Colors.black,
                 textColor: Colors.white,
                 child: Padding(padding: EdgeInsets.all(10),
                     child: new Text(
@@ -319,6 +361,7 @@ class _BlocFilmSelectPageState extends State<BlocFilmSelectPage> {
 // 根据传入的List<String> 构建折叠表单的条目
   List<Widget> buildItemChildren(BuildContext context,
       FormFieldState<String> field, List<String> data) {
+    final FilmInfoBloc infoBloc = BlocProvider.of<FilmInfoBloc>(context);
     List<Widget> widgets = new List();
     if (data != null) data.forEach((data) =>
         widgets.add(RadioListTile<String>(
@@ -328,29 +371,83 @@ class _BlocFilmSelectPageState extends State<BlocFilmSelectPage> {
           onChanged: (String value) {
             field.didChange(value);
             Form.of(context).save();
+            if(FilmType.types.contains(value)){
+              info.type = value;
+              infoBloc.updateFilmInfo.add(info);
+            }else{
+              info.brand = value;
+              infoBloc.updateFilmInfo.add(info);
+            }
           },
           activeColor: Colors.yellow[800],)));
     return widgets;
   }
   // 跳转到下一屏
-  toSelectResultPage(BuildContext context){
-//  Navigator.of(context).pushReplacement(new MaterialPageRoute(
-//      builder: (BuildContext context) => widget));
+  showConfirmDialog(BuildContext context){
+    showDemoDialog<DialogDemoAction>(
+        context: context,
+        child: AlertDialog(
+            title: const Text('确认您的选择'),
+            content: new Text(
+                    "品牌： ${info.brand}\n"
+                    "片幅： ${info.type}\n"
+                    "感光： ${info.iso}"
+            ),
+            actions: <Widget>[
+              FlatButton(
+                  child: const Text('重选'),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  }
+              ),
+              FlatButton(
+                  child: const Text('确认'),
+                  onPressed: () {
+                    DbManager.instance.getFilmInfo(info);
+                  }
+              )
+            ]
+        )
+    );
+  }
+
+  void showDemoDialog<T>({ BuildContext context, Widget child }) {
+    showDialog<T>(
+      context: context,
+      builder: (BuildContext context) => child,
+    ).then<void>((T value) { // The value passed to Navigator.pop() or null.
+      if (value != null) {
+        _scaffoldKey.currentState.showSnackBar(SnackBar(
+            content: Text('You selected: $value')
+        ));
+      }
+    });
   }
 
 // 处理滑块选择的iso值 滑块选择的值是连续的 但是可用的iso只有一些特定值 对这些连续值做一下处理
-  double processISO(double raw,List<double> iso){
+  double processISO(BuildContext context,double raw,List<double> iso){
     double current = iso[0];
+    final FilmInfoBloc infoBloc = BlocProvider.of<FilmInfoBloc>(context);
     iso.forEach((double iso){
       if((raw-iso).abs() < (raw-current).abs()){
         current = iso;
       }}
     );
+    info.iso = current;
+    infoBloc.updateFilmInfo.add(info);
     return current;
   }
 }
 
 typedef HintCallback = void Function();
+
+enum DialogDemoAction {
+  cancel,
+  discard,
+  disagree,
+  agree,
+}
+
 
 
 

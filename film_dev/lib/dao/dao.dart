@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'dart:typed_data';
+import 'package:film_dev/model/film_info.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter/services.dart' show rootBundle;
@@ -104,6 +105,9 @@ class DbManager {
     final db = await _localDevDb;
     List<Map> list=    await db.rawQuery('SELECT * FROM user');
     return list;
+  }
+  Future<List<FilmInfo>> getFilmInfo(FilmInfo queryInfo){
+
   }
 
 }

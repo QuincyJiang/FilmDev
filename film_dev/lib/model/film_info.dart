@@ -1,8 +1,17 @@
-class FilmInfo{
+class FilmInfo {
   String brand;
   String name;
-  int iso;
-  int type;
+  double iso;
+  String type;
+
+  FilmInfo(this.brand, this.name, this.iso, this.type);
+
+  FilmInfo.empty(){
+    this.brand = FilmBrand.kodak;
+    this.name = "";
+    this.iso = FilmIso.iso100;
+    this.type = FilmType.thirtyFive;
+  }
 }
 class FilmBrand{
   static final String kodak = "Kodak";
@@ -18,10 +27,10 @@ class FilmBrand{
   static final List<String> brands = [kodak,ilford,agfa,fuji,foma,kentmere,rollei,shanghai,gongyuan,lucky];
 }
 class FilmType{
-  static final int thirtyFive = 0;
-  static final int oneTwenty = 1;
-  static final int sheet = 2;
-  static final List<String> types = ["35mm","120mm","散页片"];
+  static final String thirtyFive = "35mm";
+  static final String oneTwenty = "120mm";
+  static final String sheet = "Sheet";
+  static final List<String> types = ["35mm","120mm","Sheet"];
 }
 
 class FilmIso{
