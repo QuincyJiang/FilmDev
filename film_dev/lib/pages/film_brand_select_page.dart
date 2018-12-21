@@ -337,19 +337,32 @@ class _BlocFilmSelectPageState extends State<BlocFilmSelectPage> {
                     }).toList()
                 ),
                 Padding(padding: EdgeInsets.fromLTRB(0.0, 20.0, 0.0, 0.0),
-                child: RaisedButton(
-                    onPressed:(){
-                      showConfirmDialog(context);
-                    },
-                  color: Colors.black,
-                textColor: Colors.white,
-                child: Padding(padding: EdgeInsets.all(10),
-                    child: new Text(
-                      "选好了",
-                      style: new TextStyle(
-                        color: Colors.white
-                      ) ,),),
-                ))
+child: GestureDetector(
+  child:  Container(
+    child: new FlareActor("assets/arrow.flr",
+        alignment:Alignment.center,
+        fit:BoxFit.contain,
+        animation:"step1"),
+    constraints:  BoxConstraints.expand(height: 150),
+  ),
+  onTap:(){
+    showConfirmDialog(context);
+  },
+),
+//                child: RaisedButton(
+//                    onPressed:(){
+//                      showConfirmDialog(context);
+//                    },
+//                  color: Colors.black,
+//                textColor: Colors.white,
+//                child: Padding(padding: EdgeInsets.all(10),
+//                    child: new Text(
+//                      "选好了",
+//                      style: new TextStyle(
+//                        color: Colors.white
+//                      ) ,),),
+//                )
+                )
               ],
             )
           ),
