@@ -11,6 +11,11 @@ class FilmInfoBloc implements BlocBase{
 
   StreamController<FilmInfo> _changedFilmInfoController = StreamController<FilmInfo>.broadcast();
   Sink<FilmInfo> get updateFilmInfo => _changedFilmInfoController.sink;
+
+  StreamController<String> _updateArrowAnim = StreamController<String>.broadcast();
+  Sink<String> get _arrowAnim => _updateArrowAnim.sink;
+  Stream<String> get outArrowAnim => _updateArrowAnim.stream;
+
   FilmInfoBloc(){
     _changedFilmInfoController.stream.listen(changeBrand);
   }
@@ -21,6 +26,9 @@ class FilmInfoBloc implements BlocBase{
   void changeBrand(FilmInfo info){
     _filmInfo = info;
     _inFilmInfo.add(_filmInfo);
+  }
+  void updateArrowAnim(String anim){
+    _arrowAnim.add(anim);
   }
   void queryFilmInfo(FilmInfo info){
     DbManager.instance.getFilmInfo(info).then((List<FilmInfo> films){

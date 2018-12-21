@@ -110,6 +110,17 @@ class DualHeaderWithHint extends StatelessWidget {
         onTap: (){
           if(hintClickedCallback!=null){
             hintClickedCallback();
+            switch(index){
+              case 0:
+                infoBloc.updateArrowAnim("idle");
+                break;
+              case 1:
+                infoBloc.updateArrowAnim("step1");
+                break;
+              case 2:
+                infoBloc.updateArrowAnim("step2");
+                break;
+            }
           }
         }
     );
@@ -292,6 +303,7 @@ class _BlocFilmSelectPageState extends State<BlocFilmSelectPage> {
 
   @override
   Widget build(BuildContext context) {
+    final FilmInfoBloc infoBloc = BlocProvider.of<FilmInfoBloc>(context);
     return Scaffold(
       key: _scaffoldKey,
       body: SingleChildScrollView(
@@ -336,33 +348,22 @@ class _BlocFilmSelectPageState extends State<BlocFilmSelectPage> {
                       );
                     }).toList()
                 ),
-                Padding(padding: EdgeInsets.fromLTRB(0.0, 20.0, 0.0, 0.0),
-child: GestureDetector(
-  child:  Container(
-    child: new FlareActor("assets/arrow.flr",
-        alignment:Alignment.center,
-        fit:BoxFit.contain,
-        animation:"step1"),
-    constraints:  BoxConstraints.expand(height: 150),
-  ),
-  onTap:(){
-    showConfirmDialog(context);
-  },
-),
-//                child: RaisedButton(
-//                    onPressed:(){
-//                      showConfirmDialog(context);
-//                    },
-//                  color: Colors.black,
-//                textColor: Colors.white,
-//                child: Padding(padding: EdgeInsets.all(10),
-//                    child: new Text(
-//                      "选好了",
-//                      style: new TextStyle(
-//                        color: Colors.white
-//                      ) ,),),
-//                )
-                )
+            StreamBuilder<String>(
+                stream: infoBloc.outArrowAnim,
+                initialData: "Idle",
+                builder: (BuildContext context,AsyncSnapshot<String> snapshot){
+                  return  Padding(padding: EdgeInsets.fromLTRB(0.0, 20.0, 0.0, 0.0),
+                    child: GestureDetector(child: Container(child: new FlareActor(
+                        "assets/arrow.flr", alignment: Alignment.center,
+                        fit: BoxFit.contain,
+                        animation: "${snapshot.data}"),
+                        constraints: BoxConstraints.expand(height: 150),),
+                        onTap: () {
+                          showConfirmDialog(context);
+                        },),
+                  );
+                }),
+
               ],
             )
           ),
