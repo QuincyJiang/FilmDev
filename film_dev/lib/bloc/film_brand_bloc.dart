@@ -1,21 +1,24 @@
 import 'dart:async';
+import 'package:film_dev/model/film_info.dart';
 import 'package:film_dev/providers/bloc_provider.dart';
 
-class DevMedicBloc implements BlocBase{
-  String _brand;
-  StreamController<String> _selectedBrandController = StreamController<String>();
-  Sink<String> get _inSelectedBrand => _selectedBrandController.sink;
-  Stream<String> get _outSelectedBrand => _selectedBrandController.stream;
+class FilmInfoBloc implements BlocBase{
+  FilmInfo _filmInfo;
+  StreamController<FilmInfo> _filmInfoController = StreamController<FilmInfo>();
+  Sink<FilmInfo> get _inFilmInfo => _filmInfoController.sink;
+  Stream<FilmInfo> get _outFilminfo => _filmInfoController.stream;
 
-  StreamController<String> _changeBrandController  = StreamController<String>();
-  Sink<String> get updateBrand => _changeBrandController.sink;
-
-  void dispose() {
-    _selectedBrandController.close();
-    _changeBrandController.close();
+  StreamController<FilmInfo> _changedFilmInfoController = StreamController<FilmInfo>();
+  Sink<FilmInfo> get updateFilmInfo => _changedFilmInfoController.sink;
+  FilmInfoBloc(){
+    _changedFilmInfoController.stream.listen(changeBrand);
   }
-  void changeBrand(String brand){
-    _brand = brand;
-    _inSelectedBrand.add(brand);
+  void dispose() {
+    _filmInfoController.close();
+    _changedFilmInfoController.close();
+  }
+  void changeBrand(FilmInfo info){
+    _filmInfo = info;
+    _inFilmInfo.add(info);
   }
 }

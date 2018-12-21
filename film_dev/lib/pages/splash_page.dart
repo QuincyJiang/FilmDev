@@ -22,7 +22,7 @@ class _MyAppState extends State<AppSplashPage> {
   Widget build(BuildContext context) {
     return new SplashWidget2(
       seconds: 1,
-      navigateAfterSeconds: FilmBrandSelectPage(),
+      navigateAfterSeconds: FilmSelectPage(),
       description: new Text(
         'The most complete film processing database',
         style: new TextStyle(
