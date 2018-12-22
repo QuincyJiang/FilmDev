@@ -117,6 +117,7 @@ class DbManager {
         type = 2;
         break;
     }
+    await Future<int>.delayed(Duration(seconds: 1));
     return db.rawQuery("Select * from ZFILM where ZFILMTYPE = ${type} AND ZFILMBRAND = '${brand}' AND ZFILMISO = ${iso}");
   }
 }
