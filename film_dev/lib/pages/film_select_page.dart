@@ -333,7 +333,7 @@ class _BlocFilmSelectPageState extends State<BlocFilmSelectPage> {
                     }).toList()
                 ),
             StreamBuilder<LoadingAnimAction>(
-                stream: infoBloc.outArrowAnim,
+                stream: infoBloc.outLoadingStatus,
                 initialData: LoadingAnimAction.empty(),
                 builder: (BuildContext context,AsyncSnapshot<LoadingAnimAction> snapshot){
                   if(snapshot.data.loading){
@@ -458,18 +458,18 @@ class _BlocFilmSelectPageState extends State<BlocFilmSelectPage> {
   }
 
 // 处理滑块选择的iso值 滑块选择的值是连续的 但是可用的iso只有一些特定值 对这些连续值做一下处理
-  double processISO(BuildContext context,double raw,List<double> iso){
-    double current = iso[0];
+  double processISO(BuildContext context,double raw,List<int> iso){
+    int current = iso[0];
     final FilmInfoBloc infoBloc = BlocProvider.of<FilmInfoBloc>(context);
-    iso.forEach((double iso){
+    iso.forEach((int iso){
       if((raw-iso).abs() < (raw-current).abs()){
         current = iso;
       }}
     );
-    info.iso = current;
+    info.iso = current.round();
     infoBloc.updateFilmInfo.add(info);
     infoBloc.queryFilmInfo(info);
-    return current;
+    return current.toDouble();
   }
 }
 

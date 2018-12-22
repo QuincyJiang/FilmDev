@@ -14,9 +14,9 @@ class FilmInfoBloc implements BlocBase{
   StreamController<FilmInfo> _changedFilmInfoController = StreamController<FilmInfo>.broadcast();
   Sink<FilmInfo> get updateFilmInfo => _changedFilmInfoController.sink;
   // 控制下方loading动画的bloc
-  StreamController<LoadingAnimAction> _updateArrowAnim = StreamController<LoadingAnimAction>.broadcast();
-  Sink<LoadingAnimAction> get _arrowAnim => _updateArrowAnim.sink;
-  Stream<LoadingAnimAction> get outArrowAnim => _updateArrowAnim.stream;
+  StreamController<LoadingAnimAction> _updateLoadingStatus = StreamController<LoadingAnimAction>.broadcast();
+  Sink<LoadingAnimAction> get _loadingStatus => _updateLoadingStatus.sink;
+  Stream<LoadingAnimAction> get outLoadingStatus => _updateLoadingStatus.stream;
 
   FilmInfoBloc(){
     _changedFilmInfoController.stream.listen(filmInfoChanged);
@@ -32,21 +32,41 @@ class FilmInfoBloc implements BlocBase{
   }
   // 更新查询数据的状态动画
   void updateQueryAnim(LoadingAnimAction anim){
-    _arrowAnim.add(anim);
+    _loadingStatus.add(anim);
   }
   // 查询数据接口
-  void queryFilmInfo(FilmInfo info){
-//    DbManager.instance.getFilmInfo(info).then((List<FilmInfo> films){
-//      //TODO: 完成查询接口
-//    });
+  void queryFilmInfo(FilmInfo info) async {
     updateQueryAnim(LoadingAnimAction(null, "loading", true));
-    Future<List<FilmInfo>>.delayed(Duration(seconds: 1)).then((List<FilmInfo> infos){
-      List<FilmInfo> infos= new List();
-      infos.add(FilmInfo("Kodak", "Tmax400", 300, FilmType.thirtyFive));
-      infos.add(FilmInfo("Ilford", "HP5", 300, FilmType.thirtyFive));
-      infos.add(FilmInfo("Rollei", "Adox", 300, FilmType.thirtyFive));
-      LoadingAnimAction action = LoadingAnimAction(infos, "error2", false);
-    updateQueryAnim(action);
+     DbManager.instance.getFilmInfo(info).then((List<Map> films){
+      List<FilmInfo> queryResults = new List();
+      if(films == null || films.length == 0){
+        showEmpty();
+        return;
+      }
+      try{
+        for (var value in films) {
+            queryResults.add(FilmInfo.fromMap(value));
+        }
+      } catch(e){
+        showLoadErrorAnim();
+        return;
+      }
+      showLoadFinishAnim(queryResults);
+    }).catchError((){
+      showLoadErrorAnim();
+    }).timeout(Duration(seconds: 4),onTimeout:(){
+      showEmpty();
     });
+  }
+
+  void showLoadErrorAnim(){
+    updateQueryAnim(LoadingAnimAction(null, "error2", true));
+  }
+  void showLoadFinishAnim(List<FilmInfo> data){
+    updateQueryAnim(LoadingAnimAction(data, "idle", false));
+
+  }
+  void showEmpty(){
+    updateQueryAnim(LoadingAnimAction(null, "empty", true));
   }
 }

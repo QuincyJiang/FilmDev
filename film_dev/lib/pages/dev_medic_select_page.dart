@@ -15,7 +15,8 @@ class _DevMedicSelectPageState extends State<DevMedicSelectPage> {
     return Container(
       child: Text("Film: ${widget._film.name} \n"
           "Iso： ${widget._film.iso} \n"
-      "Brand: ${widget._film.brand}"),
+      "Brand: ${widget._film.brand} \n"
+          "ID: ${widget._film.id}"),
     );
   }
 }

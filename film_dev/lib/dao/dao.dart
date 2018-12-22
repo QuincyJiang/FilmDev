@@ -101,14 +101,26 @@ class DbManager {
     });
   }
 
-  Future<List<Map>> get() async {
+  Future<List<Map>> getFilmInfo(FilmInfo queryInfo) async {
     final db = await _localDevDb;
-    List<Map> list=    await db.rawQuery('SELECT * FROM user');
-    return list;
+    String brand = queryInfo.brand;
+    int iso = queryInfo.iso.round();
+    int type = 0;
+    switch(queryInfo.type){
+      case FilmType.thirtyFive:
+        type = 0;
+        break;
+      case FilmType.oneTwenty:
+        type = 1;
+        break;
+      case FilmType.sheet:
+        type = 2;
+        break;
+    }
+    return db.rawQuery("Select * from ZFILM where ZFILMTYPE = ${type} AND ZFILMBRAND = '${brand}' AND ZFILMISO = ${iso}");
   }
-  Future<List<FilmInfo>> getFilmInfo(FilmInfo queryInfo){
-
-  }
-
 }
+
+//      _localDevDb.then((Database db){
+//       return  db.rawQuery("Select * from ZFILM where ZFILMTYPE = ${type} AND ZFILMBRAND = '${brand}' AND ZFILMISO = ${iso}");};}
 
