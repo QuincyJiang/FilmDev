@@ -1,5 +1,5 @@
 import 'package:film_dev/dao/dao.dart';
-import 'package:film_dev/pages/film_brand_select_page.dart';
+import 'package:film_dev/pages/film_select_page.dart';
 import 'package:film_dev/utils/device_util.dart';
 import 'package:film_dev/widgets/splash_widget2.dart';
 import 'package:flutter/material.dart';
@@ -21,15 +21,9 @@ class _MyAppState extends State<AppSplashPage> {
   @override
   Widget build(BuildContext context) {
     return new SplashWidget2(
-      seconds: 1,
+      seconds: 2,
       navigateAfterSeconds: FilmSelectPage(),
-      description: new Text(
-        'The most complete film processing database',
-        style: new TextStyle(
-            fontWeight: FontWeight.bold,
-            color: Colors.black,
-            fontSize: 12.0),
-      ),
+      description: Container(),
       title: Container(
           decoration: new BoxDecoration(color: Colors.black),
           padding: EdgeInsets.all(2),

@@ -1,6 +1,7 @@
 import 'package:film_dev/bloc/film_brand_bloc.dart';
-import 'package:film_dev/dao/dao.dart';
+import 'package:film_dev/model/anim_action.dart';
 import 'package:film_dev/model/film_info.dart';
+import 'package:film_dev/pages/dev_medic_select_page.dart';
 import 'package:film_dev/providers/bloc_provider.dart';
 import 'package:flutter/material.dart';
 import 'dart:core';
@@ -22,6 +23,7 @@ class FilmSelectPage extends StatelessWidget{
   }
 }
 
+// 表单标题
 class DualHeaderWithHint extends StatelessWidget {
   const DualHeaderWithHint({
     this.name,
@@ -76,7 +78,8 @@ class DualHeaderWithHint extends StatelessWidget {
                       margin: const EdgeInsets.only(left: 24.0),
                       child: _crossFade(
                           StreamBuilder<FilmInfo>(
-                            stream: infoBloc.outFilmInfo,
+                            // 使用bloc模式做到表单标题和表单内容的联动
+                            stream: infoBloc.outTitleHint,
                             initialData: FilmInfo.empty(),
                             builder: (BuildContext context,AsyncSnapshot<FilmInfo> snapshot){
                               switch(index){
@@ -89,7 +92,7 @@ class DualHeaderWithHint extends StatelessWidget {
                               }
                             }),
                           StreamBuilder<FilmInfo>(
-                              stream: infoBloc.outFilmInfo,
+                              stream: infoBloc.outTitleHint,
                               initialData: FilmInfo.empty(),
                               builder: (BuildContext context,AsyncSnapshot<FilmInfo> snapshot){
                                 switch(index){
@@ -110,23 +113,13 @@ class DualHeaderWithHint extends StatelessWidget {
         onTap: (){
           if(hintClickedCallback!=null){
             hintClickedCallback();
-            switch(index){
-              case 0:
-                infoBloc.updateArrowAnim("idle");
-                break;
-              case 1:
-                infoBloc.updateArrowAnim("step1");
-                break;
-              case 2:
-                infoBloc.updateArrowAnim("step2");
-                break;
-            }
           }
         }
     );
   }
 }
 
+// 表单内容
 class CollapsibleBody extends StatelessWidget {
   const CollapsibleBody({
     this.margin = EdgeInsets.zero,
@@ -209,6 +202,8 @@ class _BlocFilmSelectPageState extends State<BlocFilmSelectPage> {
   List<ConfigItem<dynamic>> _configItems;
   List<bool> expandedConfig = [false,false,false];
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  //初始化表单的数据
   @override void initState() {
     super.initState();
     info = FilmInfo.empty();
@@ -301,6 +296,7 @@ class _BlocFilmSelectPageState extends State<BlocFilmSelectPage> {
     ];
   }
 
+  // 主页面
   @override
   Widget build(BuildContext context) {
     final FilmInfoBloc infoBloc = BlocProvider.of<FilmInfoBloc>(context);
@@ -322,18 +318,6 @@ class _BlocFilmSelectPageState extends State<BlocFilmSelectPage> {
                       animation:"enter"),
                   constraints:  BoxConstraints.expand(height: 150),
                 ),
-                Padding(
-                  padding: EdgeInsets.fromLTRB(0.0,0.0,0.0,20),
-                  child: Container(
-                    child: Text("选择胶片",
-                      style: TextStyle(
-                        color: Colors.yellow[900],
-                        fontSize: 18,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                ),
                 ExpansionPanelList(
                     expansionCallback: (int index, bool isExpanded) {
                       setState(() {
@@ -348,27 +332,60 @@ class _BlocFilmSelectPageState extends State<BlocFilmSelectPage> {
                       );
                     }).toList()
                 ),
-            StreamBuilder<String>(
+            StreamBuilder<LoadingAnimAction>(
                 stream: infoBloc.outArrowAnim,
-                initialData: "Idle",
-                builder: (BuildContext context,AsyncSnapshot<String> snapshot){
-                  return  Padding(padding: EdgeInsets.fromLTRB(0.0, 20.0, 0.0, 0.0),
-                    child: GestureDetector(child: Container(child: new FlareActor(
-                        "assets/arrow.flr", alignment: Alignment.center,
-                        fit: BoxFit.contain,
-                        animation: "${snapshot.data}"),
-                        constraints: BoxConstraints.expand(height: 150),),
-                        onTap: () {
-                          showConfirmDialog(context);
-                        },),
-                  );
+                initialData: LoadingAnimAction.empty(),
+                builder: (BuildContext context,AsyncSnapshot<LoadingAnimAction> snapshot){
+                  if(snapshot.data.loading){
+                    return  buildLoadingView(infoBloc,snapshot);
+                  }else{
+                    return buildLoadingResultView(infoBloc, snapshot);
+                  }
                 }),
-
               ],
             )
           ),
         ),
       ),
+    );
+  }
+
+  // 展示加载中的动画
+  Widget buildLoadingView(FilmInfoBloc infoBloc,AsyncSnapshot<LoadingAnimAction> snapshot){
+    return Padding(padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
+      child: GestureDetector(child: Container(child: new FlareActor(
+          "assets/loading.flr", alignment: Alignment.center,
+          fit: BoxFit.contain,
+          animation: "${snapshot.data.anim}"),
+        constraints: BoxConstraints.expand(height: 100),),
+        onTap: () {
+          infoBloc.queryFilmInfo(info);
+        },),
+    );
+  }
+
+  Widget buildEmptyPage(){
+    return Container(width: 0,height: 0,);
+  }
+  // 展示查询结果
+  Widget buildLoadingResultView(FilmInfoBloc infoBloc,AsyncSnapshot<LoadingAnimAction> snapshot){
+    if(snapshot.data.data.length == 0){
+      return buildEmptyPage();
+    }
+    return Card(
+        elevation: 3,
+        margin: EdgeInsets.fromLTRB(0,10,0,20),
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(2.0),
+            topRight: Radius.circular(2.0),
+            bottomLeft: Radius.circular(2.0),
+            bottomRight: Radius.circular(2.0),
+          ),
+        ),
+        child: Column(mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: buildFilmInfoList(context, snapshot.data.data))
     );
   }
 
@@ -392,50 +409,52 @@ class _BlocFilmSelectPageState extends State<BlocFilmSelectPage> {
               info.brand = value;
               infoBloc.updateFilmInfo.add(info);
             }
+            infoBloc.queryFilmInfo(info);
           },
           activeColor: Colors.yellow[800],)));
     return widgets;
   }
-  // 跳转到下一屏
-  showConfirmDialog(BuildContext context){
-    showDemoDialog<DialogDemoAction>(
-        context: context,
-        child: AlertDialog(
-            title: const Text('确认您的选择'),
-            content: new Text(
-                    "品牌： ${info.brand}\n"
-                    "片幅： ${info.type}\n"
-                    "感光： ${info.iso}"
-            ),
-            actions: <Widget>[
-              FlatButton(
-                  child: const Text('重选'),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  }
+  // 构建查找结果条目
+  List<Widget> buildFilmInfoList(BuildContext context, List<FilmInfo> datas) {
+    List<Widget> widgets = new List();
+    int i = 0;
+    if (datas != null) datas.forEach((data){
+        widgets.add(
+            new Material(
+              color: Colors.grey[800],
+              child: new InkWell(
+                onTap: (){
+                  toSelectResultPage(data);
+                },
+                child:  MergeSemantics(
+                    child: Padding(
+                      padding: EdgeInsets.fromLTRB(8, 0.0, 0.0, 0.0),
+                      child: ListTile(
+                        dense: false,
+                        title: Text('${data.brand}  ${data.name}'),
+                        subtitle: Text("Format: ${data.type} ISO: ${data.iso}"),
+                      ),)
               ),
-              FlatButton(
-                  child: const Text('确认'),
-                  onPressed: () {
-                    DbManager.instance.getFilmInfo(info);
-                  }
-              )
-            ]
+            )
         )
+        );
+        // 添加分割线
+        if(i!= datas.length-1){
+          widgets.add(Container(
+            constraints: BoxConstraints(maxHeight: 1),
+            decoration: BoxDecoration(color: Colors.grey[700]),
+          ));
+        }
+    i++;
+    }
     );
+    return widgets;
   }
 
-  void showDemoDialog<T>({ BuildContext context, Widget child }) {
-    showDialog<T>(
-      context: context,
-      builder: (BuildContext context) => child,
-    ).then<void>((T value) { // The value passed to Navigator.pop() or null.
-      if (value != null) {
-        _scaffoldKey.currentState.showSnackBar(SnackBar(
-            content: Text('You selected: $value')
-        ));
-      }
-    });
+  // 去下一页
+  toSelectResultPage(FilmInfo info) {
+    Navigator.of(_scaffoldKey.currentState.context).push(new MaterialPageRoute(
+        builder: (BuildContext context) => DevMedicSelectPage(info)));
   }
 
 // 处理滑块选择的iso值 滑块选择的值是连续的 但是可用的iso只有一些特定值 对这些连续值做一下处理
@@ -449,18 +468,14 @@ class _BlocFilmSelectPageState extends State<BlocFilmSelectPage> {
     );
     info.iso = current;
     infoBloc.updateFilmInfo.add(info);
+    infoBloc.queryFilmInfo(info);
     return current;
   }
 }
 
+// 表单标题点击的回调 为了做到点击标题也能折叠表单的效果
 typedef HintCallback = void Function();
 
-enum DialogDemoAction {
-  cancel,
-  discard,
-  disagree,
-  agree,
-}
 
 
 

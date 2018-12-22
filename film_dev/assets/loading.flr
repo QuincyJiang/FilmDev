@@ -1,0 +1,2034 @@
+{
+	"version": 18,
+	"artboards": [
+		{
+			"name": "Artboard",
+			"translation": [
+				492.63067626953125,
+				102.15803527832031
+			],
+			"width": 800,
+			"height": 500,
+			"origin": [
+				0,
+				0
+			],
+			"clipContents": true,
+			"color": [
+				0.364705890417099,
+				0.364705890417099,
+				0.364705890417099,
+				1
+			],
+			"nodes": [
+				{
+					"name": "Rectangle",
+					"translation": [
+						191.25286865234375,
+						250
+					],
+					"rotation": 0,
+					"scale": [
+						1,
+						1
+					],
+					"opacity": 1,
+					"isCollapsed": false,
+					"clips": [],
+					"isVisible": true,
+					"blendMode": 0,
+					"drawOrder": 0,
+					"type": "shape"
+				},
+				{
+					"name": "Rectangle Path",
+					"parent": 0,
+					"translation": [
+						0,
+						0
+					],
+					"rotation": 0,
+					"scale": [
+						1,
+						1
+					],
+					"opacity": 1,
+					"isCollapsed": false,
+					"clips": [],
+					"width": 100,
+					"height": 100,
+					"cornerRadius": 3,
+					"type": "rectangle"
+				},
+				{
+					"name": "Color",
+					"parent": 0,
+					"opacity": 1,
+					"color": [
+						0.9019607901573181,
+						0.5176470875740051,
+						0.21568627655506134,
+						1
+					],
+					"fillRule": 1,
+					"type": "colorFill"
+				},
+				{
+					"name": "Rectangle",
+					"translation": [
+						608.1755981445312,
+						250
+					],
+					"rotation": 0,
+					"scale": [
+						1,
+						1
+					],
+					"opacity": 1,
+					"isCollapsed": false,
+					"clips": [],
+					"isVisible": true,
+					"blendMode": 0,
+					"drawOrder": 3,
+					"type": "shape"
+				},
+				{
+					"name": "Rectangle Path",
+					"parent": 3,
+					"translation": [
+						0,
+						0
+					],
+					"rotation": 0,
+					"scale": [
+						1,
+						1
+					],
+					"opacity": 1,
+					"isCollapsed": false,
+					"clips": [],
+					"width": 100,
+					"height": 100,
+					"cornerRadius": 3,
+					"type": "rectangle"
+				},
+				{
+					"name": "Color",
+					"parent": 3,
+					"opacity": 1,
+					"color": [
+						0.9019607901573181,
+						0.5176470875740051,
+						0.21568627655506134,
+						0.10000000149011612
+					],
+					"fillRule": 1,
+					"type": "colorFill"
+				},
+				{
+					"name": "Rectangle",
+					"translation": [
+						400,
+						250
+					],
+					"rotation": 0,
+					"scale": [
+						1,
+						1
+					],
+					"opacity": 1,
+					"isCollapsed": false,
+					"clips": [],
+					"isVisible": true,
+					"blendMode": 0,
+					"drawOrder": 4,
+					"type": "shape"
+				},
+				{
+					"name": "Rectangle Path",
+					"parent": 6,
+					"translation": [
+						0,
+						0
+					],
+					"rotation": 0,
+					"scale": [
+						1,
+						1
+					],
+					"opacity": 1,
+					"isCollapsed": false,
+					"clips": [],
+					"width": 100,
+					"height": 100,
+					"cornerRadius": 3,
+					"type": "rectangle"
+				},
+				{
+					"name": "Color",
+					"parent": 6,
+					"opacity": 1,
+					"color": [
+						0.9019607901573181,
+						0.5176470875740051,
+						0.21568627655506134,
+						0.5
+					],
+					"fillRule": 1,
+					"type": "colorFill"
+				}
+			],
+			"animations": [
+				{
+					"name": "error2",
+					"fps": 60,
+					"duration": 2,
+					"isLooping": false,
+					"keyed": [
+						{
+							"component": 0,
+							"posX": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 1,
+										"value": 191.25286865234375
+									},
+									{
+										"time": 0.4666666666666667,
+										"interpolatorType": 1,
+										"value": 400
+									}
+								]
+							],
+							"posY": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 1,
+										"value": 250
+									},
+									{
+										"time": 0.4666666666666667,
+										"interpolatorType": 1,
+										"value": 250
+									}
+								]
+							],
+							"rotation": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 1,
+										"value": 0
+									},
+									{
+										"time": 0.4666666666666667,
+										"interpolatorType": 1,
+										"value": 0.5235987755982988
+									}
+								]
+							],
+							"scaleY": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 1,
+										"value": 1
+									}
+								]
+							],
+							"scaleX": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 1,
+										"value": 1
+									}
+								]
+							]
+						},
+						{
+							"component": 2,
+							"fillColor": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 1,
+										"value": [
+											0.9019607901573181,
+											0.5176470875740051,
+											0.21568627655506134,
+											1
+										]
+									},
+									{
+										"time": 0.8833333333333333,
+										"interpolatorType": 1,
+										"value": [
+											0.9019607901573181,
+											0.5176470875740051,
+											0.21568627655506134,
+											0
+										]
+									},
+									{
+										"time": 1.2666666666666666,
+										"interpolatorType": 1,
+										"value": [
+											0.9019607901573181,
+											0.5176470875740051,
+											0.21568627655506134,
+											0.5
+										]
+									},
+									{
+										"time": 1.6333333333333333,
+										"interpolatorType": 1,
+										"value": [
+											0.9019607901573181,
+											0.5176470875740051,
+											0.21568627655506134,
+											0
+										]
+									},
+									{
+										"time": 2,
+										"interpolatorType": 1,
+										"value": [
+											0.9019607901573181,
+											0.5176470875740051,
+											0.21568627655506134,
+											0.5
+										]
+									}
+								]
+							]
+						},
+						{
+							"component": 1,
+							"width": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 1,
+										"value": 100
+									},
+									{
+										"time": 0.4666666666666667,
+										"interpolatorType": 1,
+										"value": 400
+									}
+								]
+							],
+							"height": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 1,
+										"value": 100
+									}
+								]
+							]
+						},
+						{
+							"component": 3,
+							"posX": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 1,
+										"value": 608.1755981445312
+									},
+									{
+										"time": 0.4666666666666667,
+										"interpolatorType": 1,
+										"value": 400
+									}
+								]
+							],
+							"posY": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 1,
+										"value": 250
+									}
+								]
+							],
+							"rotation": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 1,
+										"value": 0
+									},
+									{
+										"time": 0.4666666666666667,
+										"interpolatorType": 1,
+										"value": 1.0471975511965976
+									}
+								]
+							],
+							"scaleY": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 1,
+										"value": 1
+									}
+								]
+							],
+							"scaleX": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 1,
+										"value": 1
+									}
+								]
+							]
+						},
+						{
+							"component": 5,
+							"fillColor": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 1,
+										"value": [
+											0.9019607901573181,
+											0.5176470875740051,
+											0.21568627655506134,
+											0.10000000149011612
+										]
+									},
+									{
+										"time": 0.4666666666666667,
+										"interpolatorType": 1,
+										"value": [
+											0.9019607901573181,
+											0.5176470875740051,
+											0.21568627655506134,
+											1
+										]
+									},
+									{
+										"time": 0.8833333333333333,
+										"interpolatorType": 1,
+										"value": [
+											0.9019607901573181,
+											0.5176470875740051,
+											0.21568627655506134,
+											0
+										]
+									},
+									{
+										"time": 1.2666666666666666,
+										"interpolatorType": 1,
+										"value": [
+											0.9019607901573181,
+											0.5176470875740051,
+											0.21568627655506134,
+											1
+										]
+									},
+									{
+										"time": 1.6333333333333333,
+										"interpolatorType": 1,
+										"value": [
+											0.9019607901573181,
+											0.5176470875740051,
+											0.21568627655506134,
+											0
+										]
+									},
+									{
+										"time": 2,
+										"interpolatorType": 1,
+										"value": [
+											0.9019607901573181,
+											0.5176470875740051,
+											0.21568627655506134,
+											1
+										]
+									}
+								]
+							]
+						},
+						{
+							"component": 4,
+							"width": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 1,
+										"value": 100
+									},
+									{
+										"time": 0.4666666666666667,
+										"interpolatorType": 1,
+										"value": 100
+									}
+								]
+							],
+							"height": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 1,
+										"value": 100
+									},
+									{
+										"time": 0.4666666666666667,
+										"interpolatorType": 1,
+										"value": 400
+									}
+								]
+							]
+						},
+						{
+							"component": 6,
+							"posX": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 1,
+										"value": 400
+									}
+								]
+							],
+							"posY": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 1,
+										"value": 250
+									}
+								]
+							],
+							"rotation": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 1,
+										"value": 0
+									}
+								]
+							],
+							"scaleY": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 1,
+										"value": 1
+									},
+									{
+										"time": 0.4666666666666667,
+										"interpolatorType": 1,
+										"value": 0.2
+									}
+								]
+							],
+							"scaleX": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 1,
+										"value": 1
+									},
+									{
+										"time": 0.4666666666666667,
+										"interpolatorType": 1,
+										"value": 0.2
+									}
+								]
+							]
+						},
+						{
+							"component": 8,
+							"fillColor": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 1,
+										"value": [
+											0.9019607901573181,
+											0.5176470875740051,
+											0.21568627655506134,
+											0.5
+										]
+									},
+									{
+										"time": 0.4666666666666667,
+										"interpolatorType": 1,
+										"value": [
+											0.9019607901573181,
+											0.5176470875740051,
+											0.21568627655506134,
+											0
+										]
+									}
+								]
+							]
+						},
+						{
+							"component": 7,
+							"width": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 1,
+										"value": 100
+									}
+								]
+							],
+							"height": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 1,
+										"value": 100
+									}
+								]
+							]
+						}
+					],
+					"animationStart": 0,
+					"animationEnd": 2,
+					"type": "animation"
+				},
+				{
+					"name": "error",
+					"fps": 60,
+					"duration": 1.75,
+					"isLooping": false,
+					"keyed": [
+						{
+							"component": 0,
+							"posX": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 2,
+										"cubicX1": 0,
+										"cubicY1": 0.3389175257731959,
+										"cubicX2": 0.58,
+										"cubicY2": 1,
+										"value": 191.25286865234375
+									},
+									{
+										"time": 0.36666666666666664,
+										"interpolatorType": 2,
+										"cubicX1": 0.42,
+										"cubicY1": 0,
+										"cubicX2": 0.58,
+										"cubicY2": 1,
+										"value": 400
+									}
+								]
+							],
+							"posY": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 2,
+										"cubicX1": 0,
+										"cubicY1": 0.3389175257731959,
+										"cubicX2": 0.58,
+										"cubicY2": 1,
+										"value": 250
+									},
+									{
+										"time": 0.36666666666666664,
+										"interpolatorType": 2,
+										"cubicX1": 0.42,
+										"cubicY1": 0,
+										"cubicX2": 0.58,
+										"cubicY2": 1,
+										"value": 367
+									}
+								]
+							],
+							"scaleY": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 2,
+										"cubicX1": 0,
+										"cubicY1": 0.3389175257731959,
+										"cubicX2": 0.58,
+										"cubicY2": 1,
+										"value": 1
+									}
+								]
+							],
+							"scaleX": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 2,
+										"cubicX1": 0,
+										"cubicY1": 0.3389175257731959,
+										"cubicX2": 0.58,
+										"cubicY2": 1,
+										"value": 1
+									}
+								]
+							],
+							"rotation": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 2,
+										"cubicX1": 0,
+										"cubicY1": 0.3389175257731959,
+										"cubicX2": 0.58,
+										"cubicY2": 1,
+										"value": 0
+									}
+								]
+							],
+							"opacity": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 2,
+										"cubicX1": 0,
+										"cubicY1": 0.3389175257731959,
+										"cubicX2": 0.58,
+										"cubicY2": 1,
+										"value": 1
+									}
+								]
+							]
+						},
+						{
+							"component": 2,
+							"fillColor": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 2,
+										"cubicX1": 0,
+										"cubicY1": 0.3389175257731959,
+										"cubicX2": 0.58,
+										"cubicY2": 1,
+										"value": [
+											0.9019607901573181,
+											0.5176470875740051,
+											0.21568627655506134,
+											1
+										]
+									},
+									{
+										"time": 0.36666666666666664,
+										"interpolatorType": 2,
+										"cubicX1": 0.42,
+										"cubicY1": 0,
+										"cubicX2": 0.58,
+										"cubicY2": 1,
+										"value": [
+											0.9058823585510254,
+											0,
+											0,
+											0.25
+										]
+									},
+									{
+										"time": 0.6833333333333333,
+										"interpolatorType": 1,
+										"value": [
+											0.9058823585510254,
+											0,
+											0,
+											0
+										]
+									},
+									{
+										"time": 1,
+										"interpolatorType": 1,
+										"value": [
+											0.9058823585510254,
+											0,
+											0,
+											0.25
+										]
+									},
+									{
+										"time": 1.3333333333333333,
+										"interpolatorType": 1,
+										"value": [
+											0.9058823585510254,
+											0,
+											0,
+											0
+										]
+									},
+									{
+										"time": 1.75,
+										"interpolatorType": 1,
+										"value": [
+											0.9058823585510254,
+											0,
+											0,
+											0.25
+										]
+									},
+									{
+										"time": 4.366666666666666,
+										"interpolatorType": 1,
+										"value": [
+											0.9058823585510254,
+											0,
+											0,
+											0
+										]
+									},
+									{
+										"time": 5.066666666666666,
+										"interpolatorType": 1,
+										"value": [
+											0.9058823585510254,
+											0,
+											0,
+											0.25
+										]
+									}
+								]
+							]
+						},
+						{
+							"component": 1,
+							"height": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 2,
+										"cubicX1": 0,
+										"cubicY1": 0.3389175257731959,
+										"cubicX2": 0.58,
+										"cubicY2": 1,
+										"value": 100
+									}
+								]
+							],
+							"width": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 2,
+										"cubicX1": 0,
+										"cubicY1": 0.3389175257731959,
+										"cubicX2": 0.58,
+										"cubicY2": 1,
+										"value": 100
+									}
+								]
+							],
+							"cornerRadius": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 2,
+										"cubicX1": 0,
+										"cubicY1": 0.3389175257731959,
+										"cubicX2": 0.58,
+										"cubicY2": 1,
+										"value": 3
+									}
+								]
+							]
+						},
+						{
+							"component": 3,
+							"posX": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 2,
+										"cubicX1": 0,
+										"cubicY1": 0.3389175257731959,
+										"cubicX2": 0.58,
+										"cubicY2": 1,
+										"value": 608.1755981445312
+									},
+									{
+										"time": 0.36666666666666664,
+										"interpolatorType": 2,
+										"cubicX1": 0.42,
+										"cubicY1": 0,
+										"cubicX2": 0.58,
+										"cubicY2": 1,
+										"value": 400
+									},
+									{
+										"time": 0.6833333333333333,
+										"interpolatorType": 1,
+										"value": 400
+									},
+									{
+										"time": 1,
+										"interpolatorType": 1,
+										"value": 400
+									},
+									{
+										"time": 1.3333333333333333,
+										"interpolatorType": 1,
+										"value": 400
+									},
+									{
+										"time": 1.75,
+										"interpolatorType": 1,
+										"value": 400
+									},
+									{
+										"time": 4.366666666666666,
+										"interpolatorType": 1,
+										"value": 400
+									},
+									{
+										"time": 5.066666666666666,
+										"interpolatorType": 1,
+										"value": 400
+									}
+								]
+							],
+							"posY": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 2,
+										"cubicX1": 0,
+										"cubicY1": 0.3389175257731959,
+										"cubicX2": 0.58,
+										"cubicY2": 1,
+										"value": 250
+									},
+									{
+										"time": 0.36666666666666664,
+										"interpolatorType": 2,
+										"cubicX1": 0.42,
+										"cubicY1": 0,
+										"cubicX2": 0.58,
+										"cubicY2": 1,
+										"value": 366
+									}
+								]
+							],
+							"scaleX": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 2,
+										"cubicX1": 0,
+										"cubicY1": 0.3389175257731959,
+										"cubicX2": 0.58,
+										"cubicY2": 1,
+										"value": 1
+									},
+									{
+										"time": 0.36666666666666664,
+										"interpolatorType": 2,
+										"cubicX1": 0.42,
+										"cubicY1": 0,
+										"cubicX2": 0.58,
+										"cubicY2": 1,
+										"value": 1
+									}
+								]
+							],
+							"scaleY": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 2,
+										"cubicX1": 0,
+										"cubicY1": 0.3389175257731959,
+										"cubicX2": 0.58,
+										"cubicY2": 1,
+										"value": 1
+									},
+									{
+										"time": 0.36666666666666664,
+										"interpolatorType": 2,
+										"cubicX1": 0.42,
+										"cubicY1": 0,
+										"cubicX2": 0.58,
+										"cubicY2": 1,
+										"value": 1
+									}
+								]
+							],
+							"rotation": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 2,
+										"cubicX1": 0,
+										"cubicY1": 0.3389175257731959,
+										"cubicX2": 0.58,
+										"cubicY2": 1,
+										"value": 0
+									},
+									{
+										"time": 0.36666666666666664,
+										"interpolatorType": 2,
+										"cubicX1": 0.42,
+										"cubicY1": 0,
+										"cubicX2": 0.58,
+										"cubicY2": 1,
+										"value": 0
+									}
+								]
+							],
+							"opacity": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 2,
+										"cubicX1": 0,
+										"cubicY1": 0.3389175257731959,
+										"cubicX2": 0.58,
+										"cubicY2": 1,
+										"value": 1
+									},
+									{
+										"time": 0.36666666666666664,
+										"interpolatorType": 2,
+										"cubicX1": 0.42,
+										"cubicY1": 0,
+										"cubicX2": 0.58,
+										"cubicY2": 1,
+										"value": 1
+									}
+								]
+							]
+						},
+						{
+							"component": 5,
+							"fillColor": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 2,
+										"cubicX1": 0,
+										"cubicY1": 0.3389175257731959,
+										"cubicX2": 0.58,
+										"cubicY2": 1,
+										"value": [
+											0.9019607901573181,
+											0.5176470875740051,
+											0.21568627655506134,
+											0.10000000149011612
+										]
+									},
+									{
+										"time": 0.36666666666666664,
+										"interpolatorType": 2,
+										"cubicX1": 0.42,
+										"cubicY1": 0,
+										"cubicX2": 0.58,
+										"cubicY2": 1,
+										"value": [
+											0.9058823585510254,
+											0,
+											0,
+											0.25
+										]
+									},
+									{
+										"time": 0.6833333333333333,
+										"interpolatorType": 1,
+										"value": [
+											0.9058823585510254,
+											0,
+											0,
+											0
+										]
+									},
+									{
+										"time": 1,
+										"interpolatorType": 1,
+										"value": [
+											0.9058823585510254,
+											0,
+											0,
+											0.25
+										]
+									},
+									{
+										"time": 1.3333333333333333,
+										"interpolatorType": 1,
+										"value": [
+											0.9058823585510254,
+											0,
+											0,
+											0
+										]
+									},
+									{
+										"time": 1.75,
+										"interpolatorType": 1,
+										"value": [
+											0.9058823585510254,
+											0,
+											0,
+											0.25
+										]
+									},
+									{
+										"time": 4.366666666666666,
+										"interpolatorType": 1,
+										"value": [
+											0.9058823585510254,
+											0,
+											0,
+											0
+										]
+									},
+									{
+										"time": 5.066666666666666,
+										"interpolatorType": 1,
+										"value": [
+											0.9058823585510254,
+											0,
+											0,
+											0.25
+										]
+									}
+								]
+							]
+						},
+						{
+							"component": 4,
+							"height": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 2,
+										"cubicX1": 0,
+										"cubicY1": 0.3389175257731959,
+										"cubicX2": 0.58,
+										"cubicY2": 1,
+										"value": 100
+									},
+									{
+										"time": 0.36666666666666664,
+										"interpolatorType": 2,
+										"cubicX1": 0.42,
+										"cubicY1": 0,
+										"cubicX2": 0.58,
+										"cubicY2": 1,
+										"value": 100
+									}
+								]
+							],
+							"width": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 2,
+										"cubicX1": 0,
+										"cubicY1": 0.3389175257731959,
+										"cubicX2": 0.58,
+										"cubicY2": 1,
+										"value": 100
+									},
+									{
+										"time": 0.36666666666666664,
+										"interpolatorType": 2,
+										"cubicX1": 0.42,
+										"cubicY1": 0,
+										"cubicX2": 0.58,
+										"cubicY2": 1,
+										"value": 100
+									}
+								]
+							],
+							"cornerRadius": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 2,
+										"cubicX1": 0,
+										"cubicY1": 0.3389175257731959,
+										"cubicX2": 0.58,
+										"cubicY2": 1,
+										"value": 3
+									},
+									{
+										"time": 0.36666666666666664,
+										"interpolatorType": 2,
+										"cubicX1": 0.42,
+										"cubicY1": 0,
+										"cubicX2": 0.58,
+										"cubicY2": 1,
+										"value": 3
+									}
+								]
+							]
+						},
+						{
+							"component": 6,
+							"posX": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 2,
+										"cubicX1": 0,
+										"cubicY1": 0.3389175257731959,
+										"cubicX2": 0.58,
+										"cubicY2": 1,
+										"value": 400
+									},
+									{
+										"time": 0.36666666666666664,
+										"interpolatorType": 2,
+										"cubicX1": 0.42,
+										"cubicY1": 0,
+										"cubicX2": 0.58,
+										"cubicY2": 1,
+										"value": 400
+									}
+								]
+							],
+							"posY": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 2,
+										"cubicX1": 0,
+										"cubicY1": 0.3389175257731959,
+										"cubicX2": 0.58,
+										"cubicY2": 1,
+										"value": 250
+									},
+									{
+										"time": 0.36666666666666664,
+										"interpolatorType": 2,
+										"cubicX1": 0.42,
+										"cubicY1": 0,
+										"cubicX2": 0.58,
+										"cubicY2": 1,
+										"value": 176
+									}
+								]
+							],
+							"scaleX": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 2,
+										"cubicX1": 0,
+										"cubicY1": 0.3389175257731959,
+										"cubicX2": 0.58,
+										"cubicY2": 1,
+										"value": 1
+									},
+									{
+										"time": 0.36666666666666664,
+										"interpolatorType": 2,
+										"cubicX1": 0.42,
+										"cubicY1": 0,
+										"cubicX2": 0.58,
+										"cubicY2": 1,
+										"value": 1
+									}
+								]
+							],
+							"scaleY": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 2,
+										"cubicX1": 0,
+										"cubicY1": 0.3389175257731959,
+										"cubicX2": 0.58,
+										"cubicY2": 1,
+										"value": 1
+									},
+									{
+										"time": 0.36666666666666664,
+										"interpolatorType": 2,
+										"cubicX1": 0.42,
+										"cubicY1": 0,
+										"cubicX2": 0.58,
+										"cubicY2": 1,
+										"value": 1
+									}
+								]
+							],
+							"rotation": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 2,
+										"cubicX1": 0,
+										"cubicY1": 0.3389175257731959,
+										"cubicX2": 0.58,
+										"cubicY2": 1,
+										"value": 0
+									}
+								]
+							],
+							"opacity": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 2,
+										"cubicX1": 0,
+										"cubicY1": 0.3389175257731959,
+										"cubicX2": 0.58,
+										"cubicY2": 1,
+										"value": 1
+									}
+								]
+							]
+						},
+						{
+							"component": 8,
+							"fillColor": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 2,
+										"cubicX1": 0,
+										"cubicY1": 0.3389175257731959,
+										"cubicX2": 0.58,
+										"cubicY2": 1,
+										"value": [
+											0.9019607901573181,
+											0.5176470875740051,
+											0.21568627655506134,
+											0.5
+										]
+									},
+									{
+										"time": 0.36666666666666664,
+										"interpolatorType": 2,
+										"cubicX1": 0.42,
+										"cubicY1": 0,
+										"cubicX2": 0.58,
+										"cubicY2": 1,
+										"value": [
+											0.9047619104385376,
+											0,
+											0,
+											0.5
+										]
+									},
+									{
+										"time": 0.6833333333333333,
+										"interpolatorType": 1,
+										"value": [
+											0.9047619104385376,
+											0,
+											0,
+											0
+										]
+									},
+									{
+										"time": 1,
+										"interpolatorType": 1,
+										"value": [
+											0.9047619104385376,
+											0,
+											0,
+											0.5
+										]
+									},
+									{
+										"time": 1.3333333333333333,
+										"interpolatorType": 1,
+										"value": [
+											0.9047619104385376,
+											0,
+											0,
+											0
+										]
+									},
+									{
+										"time": 1.75,
+										"interpolatorType": 1,
+										"value": [
+											0.9047619104385376,
+											0,
+											0,
+											0.5
+										]
+									},
+									{
+										"time": 4.366666666666666,
+										"interpolatorType": 1,
+										"value": [
+											0.9047619104385376,
+											0,
+											0,
+											0
+										]
+									},
+									{
+										"time": 5.066666666666666,
+										"interpolatorType": 1,
+										"value": [
+											0.9047619104385376,
+											0,
+											0,
+											0.5
+										]
+									}
+								]
+							]
+						},
+						{
+							"component": 7,
+							"height": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 2,
+										"cubicX1": 0,
+										"cubicY1": 0.3389175257731959,
+										"cubicX2": 0.58,
+										"cubicY2": 1,
+										"value": 100
+									},
+									{
+										"time": 0.36666666666666664,
+										"interpolatorType": 2,
+										"cubicX1": 0.42,
+										"cubicY1": 0,
+										"cubicX2": 0.58,
+										"cubicY2": 1,
+										"value": 200
+									}
+								]
+							],
+							"width": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 2,
+										"cubicX1": 0,
+										"cubicY1": 0.3389175257731959,
+										"cubicX2": 0.58,
+										"cubicY2": 1,
+										"value": 100
+									},
+									{
+										"time": 0.36666666666666664,
+										"interpolatorType": 2,
+										"cubicX1": 0.42,
+										"cubicY1": 0,
+										"cubicX2": 0.58,
+										"cubicY2": 1,
+										"value": 100
+									}
+								]
+							],
+							"cornerRadius": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 2,
+										"cubicX1": 0,
+										"cubicY1": 0.3389175257731959,
+										"cubicX2": 0.58,
+										"cubicY2": 1,
+										"value": 3
+									},
+									{
+										"time": 0.36666666666666664,
+										"interpolatorType": 2,
+										"cubicX1": 0.42,
+										"cubicY1": 0,
+										"cubicX2": 0.58,
+										"cubicY2": 1,
+										"value": 3
+									}
+								]
+							]
+						}
+					],
+					"animationStart": 0,
+					"animationEnd": 5.066666666666666,
+					"type": "animation"
+				},
+				{
+					"name": "idle",
+					"fps": 60,
+					"duration": 1,
+					"isLooping": false,
+					"keyed": [
+						{
+							"component": 0
+						},
+						{
+							"component": 2,
+							"fillColor": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 1,
+										"value": [
+											0.9019607901573181,
+											0.5176470875740051,
+											0.21568627655506134,
+											1
+										]
+									},
+									{
+										"time": 1,
+										"interpolatorType": 1,
+										"value": [
+											0.9019607901573181,
+											0.5176470875740051,
+											0.21568627655506134,
+											1
+										]
+									}
+								]
+							]
+						},
+						{
+							"component": 3
+						},
+						{
+							"component": 5,
+							"fillColor": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 1,
+										"value": [
+											0.9019607901573181,
+											0.5176470875740051,
+											0.21568627655506134,
+											0.10000000149011612
+										]
+									},
+									{
+										"time": 1,
+										"interpolatorType": 1,
+										"value": [
+											0.9019607901573181,
+											0.5176470875740051,
+											0.21568627655506134,
+											0.10000000149011612
+										]
+									}
+								]
+							]
+						},
+						{
+							"component": 6
+						},
+						{
+							"component": 8,
+							"fillColor": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 1,
+										"value": [
+											0.9019607901573181,
+											0.5176470875740051,
+											0.21568627655506134,
+											0.5
+										]
+									},
+									{
+										"time": 1,
+										"interpolatorType": 1,
+										"value": [
+											0.9019607901573181,
+											0.5176470875740051,
+											0.21568627655506134,
+											0.5
+										]
+									}
+								]
+							]
+						}
+					],
+					"animationStart": 0,
+					"animationEnd": 1,
+					"type": "animation"
+				},
+				{
+					"name": "loading",
+					"fps": 60,
+					"duration": 0.5,
+					"isLooping": true,
+					"keyed": [
+						{
+							"component": 0,
+							"posX": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 1,
+										"value": 191.25286865234375
+									}
+								]
+							],
+							"posY": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 1,
+										"value": 250
+									}
+								]
+							],
+							"scaleY": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 1,
+										"value": 1
+									}
+								]
+							],
+							"scaleX": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 1,
+										"value": 1
+									}
+								]
+							],
+							"rotation": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 1,
+										"value": 0
+									}
+								]
+							]
+						},
+						{
+							"component": 2,
+							"fillColor": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 1,
+										"value": [
+											0.9019607901573181,
+											0.5176470875740051,
+											0.21568627655506134,
+											1
+										]
+									},
+									{
+										"time": 0.16666666666666666,
+										"interpolatorType": 1,
+										"value": [
+											0.9019607901573181,
+											0.5176470875740051,
+											0.21568627655506134,
+											0
+										]
+									},
+									{
+										"time": 0.3333333333333333,
+										"interpolatorType": 1,
+										"value": [
+											0.9019607901573181,
+											0.5176470875740051,
+											0.21568627655506134,
+											0
+										]
+									},
+									{
+										"time": 0.5,
+										"interpolatorType": 1,
+										"value": [
+											0.9019607901573181,
+											0.5176470875740051,
+											0.21568627655506134,
+											1
+										]
+									},
+									{
+										"time": 4,
+										"interpolatorType": 1,
+										"value": [
+											0.9019607901573181,
+											0.5176470875740051,
+											0.21568627655506134,
+											0
+										]
+									},
+									{
+										"time": 12,
+										"interpolatorType": 1,
+										"value": [
+											0.9019607901573181,
+											0.5176470875740051,
+											0.21568627655506134,
+											1
+										]
+									}
+								]
+							]
+						},
+						{
+							"component": 1,
+							"cornerRadius": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 1,
+										"value": 3
+									}
+								]
+							],
+							"width": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 1,
+										"value": 100
+									}
+								]
+							],
+							"height": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 1,
+										"value": 100
+									}
+								]
+							]
+						},
+						{
+							"component": 3,
+							"posX": [
+								[
+									{
+										"time": 0.16666666666666666,
+										"interpolatorType": 1,
+										"value": 608.1755981445312
+									}
+								]
+							],
+							"posY": [
+								[
+									{
+										"time": 0.16666666666666666,
+										"interpolatorType": 1,
+										"value": 250
+									}
+								]
+							],
+							"scaleX": [
+								[
+									{
+										"time": 0.16666666666666666,
+										"interpolatorType": 1,
+										"value": 1
+									}
+								]
+							],
+							"scaleY": [
+								[
+									{
+										"time": 0.16666666666666666,
+										"interpolatorType": 1,
+										"value": 1
+									}
+								]
+							],
+							"rotation": [
+								[
+									{
+										"time": 0.16666666666666666,
+										"interpolatorType": 1,
+										"value": 0
+									}
+								]
+							]
+						},
+						{
+							"component": 5,
+							"fillColor": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 1,
+										"value": [
+											0.9019607901573181,
+											0.5176470875740051,
+											0.21568627655506134,
+											0
+										]
+									},
+									{
+										"time": 0.16666666666666666,
+										"interpolatorType": 1,
+										"value": [
+											0.9019607901573181,
+											0.5176470875740051,
+											0.21568627655506134,
+											0
+										]
+									},
+									{
+										"time": 0.3333333333333333,
+										"interpolatorType": 1,
+										"value": [
+											0.9019607901573181,
+											0.5176470875740051,
+											0.21568627655506134,
+											1
+										]
+									},
+									{
+										"time": 0.5,
+										"interpolatorType": 1,
+										"value": [
+											0.9019607901573181,
+											0.5176470875740051,
+											0.21568627655506134,
+											0
+										]
+									},
+									{
+										"time": 4,
+										"interpolatorType": 1,
+										"value": [
+											0.9019607901573181,
+											0.5176470875740051,
+											0.21568627655506134,
+											0
+										]
+									},
+									{
+										"time": 10,
+										"interpolatorType": 1,
+										"value": [
+											0.9019607901573181,
+											0.5176470875740051,
+											0.21568627655506134,
+											1
+										]
+									},
+									{
+										"time": 12,
+										"interpolatorType": 1,
+										"value": [
+											0.9019607901573181,
+											0.5176470875740051,
+											0.21568627655506134,
+											0
+										]
+									}
+								]
+							]
+						},
+						{
+							"component": 4,
+							"height": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 1,
+										"value": 100
+									},
+									{
+										"time": 0.16666666666666666,
+										"interpolatorType": 1,
+										"value": 100
+									}
+								]
+							],
+							"width": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 1,
+										"value": 100
+									},
+									{
+										"time": 0.16666666666666666,
+										"interpolatorType": 1,
+										"value": 100
+									}
+								]
+							],
+							"cornerRadius": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 1,
+										"value": 3
+									},
+									{
+										"time": 0.16666666666666666,
+										"interpolatorType": 1,
+										"value": 3
+									}
+								]
+							]
+						},
+						{
+							"component": 6,
+							"posX": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 1,
+										"value": 400
+									}
+								]
+							],
+							"posY": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 1,
+										"value": 250
+									}
+								]
+							],
+							"scaleX": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 1,
+										"value": 1
+									}
+								]
+							],
+							"scaleY": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 1,
+										"value": 1
+									}
+								]
+							],
+							"rotation": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 1,
+										"value": 0
+									}
+								]
+							]
+						},
+						{
+							"component": 8,
+							"fillColor": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 1,
+										"value": [
+											0.9019607901573181,
+											0.5176470875740051,
+											0.21568627655506134,
+											0
+										]
+									},
+									{
+										"time": 0.16666666666666666,
+										"interpolatorType": 1,
+										"value": [
+											0.9019607901573181,
+											0.5176470875740051,
+											0.21568627655506134,
+											1
+										]
+									},
+									{
+										"time": 0.3333333333333333,
+										"interpolatorType": 1,
+										"value": [
+											0.9019607901573181,
+											0.5176470875740051,
+											0.21568627655506134,
+											0
+										]
+									},
+									{
+										"time": 0.5,
+										"interpolatorType": 1,
+										"value": [
+											0.9019607901573181,
+											0.5176470875740051,
+											0.21568627655506134,
+											0
+										]
+									},
+									{
+										"time": 4,
+										"interpolatorType": 1,
+										"value": [
+											0.9019607901573181,
+											0.5176470875740051,
+											0.21568627655506134,
+											1
+										]
+									},
+									{
+										"time": 10,
+										"interpolatorType": 1,
+										"value": [
+											0.9019607901573181,
+											0.5176470875740051,
+											0.21568627655506134,
+											0
+										]
+									}
+								]
+							]
+						},
+						{
+							"component": 7,
+							"cornerRadius": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 1,
+										"value": 3
+									}
+								]
+							],
+							"height": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 1,
+										"value": 100
+									}
+								]
+							],
+							"width": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 1,
+										"value": 100
+									}
+								]
+							]
+						}
+					],
+					"animationStart": 0,
+					"animationEnd": 12,
+					"type": "animation"
+				}
+			],
+			"type": "artboard"
+		}
+	]
+}

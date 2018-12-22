@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:film_dev/utils/device_util.dart';
 import 'package:flutter/material.dart';
 
 class SplashWidget2 extends StatefulWidget {
@@ -67,6 +68,7 @@ void startTimer(SplashWidget2 widget, BuildContext context) {
       return Navigator.of(context)
           .pushReplacementNamed(widget.navigateAfterSeconds);
     } else if (widget.navigateAfterSeconds is Widget) {
+      DeviceUtil.instance.exitFullScreen();
       return Navigator.of(context).pushReplacement(new MaterialPageRoute(
           builder: (BuildContext context) => widget.navigateAfterSeconds));
     } else {
