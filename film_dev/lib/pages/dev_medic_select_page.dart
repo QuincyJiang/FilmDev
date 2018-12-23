@@ -72,7 +72,6 @@ class _BlocDevPageState extends State<BlocDevPage> {
                           );
                       }),
                   Card(
-                    color: Colors.yellow[900],
                       elevation: 1,
                       margin: EdgeInsets.fromLTRB(0,10,0,0),
                       shape: const RoundedRectangleBorder(

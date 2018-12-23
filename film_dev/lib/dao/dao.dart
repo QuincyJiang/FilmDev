@@ -114,18 +114,20 @@ class DbManager {
         type = 2;
         break;
     }
+    await Future<int>.delayed(Duration(milliseconds: 200));
     return db.rawQuery("Select * from ZFILM where ZFILMTYPE = ${type} AND ZFILMBRAND = '${brand}' AND ZFILMISO = ${iso}");
   }
 
   Future<List<Map>> getDevInfo(FilmInfo queryInfo) async {
     final db = await _localDevDb;
     int filmId = queryInfo.id;
-    await Future<int>.delayed(Duration(seconds: 1,milliseconds: 500 ));
-    return db.rawQuery("Select * from ZDEVELOPER where ZFILM = ${filmId} ORDER BY ZDEVELOPERNAME");
+    await Future<int>.delayed(Duration(milliseconds: 200));
+    return await db.rawQuery("Select * from ZDEVELOPER where ZFILM = ${filmId} ORDER BY ZDEVELOPERNAME");
   }
   Future<List<Map>> getDevDetails(DevInfo queryInfo) async {
     final db = await _localDevDb;
     int devId = queryInfo.devId;
+    await Future<int>.delayed(Duration(milliseconds: 200));
     return await db.rawQuery("select ZISO.ZISO,"
         "ZDEVELOPMENTTIME.ZDEVELOPMENTTIMEA,"
         "ZDEVELOPMENTTIME._id,"

@@ -74,7 +74,6 @@ class _BlocIsoPageState extends State<BlocIsoPage> {
                         );
                       }),
                   Card(
-                      color: Colors.yellow[900],
                       elevation: 1,
                       margin: EdgeInsets.fromLTRB(0,10,0,0),
                       shape: const RoundedRectangleBorder(
@@ -180,7 +179,7 @@ class _BlocIsoPageState extends State<BlocIsoPage> {
                 child: ListTile(
                   dense: false,
                   title: Text('ISO ${info.iso}'),
-                  subtitle: Text("Developer: ${info.medic.medicName}"),
+                  subtitle: Text("Film: ${info.medic.filmName}  Developer: ${info.medic.medicName}"),
                 ),)
           ),
         )

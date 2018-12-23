@@ -300,6 +300,7 @@ class _BlocFilmSelectPageState extends State<BlocFilmSelectPage> {
   @override
   Widget build(BuildContext context) {
     final FilmInfoBloc infoBloc = BlocProvider.of<FilmInfoBloc>(context);
+    infoBloc.queryFilmInfo(info);
     return Scaffold(
       key: _scaffoldKey,
       body: SingleChildScrollView(
@@ -327,28 +328,26 @@ class _BlocFilmSelectPageState extends State<BlocFilmSelectPage> {
                     constraints:  BoxConstraints.expand(height: 150),
                   );
                 }),
-
-                Card(
-                  color: Colors.yellow[900],
-                    elevation: 1,
-                    margin: EdgeInsets.fromLTRB(0,10,0,10),
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(2.0),
-                        topRight: Radius.circular(2.0),
-                        bottomLeft: Radius.circular(2.0),
-                        bottomRight: Radius.circular(2.0),
-                      ),
-                    ),
-                    child:Center(
-                      child: Padding(padding:EdgeInsets.all(10),
-                        child: Text("Select Film",
-                          style: TextStyle(
-                              fontSize: Theme.of(context).textTheme.subhead.fontSize
-                          ),),
-                      ),
-                    )
+            Card(
+                elevation: 1,
+                margin: EdgeInsets.fromLTRB(0,10,0,10),
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(2.0),
+                    topRight: Radius.circular(2.0),
+                    bottomLeft: Radius.circular(2.0),
+                    bottomRight: Radius.circular(2.0),
+                  ),
                 ),
+                child:Center(
+                  child: Padding(padding:EdgeInsets.all(10),
+                    child: Text("Select Film",
+                      style: TextStyle(
+                          fontSize: Theme.of(context).textTheme.subhead.fontSize
+                      ),),
+                  ),
+                )
+            ),
                 ExpansionPanelList(
                     expansionCallback: (int index, bool isExpanded) {
                       setState(() {
