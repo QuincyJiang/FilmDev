@@ -62,12 +62,12 @@ class _BlocIsoPageState extends State<BlocIsoPage> {
                       initialData: "enter",
                       builder: (BuildContext context,AsyncSnapshot<String> snapshot){
                         return Container(
-                          child: new FlareActor("assets/medic.flr",
+                          child: new FlareActor("assets/iso.flr",
                               alignment:Alignment.center,
                               fit:BoxFit.contain,
                               callback: (status){
-                                // 入场动画播放完毕后就开始播放水波纹动画
-                                detailBloc.updateTitleAnim("wave");
+                                // 入场动画播放完毕后就开始播放跳动动画
+                                detailBloc.updateTitleAnim("beat");
                               },
                               animation:"${snapshot.data}"),
                           constraints:  BoxConstraints.expand(height: 150),
