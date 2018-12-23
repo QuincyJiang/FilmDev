@@ -271,16 +271,16 @@ class _BlocFilmSelectPageState extends State<BlocFilmSelectPage> {
                 return Padding(padding: EdgeInsets.fromLTRB(0.0, 50, 0.0, 0.0),
                     child: new SliderTheme(
                       data: SliderTheme.of(context).copyWith(
-                        activeTrackColor: Colors.yellow[800],
+                        activeTrackColor: Colors.yellow[900],
                         inactiveTrackColor: Colors.black,
                         disabledActiveTrackColor: Colors.white,
                         activeTickMarkColor: Colors.yellow,
                         thumbColor: Colors.white,
                         overlayColor: Colors.transparent,
-                        valueIndicatorColor: Colors.yellow[800],),
+                        valueIndicatorColor: Colors.yellow[900],),
                       child: Slider(
                         min: 32,
-                        max: 800,
+                        max: 1600,
                         divisions: 300,
                         activeColor: Colors.orange[100 +
                             (field.value * 5.0).round()],
@@ -311,14 +311,25 @@ class _BlocFilmSelectPageState extends State<BlocFilmSelectPage> {
             margin: const EdgeInsets.fromLTRB(24,0,24.0,10),
             child: Column(
               children: <Widget>[
-                Container(
-                  child: new FlareActor("assets/rotate.flr",
-                      alignment:Alignment.center,
-                      fit:BoxFit.contain,
-                      animation:"enter"),
-                  constraints:  BoxConstraints.expand(height: 150),
-                ),
+            StreamBuilder<String>(
+            stream: infoBloc.outTitleAnim,
+                initialData: "enter",
+                builder: (BuildContext context,AsyncSnapshot<String> snapshot){
+                  return Container(
+                    child: new FlareActor("assets/film.flr",
+                        alignment:Alignment.center,
+                        fit:BoxFit.contain,
+                        callback: (status){
+                          // 入场动画播放完毕后就开始播放水波纹动画
+                          infoBloc.updateTitleAnim("jump");
+                        },
+                        animation:"${snapshot.data}"),
+                    constraints:  BoxConstraints.expand(height: 150),
+                  );
+                }),
+
                 Card(
+                  color: Colors.yellow[900],
                     elevation: 1,
                     margin: EdgeInsets.fromLTRB(0,10,0,10),
                     shape: const RoundedRectangleBorder(
@@ -431,7 +442,7 @@ class _BlocFilmSelectPageState extends State<BlocFilmSelectPage> {
             }
             infoBloc.queryFilmInfo(info);
           },
-          activeColor: Colors.yellow[800],)));
+          activeColor: Colors.yellow[900],)));
     return widgets;
   }
   // 构建查找结果条目

@@ -5,7 +5,7 @@ import 'package:film_dev/model/dev_info.dart';
 import 'package:film_dev/model/film_info.dart';
 import 'package:film_dev/providers/bloc_provider.dart';
 
-class DevMedicBloc implements BlocBase{
+class DevMedicBloc implements IBlocBase{
   StreamController<List<DevInfo>> _devInfoController = new StreamController();
   Stream<List<DevInfo>> get outDevInfos => _devInfoController.stream;
   Sink<List<DevInfo>> get  _inDevs => _devInfoController.sink;

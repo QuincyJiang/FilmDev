@@ -1,8 +1,6 @@
-import 'dart:async';
-
 import 'package:film_dev/providers/bloc_provider.dart';
 
-class DevMedicBloc implements BlocBase{
+class DevMedicBloc implements IBlocBase{
   void dispose() {
   }
 }

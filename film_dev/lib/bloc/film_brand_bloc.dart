@@ -4,7 +4,7 @@ import 'package:film_dev/model/anim_action.dart';
 import 'package:film_dev/model/film_info.dart';
 import 'package:film_dev/providers/bloc_provider.dart';
 
-class FilmInfoBloc implements BlocBase{
+class FilmInfoBloc implements IBlocBase{
   FilmInfo _filmInfo;
   // 负责表单标题随选项联动的bloc
   StreamController<FilmInfo> _titleHintController = StreamController<FilmInfo>.broadcast();
@@ -17,6 +17,12 @@ class FilmInfoBloc implements BlocBase{
   StreamController<LoadingAnimAction> _updateLoadingStatus = StreamController<LoadingAnimAction>.broadcast();
   Sink<LoadingAnimAction> get _loadingStatus => _updateLoadingStatus.sink;
   Stream<LoadingAnimAction> get outLoadingStatus => _updateLoadingStatus.stream;
+
+  StreamController<String> _titieAnimController = new StreamController();
+  Stream<String> get outTitleAnim => _titieAnimController.stream;
+  Sink<String> get  _inTitleAnim => _titieAnimController.sink;
+
+
 
   FilmInfoBloc(){
     _changedFilmInfoController.stream.listen(filmInfoChanged);
@@ -57,6 +63,9 @@ class FilmInfoBloc implements BlocBase{
     }).timeout(Duration(seconds: 4),onTimeout:(){
       showEmpty();
     });
+  }
+  void updateTitleAnim(String anim){
+    _inTitleAnim.add(anim);
   }
 
   void showLoadErrorAnim(){

@@ -40,11 +40,10 @@ class FilmBrand{
   static final String foma = "Foma";
   static final String kentmere = "Kentmere";
   static final String shanghai = "Shanghai";
-  static final String gongyuan = "Gongyuan";
   static final String lucky = "Lucky";
   static final String agfa = "Agfa";
   static final String adox = "Adox";
-  static final List<String> brands = [kodak,ilford,agfa,adox,fuji,foma,kentmere,rollei,shanghai,gongyuan,lucky];
+  static final List<String> brands = [kodak,ilford,agfa,adox,fuji,foma,kentmere,rollei,shanghai,lucky];
 }
 class FilmType{
   static const  String thirtyFive = "35mm";

@@ -16,9 +16,9 @@ class DevInfo{
   }
   static String getIlution(String ilution){
     if(ilution.contains("stock")){
-      return ilution.replaceAll('stock', "工作液/");
+      return ilution.replaceAll('stock', "工作液");
     }
-    return "浓缩液/"+"稀释比 "+ilution.replaceAll("+", ":");
+    return "浓缩液 "+ilution.replaceAll("+", ":")+"稀释";
   }
   DevInfo.fromMap(Map<String, dynamic> map):medicName = map['ZDEVELOPERNAME'], dilution = getIlution(map['ZDEVELOPERDILUTION']), devId = map['_id'];
 }
