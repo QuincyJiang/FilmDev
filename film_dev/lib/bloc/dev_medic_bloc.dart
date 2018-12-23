@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:film_dev/dao/dao.dart';
+import 'package:film_dev/model/anim_action.dart';
 import 'package:film_dev/model/dev_info.dart';
 import 'package:film_dev/model/film_info.dart';
 import 'package:film_dev/providers/bloc_provider.dart';
@@ -35,7 +36,7 @@ class DevMedicBloc implements IBlocBase{
       try{
         for (var value in devs) {
           DevInfo dev = DevInfo.fromMap(value);
-          dev.filmName = info.name;
+          dev.filmInfo = info;
           queryResults.add(dev);
         }
       } catch(e){

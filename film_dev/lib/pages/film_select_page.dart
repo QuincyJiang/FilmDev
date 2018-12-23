@@ -463,7 +463,8 @@ class _BlocFilmSelectPageState extends State<BlocFilmSelectPage> {
                         dense: false,
                         title: Text('${data.brand}  ${data.name}'),
                         subtitle: Text("Format: ${data.type} ISO: ${data.iso}"),
-                      ),)
+                      ),
+                    )
               ),
             )
         )

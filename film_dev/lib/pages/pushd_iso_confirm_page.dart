@@ -4,6 +4,7 @@ import 'package:film_dev/model/anim_action.dart';
 import 'package:film_dev/model/dev_detail.dart';
 import 'package:film_dev/model/dev_info.dart';
 import 'package:film_dev/model/film_info.dart';
+import 'package:film_dev/pages/confirm_page.dart';
 import 'package:film_dev/providers/bloc_provider.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
@@ -171,7 +172,7 @@ class _BlocIsoPageState extends State<BlocIsoPage> {
         color: Colors.grey[800],
         child: new InkWell(
           onTap: (){
-            toSelectResultPage(info);
+            toConfirmPage(info);
           },
           child:  MergeSemantics(
               child: Padding(
@@ -179,16 +180,16 @@ class _BlocIsoPageState extends State<BlocIsoPage> {
                 child: ListTile(
                   dense: false,
                   title: Text('ISO ${info.iso}'),
-                  subtitle: Text("Film: ${info.medic.filmName}  Developer: ${info.medic.medicName}"),
+                  subtitle: Text("Film: ${info.medic.filmInfo.name}  Developer: ${info.medic.medicName}"),
                 ),)
           ),
         )
     );
   }
   // 去下一页
-  toSelectResultPage(DevDetails info) {
-//    Navigator.of(_scaffoldKey.currentState.context).push(new MaterialPageRoute(
-//        builder: (BuildContext context) => DevMedicSelectPage(info)));
+  toConfirmPage(DevDetails info) {
+    Navigator.of(_scaffoldKey.currentState.context).push(new MaterialPageRoute(
+        builder: (BuildContext context) => ConfirmPage(info)));
   }
 }
 

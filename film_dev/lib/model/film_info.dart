@@ -6,7 +6,9 @@ class FilmInfo {
   int id;
 
   FilmInfo(this.brand, this.name, this.iso, this.type,this.id);
-
+  String toString(){
+    return "${brand} ${name} / ISO: ${iso} Type: ${type}";
+  }
   FilmInfo.empty(){
     this.brand = FilmBrand.kodak;
     this.name = "";

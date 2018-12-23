@@ -1,4 +1,5 @@
 import 'package:film_dev/bloc/dev_medic_bloc.dart';
+import 'package:film_dev/model/anim_action.dart';
 import 'package:film_dev/model/dev_info.dart';
 import 'package:film_dev/model/film_info.dart';
 import 'package:film_dev/pages/pushd_iso_confirm_page.dart';
@@ -169,7 +170,7 @@ class _BlocDevPageState extends State<BlocDevPage> {
         color: Colors.grey[800],
         child: new InkWell(
           onTap: (){
-            toSelectResultPage(info);
+            toSelectIsoPage(info);
           },
           child:  MergeSemantics(
               child: Padding(
@@ -177,14 +178,14 @@ class _BlocDevPageState extends State<BlocDevPage> {
                 child: ListTile(
                   dense: false,
                   title: Text('${info.medicName}  ${info.dilution}'),
-                  subtitle: Text("Film: ${info.filmName}"),
+                  subtitle: Text("Film: ${info.filmInfo.name}"),
                 ),)
           ),
         )
     );
   }
   // 去下一页
-  toSelectResultPage(DevInfo info) {
+  toSelectIsoPage(DevInfo info) {
     Navigator.of(_scaffoldKey.currentState.context).push(new MaterialPageRoute(
         builder: (BuildContext context) => DevIsoSelectPage(info)));
   }
