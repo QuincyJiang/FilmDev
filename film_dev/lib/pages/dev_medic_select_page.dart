@@ -1,7 +1,7 @@
 import 'package:film_dev/bloc/dev_medic_bloc.dart';
-import 'package:film_dev/model/anim_action.dart';
 import 'package:film_dev/model/dev_info.dart';
 import 'package:film_dev/model/film_info.dart';
+import 'package:film_dev/pages/pushd_iso_confirm_page.dart';
 import 'package:film_dev/providers/bloc_provider.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
@@ -184,40 +184,10 @@ class _BlocDevPageState extends State<BlocDevPage> {
         )
     );
   }
-
-  // 构建查找结果条目
-  List<Widget> buildFilmInfoList(BuildContext context, List<DevInfo> datas) {
-    List<Widget> widgets = new List();
-    if (datas != null) datas.forEach((data){
-      widgets.add(
-          new Material(
-              color: Colors.grey[800],
-              child: new InkWell(
-                onTap: (){
-                  toSelectResultPage(data);
-                },
-                child:  MergeSemantics(
-                    child: Padding(
-                      padding: EdgeInsets.fromLTRB(8, 0.0, 0.0, 0.0),
-                      child: ListTile(
-                        dense: false,
-                        title: Text('${data.medicName}  ${data.dilution}'),
-                        subtitle: Text("Film: ${data.filmName}"),
-                      ),)
-                ),
-              )
-          )
-      );
-    }
-    );
-    return widgets;
-  }
-
-
   // 去下一页
   toSelectResultPage(DevInfo info) {
-//    Navigator.of(_scaffoldKey.currentState.context).push(new MaterialPageRoute(
-//        builder: (BuildContext context) => DevMedicSelectPage(info)));
+    Navigator.of(_scaffoldKey.currentState.context).push(new MaterialPageRoute(
+        builder: (BuildContext context) => DevIsoSelectPage(info)));
   }
 }
 

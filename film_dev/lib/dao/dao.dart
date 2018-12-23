@@ -90,10 +90,6 @@ class DbManager {
     return database;
   }
 
-  Future<List<String>> get _filmBrand {
-    Future db = _localDevDb;
-    //todo: 查询film品牌 返回list
-  }
 
   Future<int> save(String name) async {
     final db = await _localDevDb;
@@ -127,6 +123,21 @@ class DbManager {
     await Future<int>.delayed(Duration(seconds: 1,milliseconds: 500 ));
     return db.rawQuery("Select * from ZDEVELOPER where ZFILM = ${filmId} ORDER BY ZDEVELOPERNAME");
   }
+  Future<List<Map>> getDevDetails(DevInfo queryInfo) async {
+    final db = await _localDevDb;
+    int devId = queryInfo.devId;
+    return await db.rawQuery("select ZISO.ZISO,"
+        "ZDEVELOPMENTTIME.ZDEVELOPMENTTIMEA,"
+        "ZDEVELOPMENTTIME._id,"
+        "ZDEVELOPMENTTIME.ZFILM,"
+        "ZDEVELOPMENTTIME.ZDEVELOPMENTTIMEB,"
+        "ZDEVELOPMENTTIME.ZDEVELOPMENTTEMPERATURE,"
+        "ZDEVELOPMENTTIME.ZDEVELOPMENTNOTES,"
+        "ZDEVELOPMENTTIME.ZDEVELOPMENTNOTESLONG "
+        "from ZISO,ZDEVELOPMENTTIME where ZISO._id=ZDEVELOPMENTTIME.ZISO and ZDEVELOPMENTTIME.ZDEVELOPER=${devId}");
+  }
+
+
 
 }
 
