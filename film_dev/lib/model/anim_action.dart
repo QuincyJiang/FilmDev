@@ -11,7 +11,7 @@ class LoadingAnimAction{
   LoadingAnimAction(this.data, this.anim,this.loading);
   LoadingAnimAction.empty(){
     this.data = new List();
-    this.anim = "idle";
+    this.anim = "empty";
     this.loading = true;
   }
 }

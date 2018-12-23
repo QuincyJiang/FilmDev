@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'dart:typed_data';
+import 'package:film_dev/model/dev_info.dart';
 import 'package:film_dev/model/film_info.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
@@ -117,11 +118,15 @@ class DbManager {
         type = 2;
         break;
     }
-    await Future<int>.delayed(Duration(seconds: 1));
     return db.rawQuery("Select * from ZFILM where ZFILMTYPE = ${type} AND ZFILMBRAND = '${brand}' AND ZFILMISO = ${iso}");
   }
-}
 
-//      _localDevDb.then((Database db){
-//       return  db.rawQuery("Select * from ZFILM where ZFILMTYPE = ${type} AND ZFILMBRAND = '${brand}' AND ZFILMISO = ${iso}");};}
+  Future<List<Map>> getDevInfo(FilmInfo queryInfo) async {
+    final db = await _localDevDb;
+    int filmId = queryInfo.id;
+    await Future<int>.delayed(Duration(seconds: 1,milliseconds: 500 ));
+    return db.rawQuery("Select * from ZDEVELOPER where ZFILM = ${filmId} ORDER BY ZDEVELOPERNAME");
+  }
+
+}
 
