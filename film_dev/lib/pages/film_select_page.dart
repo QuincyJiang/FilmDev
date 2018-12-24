@@ -341,7 +341,7 @@ class _BlocFilmSelectPageState extends State<BlocFilmSelectPage> {
                 ),
                 child:Center(
                   child: Padding(padding:EdgeInsets.all(10),
-                    child: Text("Select Film",
+                    child: Text("选择胶片",
                       style: TextStyle(
                           fontSize: Theme.of(context).textTheme.subhead.fontSize
                       ),),

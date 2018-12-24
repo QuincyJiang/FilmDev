@@ -27,7 +27,7 @@ class _MyAppState extends State<AppSplashPage> {
       title: Container(
           decoration: new BoxDecoration(color: Colors.black),
           padding: EdgeInsets.all(2),
-          child: new Text(' FilmDev ™',
+          child: new Text(' FilmDev',
             style: new TextStyle(
               fontWeight: FontWeight.bold,
               color: Colors.white,

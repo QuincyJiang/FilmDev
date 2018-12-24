@@ -87,7 +87,7 @@ class _BlocIsoPageState extends State<BlocIsoPage> {
                       ),
                       child:Center(
                         child: Padding(padding:EdgeInsets.all(10),
-                          child: Text("Select Pushed ISO",
+                          child: Text("选择迫冲感光度",
                             style: TextStyle(
                                 fontSize: Theme.of(context).textTheme.subhead.fontSize
                             ),),
@@ -180,7 +180,7 @@ class _BlocIsoPageState extends State<BlocIsoPage> {
                 child: ListTile(
                   dense: false,
                   title: Text('ISO ${info.iso}'),
-                  subtitle: Text("Film: ${info.medic.filmInfo.name}  Developer: ${info.medic.medicName}"),
+                  subtitle: Text("Film: ${info.medic.filmInfo.name} \nDeveloper: ${info.medic.medicName}"),
                 ),)
           ),
         )

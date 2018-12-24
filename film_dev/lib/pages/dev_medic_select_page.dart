@@ -85,7 +85,7 @@ class _BlocDevPageState extends State<BlocDevPage> {
                       ),
                       child:Center(
                         child: Padding(padding:EdgeInsets.all(10),
-                          child: Text("Select Developer",
+                          child: Text("选择药液",
                             style: TextStyle(
                                 fontSize: Theme.of(context).textTheme.subhead.fontSize
                             ),),
