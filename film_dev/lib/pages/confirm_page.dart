@@ -14,7 +14,11 @@ class ConfirmPage extends StatefulWidget {
 
 class _ConfirmPageState extends State<ConfirmPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   String anim = "enter";
+  bool _autovalidate = false;
+  bool _formWasEdited = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -91,12 +95,26 @@ class _ConfirmPageState extends State<ConfirmPage> {
                     ),
                   ),
                 )
-            ),)
+            ),),
+      Padding(
+        padding: EdgeInsets.fromLTRB(0, 0, 0, 30),
+      ),
     ],
     )
     )
         )
     ));}
+
+
+  String _validVol(String value) {
+    if (value.isEmpty)
+      return '数据不可为空';
+    if(!checkVaild(value)){
+      return '数据不合法';
+    }
+    return null;
+  }
+
 
   // 展示查询结果
   Widget buildLoadingResultView(DevDetails details){
@@ -150,6 +168,7 @@ class _ConfirmPageState extends State<ConfirmPage> {
     );
   }
 
+  //todo: 跳转到冲洗倒计时页面
   void toDevPage(DevDetails details){
     Navigator.of(_scaffoldKey.currentState.context).push(new MaterialPageRoute(
         builder: (BuildContext context) => DevPage(details)));
@@ -164,20 +183,61 @@ class _ConfirmPageState extends State<ConfirmPage> {
       context: context,
       builder: (BuildContext context) => AlertDialog(
           title: const Text('配置工作液容量'),
-          content: Text(
-            "输入要配置的工作液容积",
+          content:Form(
+          key: _formKey,
+            child: TextFormField(
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: '要配置多少工作液？',
+                labelText: '工作液',
+              ),
+              keyboardType: TextInputType.numberWithOptions(decimal: true),
+              maxLines: 3,
+              onSaved: (value){
+                setState(() {
+                    widget.details.medic.setTotalVolumn(double.parse(value));
+                });
+              },
+              validator: _validVol,
+            ),
           ),
           actions: <Widget>[
             FlatButton(
-                child: const Text('DISAGREE'),
+                child: const Text('取消'),
                 onPressed: () { Navigator.pop(context); }
             ),
             FlatButton(
-                child: const Text('AGREE'),
-                onPressed: () { Navigator.pop(context); }
+                child: const Text('确认'),
+                onPressed: () {
+                  _handleSubmitted();
+                }
             )
           ]
       ),
     );
+  }
+
+  void _handleSubmitted() {
+    final FormState form = _formKey.currentState;
+    if (!form.validate()) {
+      _autovalidate = true;
+    } else {
+      form.save();
+      Navigator.pop(context);
+    }
+  }
+
+  bool checkVaild(String input){
+    try{
+      double.parse(input);
+      return true;
+    }catch(e){
+      return false;
+    }
+  }
+  void showInSnackBar(String value){
+    _scaffoldKey.currentState.showSnackBar(SnackBar(
+        content: Text(value)
+    ));
   }
 }

@@ -7,15 +7,21 @@ class DevInfo{
   int devId;
   FilmInfo filmInfo;
   double totalVolume = 500;
-  double waterVolume;
-  double medicVolume;
-  double diluNum;
-  bool concentrate;
+  double waterVolume = 400;
+  double medicVolume = 100;
+  double diluNum = 4;
+  bool concentrate = true;
 
   DevInfo(this.medicName, this.dilution, this.filmId,
       this.devId,this.filmInfo,this.medicVolume,this.waterVolume,this.totalVolume,this.concentrate);
 String toString(){
   return "${medicName} ${dilution} ";
+}
+
+setTotalVolumn(double total){
+  this.totalVolume = total;
+  this.waterVolume = getWaterVolume(total, dilution);
+  this.medicVolume = getMedicVolume(total, dilution);
 }
   DevInfo.empty(){
     medicName = "Adox";
@@ -53,13 +59,13 @@ String toString(){
     }
   }
 
-  static double getWaterVolume(String dilution){
+  static double getWaterVolume(double total,String dilution){
     double prop = getDiluNum(dilution);
-    return 500*prop/(prop+1);
+    return double.parse((total*prop/(prop+1)).toStringAsFixed(1));
   }
-  static double getMedicVolume(String dilution){
+  static double getMedicVolume(double total,String dilution){
     double prop = getDiluNum(dilution);
-    return 500/(prop+1);
+    return double.parse((total/(prop+1)).toStringAsFixed(1));
   }
 
   static bool isConcentrate(String dilution){
@@ -76,7 +82,7 @@ String toString(){
         dilution = getIlution(map['ZDEVELOPERDILUTION']),
         diluNum = getDiluNum(map['ZDEVELOPERDILUTION']),
         concentrate = isConcentrate(map['ZDEVELOPERDILUTION']),
-        waterVolume = getWaterVolume(map['ZDEVELOPERDILUTION']),
-        medicVolume = getMedicVolume(map['ZDEVELOPERDILUTION']),
+        waterVolume = getWaterVolume(500,map['ZDEVELOPERDILUTION']),
+        medicVolume = getMedicVolume(500,map['ZDEVELOPERDILUTION']),
         devId = map['_id'];
 }
