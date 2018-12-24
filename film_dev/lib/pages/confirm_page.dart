@@ -107,17 +107,36 @@ class _ConfirmPageState extends State<ConfirmPage> {
 
   List<Widget> buildConfirmIist(BuildContext context,DevDetails details){
       List<Widget> widgets = new List();
-      widgets.add(buildConfirmItem(details, "胶片 ${details.medic.filmInfo.name}",details.medic.filmInfo.toString() ));
-      widgets.add(buildConfirmItem(details, "药液", details.medic.toString()));
-      widgets.add(buildConfirmItem(details, "迫冲","目标ISO: ${details.iso}"));
-      widgets.add(buildConfirmItem(details, "冲洗温度","恒温（℃）：  ${details.temper}"));
-      widgets.add(buildConfirmItem(details, "阶段A显影时长：","时长（秒）: ${details.devTimeA}"));
-      widgets.add(buildConfirmItem(details, "阶段B显影时长：","时长（秒）: ${details.devTimeB}"));
-      widgets.add(buildConfirmItem(details, "其他说明：","${details.note}"));
+      widgets.add(buildConfirmItem(details, "胶片",details.medic.filmInfo.toString(),false));
+      widgets.add(buildConfirmItem(details, "药液", details.medic.medicName,false));
+      widgets.add(Material(
+              color: Colors.grey[800],
+              child: new InkWell(
+                  onTap: (){
+//                    showVolumnConfigDialog(context,details);
+                    showDemoDialog(context,details);
+                  },
+              child:  buildConfirmItem(details, "配比", getProp(details),true),))
+      );
+      widgets.add(buildConfirmItem(details, "迫冲","目标ISO: ${details.iso}",false));
+      widgets.add(buildConfirmItem(details, "冲洗温度","恒温（℃）：${details.temper}",false));
+      widgets.add(buildConfirmItem(details, "阶段A显影时长","时长（秒）: ${details.devTimeA}",false));
+      widgets.add(buildConfirmItem(details, "阶段B显影时长","时长（秒）: ${details.devTimeB}",false));
+      widgets.add(buildConfirmItem(details, "其他说明","${details.note}",false));
       return widgets;
   }
 
-  Widget buildConfirmItem(DevDetails details,String title,String desc){
+  String getProp(DevDetails detail){
+    if(detail.medic.concentrate){
+      return "${detail.medic.medicName}: ${detail.medic.medicVolume} ml \n"
+             "纯净水:${detail.medic.waterVolume} ml \n"
+             "制成工作液：${detail.medic.totalVolume} ml";
+    }else{
+      return "${detail.medic.medicName}  ${detail.medic.totalVolume} ml";
+    }
+  }
+
+  Widget buildConfirmItem(DevDetails details,String title,String desc,bool showArrow){
     return MergeSemantics(
                 child: Padding(
                   padding: EdgeInsets.fromLTRB(8, 0.0, 0.0, 0.0),
@@ -125,6 +144,7 @@ class _ConfirmPageState extends State<ConfirmPage> {
                     dense: false,
                     title: Text(title),
                     subtitle: Text(desc),
+                    trailing: showArrow?Icon(Icons.arrow_right):Container(height: 0,width: 0,),
                   ),
         )
     );
@@ -133,5 +153,31 @@ class _ConfirmPageState extends State<ConfirmPage> {
   void toDevPage(DevDetails details){
     Navigator.of(_scaffoldKey.currentState.context).push(new MaterialPageRoute(
         builder: (BuildContext context) => DevPage(details)));
+  }
+
+  void showVolumnConfigDialog(BuildContext context,DevDetails details){
+
+  }
+
+  void showDemoDialog(BuildContext context, DevDetails data){
+    showDialog(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+          title: const Text('配置工作液容量'),
+          content: Text(
+            "输入要配置的工作液容积",
+          ),
+          actions: <Widget>[
+            FlatButton(
+                child: const Text('DISAGREE'),
+                onPressed: () { Navigator.pop(context); }
+            ),
+            FlatButton(
+                child: const Text('AGREE'),
+                onPressed: () { Navigator.pop(context); }
+            )
+          ]
+      ),
+    );
   }
 }

@@ -9,6 +9,7 @@ class DevDetails{
   int filmId;
   double temper;
   String note;
+  
   DevDetails(this.devDetailId,this.iso,this.devTimeA,this.devTimeB,this.medic,this.note);
 
   DevDetails.empty(){
