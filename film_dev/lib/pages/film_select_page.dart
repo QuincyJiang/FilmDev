@@ -300,7 +300,7 @@ class _BlocFilmSelectPageState extends State<BlocFilmSelectPage> {
   @override
   Widget build(BuildContext context) {
     final FilmInfoBloc infoBloc = BlocProvider.of<FilmInfoBloc>(context);
-    infoBloc.queryFilmInfo(info);
+//    infoBloc.queryFilmInfo(info);
     return Scaffold(
       key: _scaffoldKey,
       body: SingleChildScrollView(

@@ -16,8 +16,6 @@ class _ConfirmPageState extends State<ConfirmPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   String anim = "enter";
-  bool _autovalidate = false;
-  bool _formWasEdited = false;
 
   @override
   Widget build(BuildContext context) {
@@ -110,7 +108,7 @@ class _ConfirmPageState extends State<ConfirmPage> {
     if (value.isEmpty)
       return '数据不可为空';
     if(!checkVaild(value)){
-      return '数据不合法';
+      return '输入一个合理的数字';
     }
     return null;
   }
@@ -125,18 +123,17 @@ class _ConfirmPageState extends State<ConfirmPage> {
 
   List<Widget> buildConfirmIist(BuildContext context,DevDetails details){
       List<Widget> widgets = new List();
-      widgets.add(buildConfirmItem(details, "胶片",details.medic.filmInfo.toString(),false));
+      widgets.add(buildConfirmItem(details, "胶片",details.medic.filmInfo.brand+" "+ details.medic.filmInfo.name,false));
       widgets.add(buildConfirmItem(details, "药液", details.medic.medicName,false));
       widgets.add(Material(
               color: Colors.grey[800],
               child: new InkWell(
                   onTap: (){
-//                    showVolumnConfigDialog(context,details);
-                    showDemoDialog(context,details);
+                    showVolConfigDialog(context,details);
                   },
               child:  buildConfirmItem(details, "配比", getProp(details),true),))
       );
-      widgets.add(buildConfirmItem(details, "迫冲","目标ISO: ${details.iso}",false));
+      widgets.add(buildConfirmItem(details, "迫冲","原生ISO: ${details.medic.filmInfo.iso} \n目标ISO: ${details.iso}",false));
       widgets.add(buildConfirmItem(details, "冲洗温度","恒温（℃）：${details.temper}",false));
       widgets.add(buildConfirmItem(details, "阶段A显影时长","时长（秒）: ${details.devTimeA}",false));
       widgets.add(buildConfirmItem(details, "阶段B显影时长","时长（秒）: ${details.devTimeB}",false));
@@ -168,27 +165,22 @@ class _ConfirmPageState extends State<ConfirmPage> {
     );
   }
 
-  //todo: 跳转到冲洗倒计时页面
   void toDevPage(DevDetails details){
     Navigator.of(_scaffoldKey.currentState.context).push(new MaterialPageRoute(
         builder: (BuildContext context) => DevPage(details)));
   }
 
-  void showVolumnConfigDialog(BuildContext context,DevDetails details){
-
-  }
-
-  void showDemoDialog(BuildContext context, DevDetails data){
+  void showVolConfigDialog(BuildContext context, DevDetails data){
     showDialog(
       context: context,
       builder: (BuildContext context) => AlertDialog(
-          title: const Text('配置工作液容量'),
+          title: const Text('要配置多少工作液？'),
           content:Form(
           key: _formKey,
             child: TextFormField(
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
-                hintText: '要配置多少工作液？',
+                hintText: '配置你需要的工作液容量',
                 labelText: '工作液',
               ),
               keyboardType: TextInputType.numberWithOptions(decimal: true),
@@ -219,9 +211,7 @@ class _ConfirmPageState extends State<ConfirmPage> {
 
   void _handleSubmitted() {
     final FormState form = _formKey.currentState;
-    if (!form.validate()) {
-      _autovalidate = true;
-    } else {
+    if (form.validate()) {
       form.save();
       Navigator.pop(context);
     }
