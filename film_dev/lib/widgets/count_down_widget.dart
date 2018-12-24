@@ -38,13 +38,10 @@ class ProgressPainter extends CustomPainter {
 
 class CountDownWidget extends StatefulWidget {
    final int countDownSeconds;
-   final Color backgroundColor;
-   final Color foregroundColor;
-   final Color textColor;
    final String label;
    bool isPlaying;
 
-  CountDownWidget({this.countDownSeconds,this.backgroundColor,this.foregroundColor,this.textColor,this.label});
+  CountDownWidget({Key key,this.countDownSeconds,this.label}):super(key: key);
   _CountDownWidgetState createState() => new _CountDownWidgetState();
 }
 
@@ -59,14 +56,21 @@ class _CountDownWidgetState extends State<CountDownWidget> with TickerProviderSt
   }
 
   @override
+  void dispose() {
+    // TODO: implement dispose
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   void initState() {
     super.initState();
     widget.isPlaying = false;
     _controller = new AnimationController(
       vsync: this,
       duration: Duration(seconds: widget.countDownSeconds),
-    )
-      ..reverse(from: 0.4);
+    );
+    _controller.stop();
   }
 
   Widget build(BuildContext context) {
@@ -109,8 +113,8 @@ class _CountDownWidgetState extends State<CountDownWidget> with TickerProviderSt
                       return new CustomPaint(
                         painter: new ProgressPainter(
                           animation: _controller,
-                          color: widget.foregroundColor,
-                          backgroundColor: widget.backgroundColor,
+                          color: themeData.accentColor,
+                          backgroundColor: themeData.cardColor,
                         ),
                       );
                     }

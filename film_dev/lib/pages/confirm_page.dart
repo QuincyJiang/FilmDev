@@ -57,7 +57,7 @@ class _ConfirmPageState extends State<ConfirmPage> {
           ),
         child:Center(
           child: Padding(padding:EdgeInsets.all(10),
-          child: Text("确认配置清单",
+          child: Text("冲洗配置",
                   style: TextStyle(
                   fontSize: Theme.of(context).textTheme.subhead.fontSize
                   ),
