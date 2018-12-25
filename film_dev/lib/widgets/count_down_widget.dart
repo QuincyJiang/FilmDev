@@ -39,7 +39,6 @@ class ProgressPainter extends CustomPainter {
 class CountDownWidget extends StatefulWidget {
    final int countDownSeconds;
    final String label;
-   bool isPlaying;
 
   CountDownWidget({Key key,this.countDownSeconds,this.label}):super(key: key);
   _CountDownWidgetState createState() => new _CountDownWidgetState();
@@ -47,7 +46,7 @@ class CountDownWidget extends StatefulWidget {
 
 class _CountDownWidgetState extends State<CountDownWidget> with TickerProviderStateMixin {
   AnimationController _controller;
-
+  bool isPlaying;
   String get timeRemaining {
     Duration duration = _controller.duration * _controller.value;
     return '${duration.inMinutes} : ${(duration.inSeconds % 60)
@@ -65,11 +64,11 @@ class _CountDownWidgetState extends State<CountDownWidget> with TickerProviderSt
   @override
   void initState() {
     super.initState();
-    widget.isPlaying = false;
+    isPlaying = false;
     _controller = new AnimationController(
       vsync: this,
       duration: Duration(seconds: widget.countDownSeconds),
-    );
+    )..reverse(from: 1.0);
     _controller.stop();
   }
 
@@ -83,14 +82,14 @@ class _CountDownWidgetState extends State<CountDownWidget> with TickerProviderSt
           );
           _controller.stop();
           setState(() {
-            widget.isPlaying = false;
+            isPlaying = false;
           });
         },
         onTap: (){
           if (_controller.isAnimating){
             _controller.stop(canceled: false);
             setState(() {
-              widget.isPlaying = false;
+              isPlaying = false;
             });}
           else {
             _controller.reverse(
@@ -98,7 +97,7 @@ class _CountDownWidgetState extends State<CountDownWidget> with TickerProviderSt
                   .value,
             );
             setState(() {
-              widget.isPlaying = true;
+             isPlaying = true;
             });
           }
         },
@@ -126,7 +125,7 @@ class _CountDownWidgetState extends State<CountDownWidget> with TickerProviderSt
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    Icon(widget.isPlaying ? Icons.pause : Icons.play_arrow),
+                    Icon(isPlaying ? Icons.pause : Icons.play_arrow),
                     new AnimatedBuilder(
                         animation: _controller,
                         builder: (BuildContext context, Widget child) {

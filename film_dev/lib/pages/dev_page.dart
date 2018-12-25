@@ -20,6 +20,11 @@ class _DevPageState extends State<DevPage> {
   final String ANIM_DARKFLICKER = "darkFlicker";
   final String ANIM_ON = "on";
   final String ANIM_OFF = "off";
+  static const String TYPE_FIX = "定影";
+  static const String TYPE_WASH = "水洗";
+  static const String TYPE_HYPO = "去海波";
+  static const String TYPE_STOP = "停显";
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -38,7 +43,7 @@ class _DevPageState extends State<DevPage> {
     return Theme(
       data: ThemeData(
         primaryColor:widget.isDarkMode? Colors.black:Colors.black,
-        accentColor: widget.isDarkMode?Colors.red[900]:Colors.yellow[900],
+        accentColor: widget.isDarkMode?Colors.black:Colors.grey[900],
         cardColor: widget.isDarkMode? Colors.black:Colors.grey[800],
         scaffoldBackgroundColor:widget.isDarkMode? Colors.black:Colors.grey[850],
         textTheme: TextTheme(
@@ -101,7 +106,7 @@ class _DevPageState extends State<DevPage> {
                             ),
                             child:Center(
                               child: Padding(padding:EdgeInsets.all(10),
-                                child: Text("我的暗房",
+                                child: Text(widget.isDarkMode?"暗房模式":"明室冲洗",
                                   style: TextStyle(
                                     color: widget.isDarkMode? Colors.grey[900]:Colors.white,
                                     fontSize: Theme.of(context).textTheme.subhead.fontSize
@@ -110,15 +115,31 @@ class _DevPageState extends State<DevPage> {
                               ),
                             )
                         ),
-                                buildTimerItem("显影A", "前一分钟持续搅拌，之后每分钟开始时搅拌5-10s", widget.details.devTimeA),
-                                (widget.details.devTimeB == 0)?Container(height: 0,width: 0,):buildTimerItem("显影B", "点击开启计时，长按重置计时器", widget.details.devTimeB),
-                                buildTimerItem("停显", "停显时间请参考您使用的停显液", 60),
-                                buildTimerItem("定影", "定影时间请参考您使用的定影液", 300),
-                                buildTimerItem("去海波", "防止片基出现水渍 并稳定您的底片", 120),
-                                buildTimerItem("水洗", "使用流动清水持续冲洗", 600),
-                        Padding(
-                          padding: EdgeInsets.fromLTRB(0, 0, 0, 30),
+                        buildTimerItem("显影A", "前一分钟持续搅拌，之后每分钟开始时搅拌5-10s", widget.details.devTimeA,false,""),
+                        (widget.details.devTimeB == 0)?Container(height: 0,width: 0,):buildTimerItem("显影B", "点击开启计时，长按重置计时器", widget.details.devTimeB,false,""),
+                        buildTimerItem("停显", "停显时间请参考您使用的停显液", widget.details.stopTime,true,TYPE_STOP),
+                        buildTimerItem("定影", "定影时间请参考您使用的定影液", widget.details.fixTime,true,TYPE_FIX),
+                        buildTimerItem("去海波", "防止片基出现水渍 并稳定您的底片", widget.details.hypoTime, true,TYPE_HYPO),
+                        buildTimerItem("水洗", "使用流动清水持续冲洗", widget.details.washTime,true,TYPE_WASH),
+            new Material(
+              color: widget.isDarkMode?Colors.black:Colors.yellow[900],
+              child: new InkWell(
+                  onTap: (){
+                    save(widget.details);
+                  },
+                  child: Center(
+                    child: Padding(padding:EdgeInsets.all(10),
+                      child: Text(isInCollection(widget.details)?"移除收藏":"添加收藏",
+                        style: TextStyle(
+                            fontSize: Theme.of(context).textTheme.subhead.fontSize,
+                            color: widget.isDarkMode? Colors.grey[900]:Colors.white
                         ),
+                      ),
+                    ),
+                  )
+              ),),
+            Padding(
+              padding: EdgeInsets.fromLTRB(0, 0, 0, 30)),
                       ],
                     )
                 )
@@ -138,39 +159,139 @@ class _DevPageState extends State<DevPage> {
            });
          }
         }
-  Widget buildTimerItem(String title,String desp,int time){
-    return Card(
-        elevation: 3,
-        margin: EdgeInsets.fromLTRB(0,10,0,20),
-    shape: const RoundedRectangleBorder(
-    borderRadius: BorderRadius.only(
-    topLeft: Radius.circular(2.0),
-    topRight: Radius.circular(2.0),
-    bottomLeft: Radius.circular(2.0),
-    bottomRight: Radius.circular(2.0),
-    ),
-    ),
-    child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-        buildConfirmItem(title, desp, false),
-        Container(
-          constraints: BoxConstraints(maxHeight: 1),
-          decoration: BoxDecoration(color: widget.isDarkMode? Colors.black:Colors.grey[700]),
-        ),
-        Container(
-            constraints: BoxConstraints.expand(height: 70),
-            child: CountDownWidget(
-              key: UniqueKey(),
-              countDownSeconds: time,
-              label: title,
-    ),
-    ),
-        ]));
+  Widget buildTimerItem(String title,String desp,int time,bool showArrow,String type){
+    return Card(elevation: 3,
+        margin: EdgeInsets.fromLTRB(0, 10, 0, 20),
+        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(2.0),
+          topRight: Radius.circular(2.0),
+          bottomLeft: Radius.circular(2.0),
+          bottomRight: Radius.circular(2.0),),),
+        child: Column(mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              buildConfirmItem(title, desp, showArrow, type),
+              Container(constraints: BoxConstraints.expand(height: 70),
+                child: CountDownWidget(
+                  key: UniqueKey(), countDownSeconds: time, label: title,),),
+            ]));
   }
 
-  Widget buildConfirmItem(String title,String desc,bool showArrow){
+  void save(DevDetails details){
+
+  }
+
+  bool isInCollection(DevDetails details){
+    return false;
+  }
+
+  void showTimerConfigDialog(BuildContext context, DevDetails data,String type){
+    showDialog(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+          title:  Text('定制你的${type}时间 （秒）'),
+          content:Form(
+            key: _formKey,
+            child: TextFormField(
+              decoration:InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: '定制你的${type}时间 （秒）',
+                labelText: "修改为你需要的${type}时间 （秒）",
+              ),
+              keyboardType: TextInputType.numberWithOptions(decimal: true),
+              maxLines: 3,
+              onSaved: (value){
+                setState(() {
+                  switch(type){
+                    case TYPE_FIX:
+                      setState(() {
+                        widget.details.fixTime = int.parse(value);
+                      });
+                      break;
+                    case TYPE_STOP:
+                      setState(() {
+                        widget.details.stopTime = int.parse(value);
+                      });
+                      break;
+                      case TYPE_WASH:
+                        setState(() {
+                          widget.details.washTime = int.parse(value);
+                        });
+                      break;
+                      case TYPE_HYPO:
+                        setState(() {
+                          widget.details.hypoTime = int.parse(value);
+                        });
+                      break;
+                  }
+                  widget.details.medic.setTotalVolumn(double.parse(value));
+                });
+              },
+              validator: _validTime,
+            ),
+          ),
+          actions: <Widget>[
+            FlatButton(
+                child: const Text('取消'),
+                onPressed: () { Navigator.pop(context); }
+            ),
+            FlatButton(
+                child: const Text('确认'),
+                onPressed: () {
+                  _handleSubmitted();
+                }
+            )
+          ]
+      ),
+    );
+  }
+
+  void _handleSubmitted() {
+    final FormState form = _formKey.currentState;
+    if (form.validate()) {
+      form.save();
+      Navigator.pop(context);
+    }
+  }
+  String _validTime(String value) {
+    if (value.isEmpty)
+      return '时间不可为空';
+    if(!checkVaild(value)){
+      return '输入一个合理的时长';
+    }
+    return null;
+  }
+  bool checkVaild(String input){
+    try{
+      double.parse(input);
+      return true;
+    }catch(e){
+      return false;
+    }
+  }
+
+  Widget buildConfirmItem(String title,String desc,bool showArrow,String type){
+    if(showArrow){
+      return  Material(
+        color: widget.isDarkMode?Colors.black:Colors.grey[800],
+        child: new InkWell(
+            onTap: (){
+              showTimerConfigDialog(context,widget.details,type);
+            },
+            child:MergeSemantics(
+                child: Padding(
+                  padding: EdgeInsets.fromLTRB(8, 0.0, 0.0, 0.0),
+                  child: ListTile(
+                    dense: false,
+                    title: Text(title),
+                    subtitle: Text(desc),
+                    trailing: showArrow?Icon(Icons.arrow_right,
+                    color: widget.isDarkMode? Colors.grey[900]:Colors.white,):Container(height: 0,width: 0,),
+                  ),
+                )
+            )
+        ));
+            }
     return MergeSemantics(
         child: Padding(
           padding: EdgeInsets.fromLTRB(8, 0.0, 0.0, 0.0),

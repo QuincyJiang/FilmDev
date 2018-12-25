@@ -9,6 +9,10 @@ class DevDetails{
   int filmId;
   double temper;
   String note;
+  int fixTime;
+  int stopTime;
+  int hypoTime;
+  int washTime;
   
   DevDetails(this.devDetailId,this.iso,this.devTimeA,this.devTimeB,this.medic,this.note);
 
@@ -21,6 +25,10 @@ class DevDetails{
     filmId = 0;
     temper = 0;
     note = "";
+    fixTime = 300;
+    stopTime = 60;
+    hypoTime = 120;
+    washTime = 600;
   }
 
   DevDetails.fromMap(Map<String, dynamic> map):
@@ -30,5 +38,9 @@ class DevDetails{
         devDetailId=map["_id"],
         filmId=map["ZFILM"],
         temper=map["ZDEVELOPMENTTEMPERATURE"],
+        fixTime = 300,
+        stopTime = 60,
+        hypoTime = 120,
+        washTime = 600,
         note=map["ZDEVELOPMENTNOTESLONG"];
 }
