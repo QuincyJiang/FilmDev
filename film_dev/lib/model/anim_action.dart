@@ -1,5 +1,6 @@
 import 'package:film_dev/model/dev_detail.dart';
 import 'package:film_dev/model/dev_info.dart';
+import 'package:film_dev/model/fav_info.dart';
 import 'package:film_dev/model/film_info.dart';
 
 // 查询动画实体类
@@ -40,6 +41,18 @@ class DevInfoAnimAction{
 
   DevInfoAnimAction(this.data, this.anim, this.loading);
   DevInfoAnimAction.empty(){
+    data = new List();
+    anim = "idle";
+    loading = true;
+  }
+}
+class FavInfoAnimAction{
+  List<FavInfo> data;
+  String anim;
+  bool loading;
+
+  FavInfoAnimAction(this.data, this.anim, this.loading);
+  FavInfoAnimAction.empty(){
     data = new List();
     anim = "idle";
     loading = true;

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'package:film_dev/model/dev_detail.dart';
 import 'package:film_dev/model/dev_info.dart';
+import 'package:film_dev/model/fav_info.dart';
 import 'package:film_dev/model/film_info.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
@@ -124,39 +125,32 @@ class DbManager {
     return result.length;
   }
   
-  Future<List<DevDetails>> getFav(String name) async{
+  Future<List<FavInfo>> getFav() async{
     final db = await _localFavDb;
-    String query = "select * from tblFavTimes where favName='${name}'";
+    String query = "select * from tblFavTimes";
     List<Map> resultList = await db.rawQuery(query);
-    List<DevDetails> favResult = new List();
+    List<FavInfo> favResult = new List();
     try{
     resultList.forEach((result){
       FilmInfo filmInfo = new FilmInfo(result['filmBrand'],result['filmName'], result['filmISO'], result['filmType'], result['filmId']);
       DevInfo devInfo = new DevInfo(result['devName'], result['devDilution'], result['filmId'], result['devId'], filmInfo,result['volMedic'], result['volWater'], result['volTotal'], getBool(result['concentrate']),result['dilutionNum']);
       DevDetails details = new DevDetails(result['devDetailId'], result['pushedISO'], result['devTimeA'], result['devTimeB'], devInfo, result['filmId'], result['devTempInC'], result['notesBody'], result['fixingTimeA'], result['stopBathTime'], result['hypoClearTime'], result['washTime']);
-      favResult.add(details);
+      favResult.add(FavInfo(details, result['favName']));
     });}
     catch(e){
       print("parse db data failed! messag: "+e.toString());
     }
     return favResult;
   }
-  
-//  double getDouble(dynamic vaule){
-//    return (vaule as int) == null?0:(vaule as int).toDouble();
-//  }
-//  String getString(dynamic value){
-//    return (value as String) == null?"":(value as String);
-//  }
+
   bool getBool(dynamic value){
     return (value as String) == null?false:(value as String) == "true";
   }
-  
 
-  deleteCollect(String name) async{
+  Future<int> deleteCollect(String name) async{
     final db = await _localFavDb;
     String delete = "delete from tblFavTimes where favName='${name}'";
-    return db.rawQuery(delete);
+    return db.rawDelete(delete);
   }
 
   Future<List<Map>> getFilmInfo(FilmInfo queryInfo) async {
