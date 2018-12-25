@@ -1,7 +1,12 @@
 import 'package:film_dev/bloc/film_brand_bloc.dart';
 import 'package:film_dev/model/anim_action.dart';
 import 'package:film_dev/model/film_info.dart';
+import 'package:film_dev/pages/about_page.dart';
+import 'package:film_dev/pages/collection_page.dart';
 import 'package:film_dev/pages/dev_medic_select_page.dart';
+import 'package:film_dev/pages/donate_page.dart';
+import 'package:film_dev/pages/help_page.dart';
+import 'package:film_dev/pages/tips_page.dart';
 import 'package:film_dev/providers/bloc_provider.dart';
 import 'package:flutter/material.dart';
 import 'dart:core';
@@ -10,18 +15,135 @@ import 'package:flare_flutter/flare_actor.dart';
 typedef ConfigItemBodyBuilder<T> = Widget Function(ConfigItem<T> item);
 typedef ValueToString<T> = String Function(T value);
 
-class FilmSelectPage extends StatelessWidget{
+class FilmSelectPage extends StatefulWidget {
+  @override
+  _FilmSelectPageState createState() => _FilmSelectPageState();
+}
+
+class _FilmSelectPageState extends State<FilmSelectPage> with TickerProviderStateMixin {
+  AnimationController _controller;
+  Animation<double> _drawerContentsOpacity;
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 200),
+    );
+    _drawerContentsOpacity = CurvedAnimation(
+      parent: ReverseAnimation(_controller),
+      curve: Curves.fastOutSlowIn,
+    );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
+      key: _scaffoldKey,
       body: BlocProvider(
         bloc: FilmInfoBloc(),
         child:BlocFilmSelectPage(),
       ),
+      drawer: Drawer(
+        child: Column(
+          children: <Widget>[
+            DrawerHeader(
+              child: Container(
+                child: new FlareActor("assets/title.flr",
+                    alignment:Alignment.center,
+                    fit:BoxFit.contain,
+                    animation:"enter"),
+                constraints:  BoxConstraints.expand(height: 150),
+              ),
+            ),
+            MediaQuery.removePadding(
+              context: context,
+              // DrawerHeader consumes top MediaQuery padding.
+              removeTop: true,
+              child: Expanded(
+                child: ListView(
+                  padding: const EdgeInsets.all(8.0),
+                  children: <Widget>[
+                    Stack(
+                      children: <Widget>[
+                        // The initial contents of the drawer.
+                        FadeTransition(
+                          opacity: _drawerContentsOpacity,
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: <Widget>[
+                              ListTile(
+                                leading: const Icon(Icons.favorite),
+                                title: const Text('我的收藏'),
+                                onTap: toCollectionPage,
+                              ),
+                              ListTile(
+                                leading: const Icon(Icons.help),
+                                title: const Text('帮助'),
+                                onTap: toHelpPage,
+                              ),
+                              ListTile(
+                                leading: const Icon(Icons.info),
+                                title: const Text('关于'),
+                                onTap: toAboutPage,
+                              ),
+                              ListTile(
+                                leading: const Icon(Icons.camera),
+                                title: const Text('Tips'),
+                                onTap: toTipsPage,
+                              ),
+                              ListTile(
+                                leading: const Icon(Icons.monetization_on),
+                                title: const Text('捐赠'),
+                                onTap: toDonatePage,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
+
+  void toCollectionPage(){
+    Navigator.of(_scaffoldKey.currentState.context).push(new MaterialPageRoute(
+        builder: (BuildContext context) => CollectionPage()));
+  }
+  void toHelpPage(){
+    Navigator.of(_scaffoldKey.currentState.context).push(new MaterialPageRoute(
+        builder: (BuildContext context) => HelpPage()));
+  }
+  void toAboutPage(){
+    Navigator.of(_scaffoldKey.currentState.context).push(new MaterialPageRoute(
+        builder: (BuildContext context) => AboutPage()));
+  }
+  void toTipsPage(){
+    Navigator.of(_scaffoldKey.currentState.context).push(new MaterialPageRoute(
+        builder: (BuildContext context) => TipsPage()));
+  }
+  void toDonatePage(){
+    Navigator.of(_scaffoldKey.currentState.context).push(new MaterialPageRoute(
+        builder: (BuildContext context) => DonatePage()));
+  }
+
 }
+
 
 // 表单标题
 class DualHeaderWithHint extends StatelessWidget {
