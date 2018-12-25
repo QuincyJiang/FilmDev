@@ -13,8 +13,10 @@ class DevDetails{
   int stopTime;
   int hypoTime;
   int washTime;
-  
-  DevDetails(this.devDetailId,this.iso,this.devTimeA,this.devTimeB,this.medic,this.note);
+
+  DevDetails(this.devDetailId, this.iso, this.devTimeA, this.devTimeB,
+      this.medic, this.filmId, this.temper, this.note, this.fixTime,
+      this.stopTime, this.hypoTime, this.washTime);
 
   DevDetails.empty(){
     iso = "100";

@@ -9,7 +9,6 @@ import 'package:film_dev/providers/bloc_provider.dart';
 class DevMedicBloc implements IBlocBase{
   StreamController<List<DevInfo>> _devInfoController = new StreamController();
   Stream<List<DevInfo>> get outDevInfos => _devInfoController.stream;
-  Sink<List<DevInfo>> get  _inDevs => _devInfoController.sink;
 
   StreamController<DevInfoAnimAction> _devInfoLoadingStatusController = new StreamController();
   Stream<DevInfoAnimAction> get outDevInfoAnim => _devInfoLoadingStatusController.stream;
@@ -21,6 +20,7 @@ class DevMedicBloc implements IBlocBase{
 
 
   void dispose() {
+    _titieAnimController.close();
     _devInfoController.close();
     _devInfoLoadingStatusController.close();
   }

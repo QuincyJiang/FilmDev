@@ -1,9 +1,7 @@
 import 'package:film_dev/bloc/dev_detail_bloc.dart';
-import 'package:film_dev/bloc/dev_medic_bloc.dart';
 import 'package:film_dev/model/anim_action.dart';
 import 'package:film_dev/model/dev_detail.dart';
 import 'package:film_dev/model/dev_info.dart';
-import 'package:film_dev/model/film_info.dart';
 import 'package:film_dev/pages/confirm_page.dart';
 import 'package:film_dev/providers/bloc_provider.dart';
 import 'package:flare_flutter/flare_actor.dart';

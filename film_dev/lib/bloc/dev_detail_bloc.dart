@@ -4,13 +4,11 @@ import 'package:film_dev/dao/dao.dart';
 import 'package:film_dev/model/anim_action.dart';
 import 'package:film_dev/model/dev_detail.dart';
 import 'package:film_dev/model/dev_info.dart';
-import 'package:film_dev/model/film_info.dart';
 import 'package:film_dev/providers/bloc_provider.dart';
 
 class DevDetailBloc implements IBlocBase{
   StreamController<List<DevDetails>> _devInfoController = new StreamController();
   Stream<List<DevDetails>> get outDevInfos => _devInfoController.stream;
-  Sink<List<DevDetails>> get  _inDevs => _devInfoController.sink;
 
   StreamController<DevInfoLoadingAnimAction> _devInfoLoadingStatusController = new StreamController();
   Stream<DevInfoLoadingAnimAction> get outDevInfoAnim => _devInfoLoadingStatusController.stream;
@@ -22,6 +20,7 @@ class DevDetailBloc implements IBlocBase{
 
 
   void dispose() {
+    _titieAnimController.close();
     _devInfoController.close();
     _devInfoLoadingStatusController.close();
   }

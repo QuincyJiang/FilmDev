@@ -28,6 +28,8 @@ class FilmInfoBloc implements IBlocBase{
     _changedFilmInfoController.stream.listen(filmInfoChanged);
   }
   void dispose() {
+    _updateLoadingStatus.close();
+    _titieAnimController.close();
     _titleHintController.close();
     _changedFilmInfoController.close();
   }

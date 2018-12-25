@@ -1,4 +1,3 @@
-import 'dart:math' as math;
 import 'package:meta/meta.dart';
 import 'package:flutter/material.dart';
 
@@ -112,8 +111,8 @@ class _CountDownWidgetState extends State<CountDownWidget> with TickerProviderSt
                       return new CustomPaint(
                         painter: new ProgressPainter(
                           animation: _controller,
-                          color: themeData.accentColor,
-                          backgroundColor: themeData.cardColor,
+                          color: themeData.cardColor,
+                          backgroundColor: themeData.accentColor,
                         ),
                       );
                     }

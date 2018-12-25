@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'dart:typed_data';
+import 'package:film_dev/model/dev_detail.dart';
 import 'package:film_dev/model/dev_info.dart';
 import 'package:film_dev/model/film_info.dart';
 import 'package:path/path.dart';
@@ -91,11 +92,71 @@ class DbManager {
   }
 
 
-  Future<int> save(String name) async {
-    final db = await _localDevDb;
-    return db.transaction((trx) {
-      trx.rawInsert('INSERT INTO user(name) VALUES("$name")');
-    });
+  Future<int> save(String name,DevDetails devDetails) async {
+    final db = await _localFavDb;
+    String insert = "INSERT INTO tblFavTimes "
+        "(favName,filmName,filmISO,filmType,devName,devDilution,volTotal,volWater,volMedic,devTempInC,devTimeA,devTimeB,fixingTimeA,stopBathTime,hypoClearTime,washTime,"
+        "filmId,devId,filmBrand,concentrate,devDetailId,pushedISO,notesBody,dilutionNum) VALUES "
+        "('${name}','${devDetails.medic.filmInfo.name}','${devDetails.medic.filmInfo.iso}','${devDetails.medic.filmInfo.type}','${devDetails.medic.medicName}'"
+        ",'${devDetails.medic.dilution}','${devDetails.medic.totalVolume}','${devDetails.medic.waterVolume}','${devDetails.medic.medicVolume}'"
+        ",'${devDetails.temper}','${devDetails.devTimeA}','${devDetails.devTimeB}','${devDetails.fixTime}','${devDetails.stopTime}','${devDetails.hypoTime}','${devDetails.washTime}'"
+        ",'${devDetails.medic.filmInfo.id}','${devDetails.medic.devId}','${devDetails.medic.filmInfo.brand}','${devDetails.medic.concentrate}','${devDetails.devDetailId}','${devDetails.iso}','${devDetails.note}','${devDetails.medic.diluNum}')";
+    return db.rawInsert(insert);
+  }
+    Future<bool> isFavExist(String name) async{
+    final db = await _localFavDb;
+    String query = "select favName from tblFavTimes where favName='${name}'";
+    List<Map> result = await db.rawQuery(query);
+    if(result == null || result.length == 0)
+      return false;
+    else return true;
+  }
+   Future<int> getCollectionSize(String name) async{
+    final db = await _localFavDb;
+    String query = "select favName from tblFavTimes where favName='${name}'";
+    List<Map> result = await db.rawQuery(query);
+    return result.length;
+  }
+  Future<int> getDefaultNameLength(String name) async{
+    final db = await _localFavDb;
+    String query = "select favName from tblFavTimes where favName like '${name}%'";
+    List<Map> result = await db.rawQuery(query);
+    return result.length;
+  }
+  
+  Future<List<DevDetails>> getFav(String name) async{
+    final db = await _localFavDb;
+    String query = "select * from tblFavTimes where favName='${name}'";
+    List<Map> resultList = await db.rawQuery(query);
+    List<DevDetails> favResult = new List();
+    try{
+    resultList.forEach((result){
+      FilmInfo filmInfo = new FilmInfo(result['filmBrand'],result['filmName'], result['filmISO'], result['filmType'], result['filmId']);
+      DevInfo devInfo = new DevInfo(result['devName'], result['devDilution'], result['filmId'], result['devId'], filmInfo,result['volMedic'], result['volWater'], result['volTotal'], getBool(result['concentrate']),result['dilutionNum']);
+      DevDetails details = new DevDetails(result['devDetailId'], result['pushedISO'], result['devTimeA'], result['devTimeB'], devInfo, result['filmId'], result['devTempInC'], result['notesBody'], result['fixingTimeA'], result['stopBathTime'], result['hypoClearTime'], result['washTime']);
+      favResult.add(details);
+    });}
+    catch(e){
+      print("parse db data failed! messag: "+e.toString());
+    }
+    return favResult;
+  }
+  
+//  double getDouble(dynamic vaule){
+//    return (vaule as int) == null?0:(vaule as int).toDouble();
+//  }
+//  String getString(dynamic value){
+//    return (value as String) == null?"":(value as String);
+//  }
+  bool getBool(dynamic value){
+    return (value as String) == null?false:(value as String) == "true";
+  }
+  
+
+  deleteCollect(String name) async{
+    final db = await _localFavDb;
+    String delete = "delete from tblFavTimes where favName='${name}'";
+    return db.rawQuery(delete);
   }
 
   Future<List<Map>> getFilmInfo(FilmInfo queryInfo) async {
@@ -138,8 +199,6 @@ class DbManager {
         "ZDEVELOPMENTTIME.ZDEVELOPMENTNOTESLONG "
         "from ZISO,ZDEVELOPMENTTIME where ZISO._id=ZDEVELOPMENTTIME.ZISO and ZDEVELOPMENTTIME.ZDEVELOPER=${devId}");
   }
-
-
 
 }
 

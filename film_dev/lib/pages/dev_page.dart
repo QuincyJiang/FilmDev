@@ -1,3 +1,4 @@
+import 'package:film_dev/dao/dao.dart';
 import 'package:film_dev/model/dev_detail.dart';
 import 'package:film_dev/utils/device_util.dart';
 import 'package:film_dev/widgets/count_down_widget.dart';
@@ -125,11 +126,11 @@ class _DevPageState extends State<DevPage> {
               color: widget.isDarkMode?Colors.black:Colors.yellow[900],
               child: new InkWell(
                   onTap: (){
-                    save(widget.details);
+                    showSaveDialog(context, widget.details);
                   },
                   child: Center(
                     child: Padding(padding:EdgeInsets.all(10),
-                      child: Text(isInCollection(widget.details)?"移除收藏":"添加收藏",
+                      child: Text("添加收藏",
                         style: TextStyle(
                             fontSize: Theme.of(context).textTheme.subhead.fontSize,
                             color: widget.isDarkMode? Colors.grey[900]:Colors.white
@@ -160,7 +161,7 @@ class _DevPageState extends State<DevPage> {
          }
         }
   Widget buildTimerItem(String title,String desp,int time,bool showArrow,String type){
-    return Card(elevation: 3,
+    return Card(elevation: 1,
         margin: EdgeInsets.fromLTRB(0, 10, 0, 20),
         shape: const RoundedRectangleBorder(borderRadius: BorderRadius.only(
           topLeft: Radius.circular(2.0),
@@ -177,8 +178,36 @@ class _DevPageState extends State<DevPage> {
             ]));
   }
 
-  void save(DevDetails details){
+  void save(String name,DevDetails details){
+      if(name.isEmpty){
+      DbManager.instance.getDefaultNameLength("默认收藏").then((size){
+        String defalutName = "默认收藏${size++}";
+        DbManager.instance.save(defalutName, details).then((index){
+          showInSnackBar("已加入收藏夹，文件名${defalutName}");
+        });
+      });
+      }else{
+        DbManager.instance.isFavExist(name).then((bool){
+          if(bool){
+             DbManager.instance.getCollectionSize(name).then((size){
+              String temp = name+"${size++}";
+              DbManager.instance.save(temp, details).then((index){
+                showInSnackBar("已有同名收藏文件,重命名为${temp}");
+              });
+             });
+          }else{
+            DbManager.instance.save(name, details).then((index){
+              showInSnackBar("已加入收藏夹，文件名${name}");
+            });
+          }
+        });
+      }
+  }
 
+  void showInSnackBar(String value){
+    _scaffoldKey.currentState.showSnackBar(SnackBar(
+        content: Text(value)
+    ));
   }
 
   bool isInCollection(DevDetails details){
@@ -228,6 +257,41 @@ class _DevPageState extends State<DevPage> {
                 });
               },
               validator: _validTime,
+            ),
+          ),
+          actions: <Widget>[
+            FlatButton(
+                child: const Text('取消'),
+                onPressed: () { Navigator.pop(context); }
+            ),
+            FlatButton(
+                child: const Text('确认'),
+                onPressed: () {
+                  _handleSubmitted();
+                }
+            )
+          ]
+      ),
+    );
+  }
+  void showSaveDialog(BuildContext context, DevDetails data){
+    showDialog(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+          title:  Text('输入收藏名'),
+          content:Form(
+            key: _formKey,
+            child: TextFormField(
+              decoration:InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: '为你的收藏取个名字',
+                labelText: "为你的收藏取个名字",
+              ),
+              keyboardType: TextInputType.text,
+              maxLines: 2,
+              onSaved: (value){
+                save(value,data);
+              },
             ),
           ),
           actions: <Widget>[

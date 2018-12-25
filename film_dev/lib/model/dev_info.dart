@@ -13,7 +13,7 @@ class DevInfo{
   bool concentrate = true;
 
   DevInfo(this.medicName, this.dilution, this.filmId,
-      this.devId,this.filmInfo,this.medicVolume,this.waterVolume,this.totalVolume,this.concentrate);
+      this.devId,this.filmInfo,this.medicVolume,this.waterVolume,this.totalVolume,this.concentrate,this.diluNum);
 String toString(){
   return "${medicName} ${dilution} ";
 }
