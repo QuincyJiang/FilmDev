@@ -31,13 +31,13 @@ class _DevPageState extends State<DevPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    DeviceUtil.instance.enterFullScreen();
+//    DeviceUtil.instance.enterFullScreen();
   }
   @override
   void dispose() {
     // TODO: implement dispose
     super.dispose();
-    DeviceUtil.instance.exitFullScreen();
+//    DeviceUtil.instance.exitFullScreen();
   }
   @override
   Widget build(BuildContext context) {
