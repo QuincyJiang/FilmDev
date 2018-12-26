@@ -8,8 +8,6 @@ import 'package:flare_flutter/flare_actor.dart';
 
 class DevPage extends StatefulWidget {
   final DevDetails details;
-  String anim = "enter";
-  bool isDarkMode = false;
   DevPage(this.details);
   @override
   _DevPageState createState() => _DevPageState();
@@ -26,52 +24,55 @@ class _DevPageState extends State<DevPage> {
   static const String TYPE_WASH = "水洗";
   static const String TYPE_HYPO = "去海波";
   static const String TYPE_STOP = "停显";
+  bool isDarkMode = false;
+  String anim = "enter";
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-//    DeviceUtil.instance.enterFullScreen();
   }
   @override
   void dispose() {
     // TODO: implement dispose
     super.dispose();
-//    DeviceUtil.instance.exitFullScreen();
+    DeviceUtil.instance.exitFullScreen();
   }
   @override
   Widget build(BuildContext context) {
+    DeviceUtil.instance.enterFullScreen();
     return Theme(
       data: ThemeData(
-        primaryColor:widget.isDarkMode? Colors.black:Colors.black,
-        accentColor: widget.isDarkMode?Colors.black:Colors.grey[900],
-        cardColor: widget.isDarkMode? Colors.black:Colors.grey[800],
-        scaffoldBackgroundColor:widget.isDarkMode? Colors.black:Colors.grey[850],
+        primaryColor:isDarkMode? Colors.black:Colors.black,
+        accentColor: isDarkMode?Colors.black:Colors.grey[900],
+        cardColor: isDarkMode? Colors.black:Colors.grey[800],
+        scaffoldBackgroundColor:isDarkMode? Colors.black:Colors.grey[850],
         textTheme: TextTheme(
           subhead: TextStyle(
-            color: widget.isDarkMode? Colors.grey[900]:Colors.white,
+            color: isDarkMode? Colors.grey[900]:Colors.white,
           ),
           subtitle:TextStyle(
-            color: widget.isDarkMode? Colors.grey[900]:Colors.white,
+            color: isDarkMode? Colors.grey[900]:Colors.white,
           ),
           title:TextStyle(
-            color: widget.isDarkMode? Colors.grey[900]:Colors.white,
+            color: isDarkMode? Colors.grey[900]:Colors.white,
           ),
           display1:TextStyle(
-            color: widget.isDarkMode? Colors.grey[900]:Colors.white,
+            color: isDarkMode? Colors.grey[900]:Colors.white,
           ),
           display2:TextStyle(
-            color: widget.isDarkMode? Colors.grey[900]:Colors.white,
+            color: isDarkMode? Colors.grey[900]:Colors.white,
           ),
           caption:TextStyle(
-            color: widget.isDarkMode? Colors.grey[900]:Colors.white,
+            color: isDarkMode? Colors.grey[900]:Colors.white,
           ),
         ), iconTheme: IconThemeData(
-            color: widget.isDarkMode? Colors.grey[900]:Colors.white,
+            color: isDarkMode? Colors.grey[900]:Colors.white,
       )
       ),
       child: Scaffold(
+          resizeToAvoidBottomPadding: false,
         key: _scaffoldKey,
         body: SingleChildScrollView(
             padding: EdgeInsets.fromLTRB(0.0, 30.0, 0.0, 0.0),
@@ -91,7 +92,7 @@ class _DevPageState extends State<DevPage> {
                         child:  new FlareActor("assets/light.flr",
                             alignment:Alignment.center,
                             fit:BoxFit.contain,
-                            animation:widget.anim),
+                            animation:anim),
                     ),
                           constraints:  BoxConstraints.expand(height: 150),
                         ),
@@ -108,9 +109,9 @@ class _DevPageState extends State<DevPage> {
                             ),
                             child:Center(
                               child: Padding(padding:EdgeInsets.all(10),
-                                child: Text(widget.isDarkMode?"暗房模式":"开始冲洗",
+                                child: Text(isDarkMode?"暗房模式":"开始冲洗",
                                   style: TextStyle(
-                                    color: widget.isDarkMode? Colors.grey[900]:Colors.white,
+                                    color: isDarkMode? Colors.grey[900]:Colors.white,
                                     fontSize: Theme.of(context).textTheme.subhead.fontSize
                                   ),
                                 ),
@@ -125,7 +126,7 @@ class _DevPageState extends State<DevPage> {
                         buildTimerItem("水洗", "使用流动清水持续冲洗", widget.details.washTime,true,TYPE_WASH),
                         buildTimerItem("稳定", "使用水滴斑防止液稳定您的底片", 60,false,""),
             new Material(
-              color: widget.isDarkMode?Colors.black:Colors.yellow[900],
+              color: isDarkMode?Colors.black:Colors.yellow[900],
               child: new InkWell(
                   onTap: (){
                     showSaveDialog(context, widget.details);
@@ -135,7 +136,7 @@ class _DevPageState extends State<DevPage> {
                       child: Text("添加收藏",
                         style: TextStyle(
                             fontSize: Theme.of(context).textTheme.subhead.fontSize,
-                            color: widget.isDarkMode? Colors.grey[900]:Colors.white
+                            color: isDarkMode? Colors.grey[900]:Colors.white
                         ),
                       ),
                     ),
@@ -150,15 +151,15 @@ class _DevPageState extends State<DevPage> {
         )));}
 
         void processAnim(){
-         if(widget.isDarkMode){
+         if(isDarkMode){
            setState(() {
-             widget.anim = ANIM_ON;
-             widget.isDarkMode = false;
+             anim = ANIM_ON;
+             isDarkMode = false;
            });
          }else{
            setState(() {
-             widget.anim = ANIM_OFF;
-             widget.isDarkMode = true;
+             anim = ANIM_OFF;
+             isDarkMode = true;
            });
          }
         }
@@ -208,9 +209,13 @@ class _DevPageState extends State<DevPage> {
 
   void showInSnackBar(String value){
     _scaffoldKey.currentState.showSnackBar(SnackBar(
-        content: Text(value),
+        content: Text(value,
+        style: TextStyle(
+          color: isDarkMode? Colors.grey[900]:Colors.white
+        ),
+        ),
       action: SnackBarAction(
-        textColor: widget.isDarkMode? Colors.grey[900]:Colors.white,
+        textColor: isDarkMode? Colors.grey[900]:Colors.white,
           label: "查看", onPressed: (){
         goToCollectionPage();
       }),
@@ -349,7 +354,7 @@ class _DevPageState extends State<DevPage> {
   Widget buildConfirmItem(String title,String desc,bool showArrow,String type){
     if(showArrow){
       return  Material(
-        color: widget.isDarkMode?Colors.black:Colors.grey[800],
+        color: isDarkMode?Colors.black:Colors.grey[800],
         child: new InkWell(
             onTap: (){
               showTimerConfigDialog(context,widget.details,type);
@@ -362,7 +367,7 @@ class _DevPageState extends State<DevPage> {
                     title: Text(title),
                     subtitle: Text(desc),
                     trailing: showArrow?Icon(Icons.arrow_right,
-                    color: widget.isDarkMode? Colors.grey[900]:Colors.white,):Container(height: 0,width: 0,),
+                    color: isDarkMode? Colors.grey[900]:Colors.white,):Container(height: 0,width: 0,),
                   ),
                 )
             )
