@@ -28,6 +28,7 @@ class _SplashWidget2State extends State<SplashWidget2> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomPadding: false,
         body: Stack(
       children: <Widget>[
         ConstrainedBox(
