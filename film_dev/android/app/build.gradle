@@ -21,6 +21,41 @@ if (flutterVersionName == null) {
     flutterVersionName = '1.0'
 }
 
+def getGitTag = {->
+    def cmd = "git describe --tags --abbrev=0"
+    return cmd.execute().text.trim()
+}
+
+
+def getVersionTag = { ->
+    def tag = getGitTag()
+    if(tag.startsWith("v") || tag.startsWith("V")){
+        tag = tag.substring(1)
+    }
+    if(tag == null || tag.equals("")){
+        tag = "1.0"
+    }
+    return tag
+}
+def getVersionCode = {->
+    def cmd = "git rev-list HEAD --first-parent --count"
+    return cmd.execute().text.trim().toInteger()
+}
+
+
+// versionName 增加最后一笔提交code 方便回滚定位问题
+def getVersionName = { ->
+
+    def cmd = "git rev-parse --short HEAD"
+    def commit = cmd.execute().text.trim().toString()
+    return getVersionTag()+"."+getVersionCode()+"-"+commit
+}
+
+
+def buildTime(){
+    return new Date().format("yyyy-MM-dd")
+}
+
 apply plugin: 'com.android.application'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
@@ -32,20 +67,23 @@ android {
     }
 
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.jiangxq.filmdev"
         minSdkVersion 16
         targetSdkVersion 27
-        versionCode flutterVersionCode.toInteger()
-        versionName flutterVersionName
+        versionCode getVersionCode()
+        versionName getVersionName()
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig signingConfigs.debug
+            buildConfigField("boolean", "API_ENV", "true")
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            buildConfigField("boolean", "API_ENV", "false")
+            minifyEnabled false
         }
     }
     compileOptions {
