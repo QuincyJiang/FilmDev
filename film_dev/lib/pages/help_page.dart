@@ -32,8 +32,7 @@ class _HelpPageState extends State<HelpPage> {
           child: ListTile(
             dense: false,
             title: Text('如何使用'),
-            subtitle: Text("\从第一屏开始，逐一选择胶片型号、冲洗药水、目标ISO，即可查询出对应的显影时间。"
-                "\n当胶卷参数有更新时,下方的查询结果会实时更新,点击对应的条目，即可跳转到药水选择页面。"),
+            subtitle: Text("\n在首页查找胶片型号，点击后选择冲洗药水，设定目标ISO，即可查询出对应的显影时间。"),
           ),
         ),
       ),
