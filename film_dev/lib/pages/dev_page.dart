@@ -1,5 +1,6 @@
 import 'package:film_dev/dao/dao.dart';
 import 'package:film_dev/model/dev_detail.dart';
+import 'package:film_dev/pages/collection_page.dart';
 import 'package:film_dev/utils/device_util.dart';
 import 'package:film_dev/widgets/count_down_widget.dart';
 import 'package:flutter/material.dart';
@@ -107,7 +108,7 @@ class _DevPageState extends State<DevPage> {
                             ),
                             child:Center(
                               child: Padding(padding:EdgeInsets.all(10),
-                                child: Text(widget.isDarkMode?"暗房模式":"明室冲洗",
+                                child: Text(widget.isDarkMode?"暗房模式":"开始冲洗",
                                   style: TextStyle(
                                     color: widget.isDarkMode? Colors.grey[900]:Colors.white,
                                     fontSize: Theme.of(context).textTheme.subhead.fontSize
@@ -120,8 +121,9 @@ class _DevPageState extends State<DevPage> {
                         (widget.details.devTimeB == 0)?Container(height: 0,width: 0,):buildTimerItem("显影B", "点击开启计时，长按重置计时器", widget.details.devTimeB,false,""),
                         buildTimerItem("停显", "停显时间请参考您使用的停显液", widget.details.stopTime,true,TYPE_STOP),
                         buildTimerItem("定影", "定影时间请参考您使用的定影液", widget.details.fixTime,true,TYPE_FIX),
-                        buildTimerItem("去海波", "防止片基出现水渍 并稳定您的底片", widget.details.hypoTime, true,TYPE_HYPO),
+                        buildTimerItem("去海波", "使用特定的海波清洗液去除残存海波", widget.details.hypoTime, true,TYPE_HYPO),
                         buildTimerItem("水洗", "使用流动清水持续冲洗", widget.details.washTime,true,TYPE_WASH),
+                        buildTimerItem("稳定", "使用水滴斑防止液稳定您的底片", 60,false,""),
             new Material(
               color: widget.isDarkMode?Colors.black:Colors.yellow[900],
               child: new InkWell(
@@ -206,8 +208,18 @@ class _DevPageState extends State<DevPage> {
 
   void showInSnackBar(String value){
     _scaffoldKey.currentState.showSnackBar(SnackBar(
-        content: Text(value)
+        content: Text(value),
+      action: SnackBarAction(
+        textColor: widget.isDarkMode? Colors.grey[900]:Colors.white,
+          label: "查看", onPressed: (){
+        goToCollectionPage();
+      }),
     ));
+  }
+
+  void goToCollectionPage(){
+    Navigator.of(_scaffoldKey.currentState.context).push(new MaterialPageRoute(
+        builder: (BuildContext context) => CollectionPage()));
   }
 
   bool isInCollection(DevDetails details){

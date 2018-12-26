@@ -41,10 +41,14 @@ class AboutPage extends StatelessWidget {
                         ),
                         Center(
                           child: Padding(padding:EdgeInsets.all(20),
-                            child: Text("这是一款给喜欢手工黑白暗房技术的朋友提供的冲洗数据库小工具。\n\n"
-                                "使用了FLutter的跨平台开发方案，所有交互动画均使用https://www.2dimensions.com/的flare工具制作。\n\n"
-                                "数据抓取自 https://www.digitaltruth.com/ \n"
-                                "仅限个人交流和使用，严谨用于商业用途。\n",
+                            child: Text("这是一款给喜欢手工冲洗黑白胶片的朋友提供的冲洗小工具。囊括了主流胶片的冲洗数据，希望可以帮到你。\n\n"
+                                "App使用基于Flutter的跨平台开发技术，保证安卓和IOS有一致的体验，所有交互动画均使用2dimensions的flare工具制作。\n\n"
+                                "\n\n反馈问题给我:"
+                                "\nEmail:1083873272@qq.com"
+                                "\nWechat: jxq19930625"
+                                "\n\n 感谢："
+                                "\n https://www.2dimensions.com/"
+                                "\n https://www.digitaltruth.com/",
                               style: TextStyle(
                                 fontSize: Theme.of(context).textTheme.subhead.fontSize,
                               ),

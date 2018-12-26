@@ -174,13 +174,13 @@ class _ConfirmPageState extends State<ConfirmPage> {
     showDialog(
       context: context,
       builder: (BuildContext context) => AlertDialog(
-          title: const Text('要配置多少工作液？'),
+          title: const Text('要配制多少工作液？'),
           content:Form(
           key: _formKey,
             child: TextFormField(
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
-                hintText: '配置你需要的工作液容量',
+                hintText: '配制你需要的工作液容量',
                 labelText: '工作液',
               ),
               keyboardType: TextInputType.numberWithOptions(decimal: true),

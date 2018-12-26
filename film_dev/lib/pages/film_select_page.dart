@@ -46,77 +46,106 @@ class _FilmSelectPageState extends State<FilmSelectPage> with TickerProviderStat
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: _scaffoldKey,
-      body: BlocProvider(
-        bloc: FilmInfoBloc(),
-        child:BlocFilmSelectPage(),
-      ),
-      drawer: Drawer(
-        child: Column(
-          children: <Widget>[
-            DrawerHeader(
-              child: Container(
-                child: new FlareActor("assets/title.flr",
-                    alignment:Alignment.center,
-                    fit:BoxFit.contain,
-                    animation:"enter"),
-                constraints:  BoxConstraints.expand(height: 150),
-              ),
-            ),
-            MediaQuery.removePadding(
-              context: context,
-              // DrawerHeader consumes top MediaQuery padding.
-              removeTop: true,
-              child: Expanded(
-                child: ListView(
-                  padding: const EdgeInsets.all(8.0),
-                  children: <Widget>[
-                    Stack(
-                      children: <Widget>[
-                        // The initial contents of the drawer.
-                        FadeTransition(
-                          opacity: _drawerContentsOpacity,
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: <Widget>[
-                              ListTile(
-                                leading: const Icon(Icons.favorite),
-                                title: const Text('我的收藏'),
-                                onTap: toCollectionPage,
-                              ),
-                              ListTile(
-                                leading: const Icon(Icons.help),
-                                title: const Text('帮助'),
-                                onTap: toHelpPage,
-                              ),
-                              ListTile(
-                                leading: const Icon(Icons.info),
-                                title: const Text('关于'),
-                                onTap: toAboutPage,
-                              ),
-                              ListTile(
-                                leading: const Icon(Icons.camera),
-                                title: const Text('Tips'),
-                                onTap: toTipsPage,
-                              ),
-                              ListTile(
-                                leading: const Icon(Icons.monetization_on),
-                                title: const Text('捐赠'),
-                                onTap: toDonatePage,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
+    return WillPopScope(
+      child: Scaffold(
+        key: _scaffoldKey,
+        body: BlocProvider(
+          bloc: FilmInfoBloc(),
+          child:BlocFilmSelectPage(),
+        ),
+        drawer: Drawer(
+          child: Column(
+            children: <Widget>[
+              DrawerHeader(
+                child: Container(
+                  child: new FlareActor("assets/title.flr",
+                      alignment:Alignment.center,
+                      fit:BoxFit.contain,
+                      animation:"enter"),
+                  constraints:  BoxConstraints.expand(height: 150),
                 ),
               ),
-            ),
-          ],
+              MediaQuery.removePadding(
+                context: context,
+                // DrawerHeader consumes top MediaQuery padding.
+                removeTop: true,
+                child: Expanded(
+                  child: ListView(
+                    padding: const EdgeInsets.all(8.0),
+                    children: <Widget>[
+                      Stack(
+                        children: <Widget>[
+                          // The initial contents of the drawer.
+                          FadeTransition(
+                            opacity: _drawerContentsOpacity,
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: <Widget>[
+                                ListTile(
+                                  leading: const Icon(Icons.favorite),
+                                  title: const Text('我的收藏'),
+                                  onTap: toCollectionPage,
+                                ),
+                                ListTile(
+                                  leading: const Icon(Icons.help),
+                                  title: const Text('帮助'),
+                                  onTap: toHelpPage,
+                                ),
+                                ListTile(
+                                  leading: const Icon(Icons.info),
+                                  title: const Text('关于'),
+                                  onTap: toAboutPage,
+                                ),
+                                ListTile(
+                                  leading: const Icon(Icons.camera),
+                                  title: const Text('Tips'),
+                                  onTap: toTipsPage,
+                                ),
+                                ListTile(
+                                  leading: const Icon(Icons.monetization_on),
+                                  title: const Text('捐赠'),
+                                  onTap: toDonatePage,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
+      ),
+      onWillPop: (){
+        return showDeleteConfigDialog(context);
+      }
+    );
+
+
+  }
+
+  Future<bool> showDeleteConfigDialog(BuildContext context){
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+          title: const Text('要退出吗？'),
+          actions: <Widget>[
+            FlatButton(
+                child: const Text('取消'),
+                onPressed: () { Navigator.pop(context); }
+            ),
+            FlatButton(
+                child: const Text('确认'),
+                onPressed: () {
+                  Navigator.pop(context);
+                  Navigator.of(context).pop(true);
+                }
+            )
+          ]
       ),
     );
   }
