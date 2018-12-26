@@ -32,6 +32,7 @@ build/
 **/android/**/gradle-wrapper.jar
 **/android/.gradle
 **/android/captures/
+**/android/app/release/*
 **/android/gradlew
 **/android/gradlew.bat
 **/android/local.properties
