@@ -11,6 +11,7 @@ import 'package:film_dev/providers/bloc_provider.dart';
 import 'package:flutter/material.dart';
 import 'dart:core';
 import 'package:flare_flutter/flare_actor.dart';
+import 'dart:io';
 
 typedef ConfigItemBodyBuilder<T> = Widget Function(ConfigItem<T> item);
 typedef ValueToString<T> = String Function(T value);
@@ -142,7 +143,7 @@ class _FilmSelectPageState extends State<FilmSelectPage> with TickerProviderStat
                 child: const Text('确认'),
                 onPressed: () {
                   Navigator.pop(context);
-                  Navigator.of(context).pop(true);
+                  exit(0);
                 }
             )
           ]
