@@ -140,7 +140,7 @@ class DbManager {
     catch(e){
       print("parse db data failed! messag: "+e.toString());
     }
-    await Future<int>.delayed(Duration(milliseconds: 500));
+    await Future<int>.delayed(Duration(milliseconds: 200));
     return favResult;
   }
 
@@ -177,13 +177,13 @@ class DbManager {
   Future<List<Map>> getDevInfo(FilmInfo queryInfo) async {
     final db = await _localDevDb;
     int filmId = queryInfo.id;
-    await Future<int>.delayed(Duration(milliseconds: 800));
+    await Future<int>.delayed(Duration(milliseconds: 200));
     return await db.rawQuery("Select * from ZDEVELOPER where ZFILM = ${filmId} ORDER BY ZDEVELOPERNAME");
   }
   Future<List<Map>> getDevDetails(DevInfo queryInfo) async {
     final db = await _localDevDb;
     int devId = queryInfo.devId;
-    await Future<int>.delayed(Duration(milliseconds: 800));
+    await Future<int>.delayed(Duration(milliseconds: 200));
     return await db.rawQuery("select ZISO.ZISO,"
         "ZDEVELOPMENTTIME.ZDEVELOPMENTTIMEA,"
         "ZDEVELOPMENTTIME._id,"
