@@ -41,8 +41,8 @@ class AboutPage extends StatelessWidget {
                         ),
                         Center(
                           child: Padding(padding:EdgeInsets.all(20),
-                            child: Text("这是一款给喜欢手工冲洗黑白胶片的朋友提供的冲洗小工具。囊括了主流胶片的冲洗数据，希望可以帮到你。\n\n"
-                                "App使用基于Flutter的跨平台开发技术，保证安卓和IOS有一致的体验，所有交互动画均使用2dimensions的flare工具制作。\n\n"
+                            child: Text("这是一款提供给黑白暗房技术爱好者的冲洗小工具。囊括了主流胶片的冲洗数据，希望可以帮到你。\n\n"
+                                "App使用基于Flutter的跨平台开发技术，保证安卓和IOS有一致的体验，所有交互动画均使用2dimensions的Flare工具制作。\n\n"
                                 "\n\n反馈问题给我:"
                                 "\nEmail:1083873272@qq.com"
                                 "\nWechat: jxq19930625"
