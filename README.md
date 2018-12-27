@@ -9,7 +9,6 @@
 
 ![videotogif_2018.12.27_15.56.42](art/videotogif_2018.12.27_15.56.42.gif)
 ![videotogif_2018.12.27_15.57.55](art/videotogif_2018.12.27_15.57.55.gif)![videotogif_2018.12.22_20.16.07](art/videotogif_2018.12.22_20.16.07.gif)![videotogif_2018.12.27_15.59.12](art/videotogif_2018.12.27_15.59.12-1.gif)
-
 ![videotogif_2018.12.27_16.00.10](art/videotogif_2018.12.27_16.00.10.gif)
 ![videotogif_2018.12.27_16.01.13](art/videotogif_2018.12.27_16.01.13.gif)
 
