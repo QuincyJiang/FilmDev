@@ -46,9 +46,9 @@ class AboutPage extends StatelessWidget {
                                 "\n\n反馈问题给我:"
                                 "\nEmail:1083873272@qq.com"
                                 "\nWechat: jxq19930625"
-                                "\n\n 感谢："
-                                "\n https://www.2dimensions.com/"
-                                "\n https://www.digitaltruth.com/",
+                                "\n\n感谢："
+                                "\nhttps://www.2dimensions.com/"
+                                "\nhttps://www.digitaltruth.com/",
                               style: TextStyle(
                                 fontSize: Theme.of(context).textTheme.subhead.fontSize,
                               ),

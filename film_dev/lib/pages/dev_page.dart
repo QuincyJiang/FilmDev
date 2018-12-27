@@ -118,7 +118,8 @@ class _DevPageState extends State<DevPage> {
                               ),
                             )
                         ),
-                        buildTimerItem("显影A", "前一分钟持续搅拌，之后每分钟开始时搅拌5-10s", widget.details.devTimeA,false,""),
+                        buildTimerItem("显影A", "前一分钟持续搅拌，之后每分钟开始时搅拌5-10s\n"
+                            "其他说明:\n ${widget.details.note}", widget.details.devTimeA,false,""),
                         (widget.details.devTimeB == 0)?Container(height: 0,width: 0,):buildTimerItem("显影B", "点击开启计时，长按重置计时器", widget.details.devTimeB,false,""),
                         buildTimerItem("停显", "停显时间请参考您使用的停显液", widget.details.stopTime,true,TYPE_STOP),
                         buildTimerItem("定影", "定影时间请参考您使用的定影液", widget.details.fixTime,true,TYPE_FIX),
