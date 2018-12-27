@@ -1,9 +1,44 @@
-# film_dev
+# FilmDev
 
 ## 概述
 这是一款使用`Flutter`开发的胶片冲洗小工具
 
-采用`Bloc`模式开发，`Bloc`是一种类似`RxJava`的订阅者模式，可以将逻辑代码与UI代码隔离开从而实现更好的解耦
+采用`Bloc`模式开发，`Bloc`是一种类似`RxJava`的订阅者模式，可以将逻辑代码与UI代码隔离开从而实现更好的解耦.
+
+使用了[2dimension](https://www.2dimensions.com/)的Flare工具制作过场动画
+
+![videotogif_2018.12.27_15.56.42](art/videotogif_2018.12.27_15.56.42.gif)
+![videotogif_2018.12.27_15.57.55](art/videotogif_2018.12.27_15.57.55.gif)![videotogif_2018.12.22_20.16.07](art/videotogif_2018.12.22_20.16.07.gif)![videotogif_2018.12.27_15.59.12](art/videotogif_2018.12.27_15.59.12-1.gif)
+
+![videotogif_2018.12.27_16.00.10](art/videotogif_2018.12.27_16.00.10.gif)
+![videotogif_2018.12.27_16.01.13](art/videotogif_2018.12.27_16.01.13.gif)
+
+## 迭代日志：
+>
+###  **1.0.46**
+已上架酷安 欢迎下载体验
+[FilmDev](https://www.coolapk.com/apk/com.jiangxq.filmdev)
+#### Feature：
+* 支持多种型号的底片
+* 支持查询迫冲数据
+* 支持自定义冲洗时间
+* 冲洗计时器支持暗房模式
+* 支持收藏夹功能
+>
+### **1.0.47**
+#### BugFix：
+* 修正冲洗计时器暗房模式中弹出Dialog时暗房模式失效
+* 暗房模式采用沉浸式设计，隐藏状态栏和导航栏
+>
+### **1.0.x**
+#### TODO:
+* 增加应用内更新，以支持灰度发布 ✅
+* 增加分享功能 ✅
+* 支持更多底片 
+* 药液选择页面优化 
+
+
+
 ## 项目结构
 ### `/bloc`
 `bloc`组件 
