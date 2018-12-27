@@ -13,6 +13,8 @@ import 'dart:core';
 import 'package:flare_flutter/flare_actor.dart';
 import 'dart:io';
 
+import 'package:flutter/services.dart';
+
 typedef ConfigItemBodyBuilder<T> = Widget Function(ConfigItem<T> item);
 typedef ValueToString<T> = String Function(T value);
 
@@ -25,6 +27,7 @@ class _FilmSelectPageState extends State<FilmSelectPage> with TickerProviderStat
   AnimationController _controller;
   Animation<double> _drawerContentsOpacity;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  static const platform = const MethodChannel('com.jiangxq.filmdev/menu');
   @override
   void initState() {
     // TODO: implement initState
@@ -107,6 +110,15 @@ class _FilmSelectPageState extends State<FilmSelectPage> with TickerProviderStat
                                   leading: const Icon(Icons.monetization_on),
                                   title: const Text('捐赠'),
                                   onTap: toDonatePage,
+                                ),ListTile(
+                                  leading: const Icon(Icons.share),
+                                  title: const Text('分享'),
+                                  onTap: shareApp,
+                                ),
+                                ListTile(
+                                  leading: const Icon(Icons.update),
+                                  title: const Text('更新'),
+                                  onTap: checkUpdate,
                                 ),
                               ],
                             ),
@@ -125,8 +137,14 @@ class _FilmSelectPageState extends State<FilmSelectPage> with TickerProviderStat
         return showDeleteConfigDialog(context);
       }
     );
+  }
 
 
+  void shareApp(){
+    platform.invokeMethod("shareApp");
+  }
+  void checkUpdate(){
+    platform.invokeMethod("checkUpdate");
   }
 
   Future<bool> showDeleteConfigDialog(BuildContext context){

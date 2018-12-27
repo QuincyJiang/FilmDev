@@ -1,6 +1,7 @@
 package com.jiangxq.filmdev;
 
 import com.tencent.bugly.Bugly;
+import com.tencent.bugly.beta.Beta;
 
 import io.flutter.app.FlutterApplication;
 
@@ -17,6 +18,7 @@ public class App extends FlutterApplication {
         initBugly();
     }
     void initBugly(){
+        Beta.autoCheckUpgrade = false;
         Bugly.init(getApplicationContext(), "9af98f9c4f", false);
     }
 }
