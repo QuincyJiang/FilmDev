@@ -66,6 +66,31 @@ class FilmInfoBloc implements IBlocBase{
       showEmpty();
     });
   }
+  // 查询数据接口
+  void queryAllFilm() async {
+    updateQueryAnim(LoadingAnimAction(null, "loading", true));
+    DbManager.instance.getAllFilmInfo().then((List<Map> films){
+      List<FilmInfo> queryResults = new List();
+      if(films == null || films.length == 0){
+        showEmpty();
+        return;
+      }
+      try{
+        for (var value in films) {
+          queryResults.add(FilmInfo.fromMap(value));
+        }
+      } catch(e){
+        showLoadErrorAnim();
+        return;
+      }
+      showLoadFinishAnim(queryResults);
+    }).catchError((){
+      showLoadErrorAnim();
+    }).timeout(Duration(seconds: 4),onTimeout:(){
+      showEmpty();
+    });
+  }
+
   void updateTitleAnim(String anim){
     _inTitleAnim.add(anim);
   }

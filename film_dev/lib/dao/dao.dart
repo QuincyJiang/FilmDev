@@ -173,6 +173,11 @@ class DbManager {
     await Future<int>.delayed(Duration(milliseconds: 200));
     return db.rawQuery("Select * from ZFILM where ZFILMTYPE = ${type} AND ZFILMBRAND = '${brand}' AND ZFILMISO = ${iso}");
   }
+  Future<List<Map>> getAllFilmInfo() async {
+    final db = await _localDevDb;
+    await Future<int>.delayed(Duration(milliseconds: 200));
+    return db.rawQuery("Select * from ZFILM ");
+  }
 
   Future<List<Map>> getDevInfo(FilmInfo queryInfo) async {
     final db = await _localDevDb;

@@ -2,6 +2,7 @@ import 'package:film_dev/bloc/film_brand_bloc.dart';
 import 'package:film_dev/model/anim_action.dart';
 import 'package:film_dev/model/film_info.dart';
 import 'package:film_dev/pages/about_page.dart';
+import 'package:film_dev/pages/all_films_page.dart';
 import 'package:film_dev/pages/collection_page.dart';
 import 'package:film_dev/pages/dev_medic_select_page.dart';
 import 'package:film_dev/pages/donate_page.dart';
@@ -482,22 +483,30 @@ class _BlocFilmSelectPageState extends State<BlocFilmSelectPage> {
             margin: const EdgeInsets.fromLTRB(24,0,24.0,10),
             child: Column(
               children: <Widget>[
-            StreamBuilder<String>(
-            stream: infoBloc.outTitleAnim,
-                initialData: "enter",
-                builder: (BuildContext context,AsyncSnapshot<String> snapshot){
-                  return Container(
-                    child: new FlareActor("assets/film.flr",
-                        alignment:Alignment.center,
-                        fit:BoxFit.contain,
-                        callback: (status){
-                          // 入场动画播放完毕后就开始播放水波纹动画
-                          infoBloc.updateTitleAnim("jump");
-                        },
-                        animation:"${snapshot.data}"),
-                    constraints:  BoxConstraints.expand(height: 150),
-                  );
-                }),
+                Stack(
+                  children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                      child: Icon(Icons.menu),
+                    ),
+                    StreamBuilder<String>(
+                        stream: infoBloc.outTitleAnim,
+                        initialData: "enter",
+                        builder: (BuildContext context,AsyncSnapshot<String> snapshot){
+                          return Container(
+                            child: new FlareActor("assets/film.flr",
+                                alignment:Alignment.center,
+                                fit:BoxFit.contain,
+                                callback: (status){
+                                  // 入场动画播放完毕后就开始播放水波纹动画
+                                  infoBloc.updateTitleAnim("jump");
+                                },
+                                animation:"${snapshot.data}"),
+                            constraints:  BoxConstraints.expand(height: 150),
+                          );
+                        }),
+                  ],
+                ),
             Card(
                 elevation: 1,
                 margin: EdgeInsets.fromLTRB(0,10,0,10),
@@ -531,6 +540,39 @@ class _BlocFilmSelectPageState extends State<BlocFilmSelectPage> {
                           body: item.build()
                       );
                     }).toList()
+                ),
+                Card(
+                    elevation: 1,
+                    margin: EdgeInsets.fromLTRB(0,10,0,20),
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(2.0),
+                        topRight: Radius.circular(2.0),
+                        bottomLeft: Radius.circular(2.0),
+                        bottomRight: Radius.circular(2.0),
+                      ),
+                    ),
+                    child: Material(
+                        color: Colors.grey[800],
+                        child: new InkWell(
+                          onTap: (){
+                            toMorePage();
+                          },
+                          child:  MergeSemantics(
+                              child: Padding(
+                                padding: EdgeInsets.fromLTRB(8, 0.0, 0.0, 0.0),
+                                child: Center(
+                                  child: Padding(padding:EdgeInsets.all(10),
+                                    child: Text("查看更多",
+                                      style: TextStyle(
+                                          fontSize: Theme.of(context).textTheme.subhead.fontSize
+                                      ),),
+                                  ),
+                                ),
+                              )
+                          ),
+                        )
+                    )
                 ),
             StreamBuilder<LoadingAnimAction>(
                 stream: infoBloc.outLoadingStatus,
@@ -656,6 +698,10 @@ class _BlocFilmSelectPageState extends State<BlocFilmSelectPage> {
   toSelectResultPage(FilmInfo info) {
     Navigator.of(_scaffoldKey.currentState.context).push(new MaterialPageRoute(
         builder: (BuildContext context) => DevMedicSelectPage(info)));
+  }
+  toMorePage(){
+    Navigator.of(_scaffoldKey.currentState.context).push(new MaterialPageRoute(
+        builder: (BuildContext context) => AllFilmSelectPage()));
   }
 
 // 处理滑块选择的iso值 滑块选择的值是连续的 但是可用的iso只有一些特定值 对这些连续值做一下处理
