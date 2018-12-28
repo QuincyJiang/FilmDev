@@ -1,9 +1,11 @@
+import 'dart:collection';
 import 'package:film_dev/bloc/film_brand_bloc.dart';
 import 'package:film_dev/model/anim_action.dart';
 import 'package:film_dev/model/dev_info.dart';
 import 'package:film_dev/model/film_info.dart';
 import 'package:film_dev/pages/dev_medic_select_page.dart';
 import 'package:film_dev/providers/bloc_provider.dart';
+import 'package:film_dev/widgets/entry_item.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 
@@ -73,10 +75,10 @@ class _BlocAllFilmPageState extends State<BlocAllFilmPage> {
                         ),
                       )
                   ),
-                  StreamBuilder<LoadingAnimAction>(
-                      stream: devBloc.outLoadingStatus,
-                      initialData: LoadingAnimAction.empty(),
-                      builder: (BuildContext context,AsyncSnapshot<LoadingAnimAction> snapshot){
+                  StreamBuilder<FilmInfoListLoadingAnimAction>(
+                      stream: devBloc.outLoadingAnim,
+                      initialData: FilmInfoListLoadingAnimAction.empty(),
+                      builder: (BuildContext context,AsyncSnapshot<FilmInfoListLoadingAnimAction> snapshot){
                         if(snapshot.data.loading){
                           return  buildLoadingView(devBloc,snapshot,);
                         }else{
@@ -98,7 +100,7 @@ class _BlocAllFilmPageState extends State<BlocAllFilmPage> {
   }
 
   // 展示加载中的动画
-  Widget buildLoadingView(FilmInfoBloc infoBloc,AsyncSnapshot<LoadingAnimAction> snapshot){
+  Widget buildLoadingView(FilmInfoBloc infoBloc,AsyncSnapshot<FilmInfoListLoadingAnimAction> snapshot){
     return Padding(padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
       child: GestureDetector(child: Container(child: new FlareActor(
           "assets/loading.flr", alignment: Alignment.center,
@@ -115,7 +117,7 @@ class _BlocAllFilmPageState extends State<BlocAllFilmPage> {
     return Container(width: 0,height: 0,);
   }
   // 展示查询结果
-  Widget buildLoadingResultView(FilmInfoBloc infoBloc,AsyncSnapshot<LoadingAnimAction> snapshot){
+  Widget buildLoadingResultView(FilmInfoBloc infoBloc,AsyncSnapshot<FilmInfoListLoadingAnimAction> snapshot){
     if(snapshot.data.data.length == 0){
       return buildEmptyPage();
     }
@@ -136,33 +138,27 @@ class _BlocAllFilmPageState extends State<BlocAllFilmPage> {
     );
   }
 
-  Widget buildFilmInfo(BuildContext context, List<FilmInfo> datas){
-    Iterable<Widget> listTiles = datas.map<Widget>((FilmInfo item) => buildItem(context, item));
-    listTiles = ListTile.divideTiles(context: context, tiles: listTiles);
+  Widget buildFilmInfo(BuildContext context, LinkedHashMap<String,List<FilmInfo>> datas){
+    List<Widget> listTiles = buildItems(datas);
+//    listTiles = ListTile.divideTiles(context: context, tiles: listTiles);
     return Scrollbar(
         child: ListView.builder(
-            itemBuilder: (context,i){
-              return listTiles.toList()[i];},
+            itemBuilder: (context,i) {
+              return listTiles[i];
+              },
             itemCount: datas.length));
   }
-  Widget buildItem(BuildContext context,FilmInfo info){
-    return Material(
-        color: Colors.grey[800],
-        child: new InkWell(
-          onTap: (){
-            toSelectResultPage(info);
-          },
-          child:  MergeSemantics(
-              child: Padding(
-                padding: EdgeInsets.fromLTRB(8, 0.0, 0.0, 0.0),
-                child: ListTile(
-                  dense: false,
-                  title: Text('${info.brand}  ${info.name}'),
-                  subtitle: Text("Format: ${info.type} ISO: ${info.iso}"),
-                ),)
-          ),
-        )
-    );
+  List<Widget> buildItems(LinkedHashMap<String,List<FilmInfo>> datas){
+    List<Widget> listTiles = List();
+    datas.forEach((key,value){
+      List<Entry> children = new List();
+      value.forEach((film){
+        children.add(Entry(film,null));
+      });
+      Entry root = Entry(FilmInfo.fromName(key),children);
+      listTiles.add(EntryItem(root));
+    });
+    return listTiles;
   }
   // 去下一页
   toSelectResultPage(FilmInfo info) {

@@ -89,8 +89,13 @@ class _FilmSelectPageState extends State<FilmSelectPage> with TickerProviderStat
                               children: <Widget>[
                                 ListTile(
                                   leading: const Icon(Icons.favorite),
-                                  title: const Text('我的收藏'),
+                                  title: const Text('收藏'),
                                   onTap: toCollectionPage,
+                                ),
+                                ListTile(
+                                  leading: const Icon(Icons.folder_open),
+                                  title: const Text('更多'),
+                                  onTap: toMorePage,
                                 ),
                                 ListTile(
                                   leading: const Icon(Icons.help),
@@ -98,14 +103,14 @@ class _FilmSelectPageState extends State<FilmSelectPage> with TickerProviderStat
                                   onTap: toHelpPage,
                                 ),
                                 ListTile(
-                                  leading: const Icon(Icons.info),
-                                  title: const Text('关于'),
-                                  onTap: toAboutPage,
-                                ),
-                                ListTile(
                                   leading: const Icon(Icons.camera),
                                   title: const Text('Tips'),
                                   onTap: toTipsPage,
+                                ),
+                                ListTile(
+                                  leading: const Icon(Icons.info),
+                                  title: const Text('关于'),
+                                  onTap: toAboutPage,
                                 ),
                                 ListTile(
                                   leading: const Icon(Icons.monetization_on),
@@ -146,6 +151,10 @@ class _FilmSelectPageState extends State<FilmSelectPage> with TickerProviderStat
   }
   void checkUpdate(){
     platform.invokeMethod("checkUpdate");
+  }
+  toMorePage(){
+    Navigator.of(_scaffoldKey.currentState.context).push(new MaterialPageRoute(
+        builder: (BuildContext context) => AllFilmSelectPage()));
   }
 
   Future<bool> showDeleteConfigDialog(BuildContext context){
@@ -541,39 +550,6 @@ class _BlocFilmSelectPageState extends State<BlocFilmSelectPage> {
                       );
                     }).toList()
                 ),
-                Card(
-                    elevation: 1,
-                    margin: EdgeInsets.fromLTRB(0,10,0,20),
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(2.0),
-                        topRight: Radius.circular(2.0),
-                        bottomLeft: Radius.circular(2.0),
-                        bottomRight: Radius.circular(2.0),
-                      ),
-                    ),
-                    child: Material(
-                        color: Colors.grey[800],
-                        child: new InkWell(
-                          onTap: (){
-                            toMorePage();
-                          },
-                          child:  MergeSemantics(
-                              child: Padding(
-                                padding: EdgeInsets.fromLTRB(8, 0.0, 0.0, 0.0),
-                                child: Center(
-                                  child: Padding(padding:EdgeInsets.all(10),
-                                    child: Text("查看更多",
-                                      style: TextStyle(
-                                          fontSize: Theme.of(context).textTheme.subhead.fontSize
-                                      ),),
-                                  ),
-                                ),
-                              )
-                          ),
-                        )
-                    )
-                ),
             StreamBuilder<LoadingAnimAction>(
                 stream: infoBloc.outLoadingStatus,
                 initialData: LoadingAnimAction.empty(),
@@ -699,10 +675,7 @@ class _BlocFilmSelectPageState extends State<BlocFilmSelectPage> {
     Navigator.of(_scaffoldKey.currentState.context).push(new MaterialPageRoute(
         builder: (BuildContext context) => DevMedicSelectPage(info)));
   }
-  toMorePage(){
-    Navigator.of(_scaffoldKey.currentState.context).push(new MaterialPageRoute(
-        builder: (BuildContext context) => AllFilmSelectPage()));
-  }
+
 
 // 处理滑块选择的iso值 滑块选择的值是连续的 但是可用的iso只有一些特定值 对这些连续值做一下处理
   double processISO(BuildContext context,double raw,List<int> iso){

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:collection';
 import 'package:film_dev/dao/dao.dart';
 import 'package:film_dev/model/anim_action.dart';
 import 'package:film_dev/model/film_info.dart';
@@ -21,6 +22,10 @@ class FilmInfoBloc implements IBlocBase{
   StreamController<String> _titieAnimController = new StreamController();
   Stream<String> get outTitleAnim => _titieAnimController.stream;
   Sink<String> get  _inTitleAnim => _titieAnimController.sink;
+
+  StreamController<FilmInfoListLoadingAnimAction> _loadingResultController = new StreamController();
+  Stream<FilmInfoListLoadingAnimAction> get outLoadingAnim => _loadingResultController.stream;
+  Sink<FilmInfoListLoadingAnimAction> get  _inLoadingAnim => _loadingResultController.sink;
 
 
 
@@ -68,26 +73,18 @@ class FilmInfoBloc implements IBlocBase{
   }
   // 查询数据接口
   void queryAllFilm() async {
-    updateQueryAnim(LoadingAnimAction(null, "loading", true));
-    DbManager.instance.getAllFilmInfo().then((List<Map> films){
-      List<FilmInfo> queryResults = new List();
+//    updateQueryAnim(LoadingAnimAction(null, "loading", true));
+  updateListLoadingAnim(FilmInfoListLoadingAnimAction(null, "loading", true));
+    DbManager.instance.getAllFilmInfo().then((LinkedHashMap<String,List<FilmInfo>> films){
       if(films == null || films.length == 0){
-        showEmpty();
+        showFilmListEmpty();
         return;
       }
-      try{
-        for (var value in films) {
-          queryResults.add(FilmInfo.fromMap(value));
-        }
-      } catch(e){
-        showLoadErrorAnim();
-        return;
-      }
-      showLoadFinishAnim(queryResults);
+      showFilmListLoadingFinish(films);
     }).catchError((){
-      showLoadErrorAnim();
+      showFilmListLoadingError();
     }).timeout(Duration(seconds: 4),onTimeout:(){
-      showEmpty();
+      showFilmListEmpty();
     });
   }
 
@@ -104,5 +101,20 @@ class FilmInfoBloc implements IBlocBase{
   }
   void showEmpty(){
     updateQueryAnim(LoadingAnimAction(null, "empty", true));
+  }
+
+  void showFilmListLoadingError(){
+    updateListLoadingAnim(FilmInfoListLoadingAnimAction(null,"error2",true));
+  }
+  void showFilmListLoadingFinish(LinkedHashMap<String,List<FilmInfo>> data){
+    updateListLoadingAnim(FilmInfoListLoadingAnimAction(data,"idle",false));
+  }
+  void showFilmListEmpty(){
+    updateListLoadingAnim(FilmInfoListLoadingAnimAction(null,"empty",true));
+  }
+
+  // 更新查询数据的状态动画
+  void updateListLoadingAnim(FilmInfoListLoadingAnimAction anim){
+    _inLoadingAnim.add(anim);
   }
 }

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:collection';
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:film_dev/model/dev_detail.dart';
@@ -173,11 +174,49 @@ class DbManager {
     await Future<int>.delayed(Duration(milliseconds: 200));
     return db.rawQuery("Select * from ZFILM where ZFILMTYPE = ${type} AND ZFILMBRAND = '${brand}' AND ZFILMISO = ${iso}");
   }
-  Future<List<Map>> getAllFilmInfo() async {
+  Future<LinkedHashMap<String,List<FilmInfo>>> getAllFilmInfo() async {
     final db = await _localDevDb;
     await Future<int>.delayed(Duration(milliseconds: 200));
-    return db.rawQuery("Select * from ZFILM ");
+    List<Map> raw = await db.rawQuery("Select * from ZFILM ORDER BY ZFILMNAME");
+    return parseFilmListMapToHashMap(raw);
   }
+
+  LinkedHashMap<String,List<DevInfo>> parseDevInfoListMapToHashMap(FilmInfo info,List<Map> input){
+    LinkedHashMap<String,List<DevInfo>> resultMap = new LinkedHashMap();
+    input.forEach((value){
+      resultMap.putIfAbsent(value['ZDEVELOPERNAME'], (){ return new List();});
+    });
+    input.forEach((value){
+      if(resultMap.containsKey(value['ZDEVELOPERNAME'])){
+        DevInfo dev = DevInfo.fromMap(value);
+        dev.filmInfo = info;
+        resultMap[value['ZDEVELOPERNAME']].add(dev);
+        resultMap.update(value['ZDEVELOPERNAME'], (newValue)=>resultMap[value['ZDEVELOPERNAME']]);
+      }
+    });
+    return resultMap;
+  }
+
+  LinkedHashMap<String,List<FilmInfo>> parseFilmListMapToHashMap(List<Map> input){
+    LinkedHashMap<String,List<FilmInfo>> resultMap = new LinkedHashMap();
+    input.forEach((value){
+      resultMap.putIfAbsent(value['ZFILMNAME'], (){ return new List();});
+    });
+    input.forEach((value){
+      if(resultMap.containsKey(value['ZFILMNAME'])){
+        try{
+          FilmInfo dev = FilmInfo.fromMap(value);
+          resultMap[value['ZFILMNAME']].add(dev);
+          resultMap.update(value['ZFILMNAME'], (newValue)=>resultMap[value['ZFILMNAME']]);
+        }
+        catch(e){
+          print(e);
+        }
+      }
+    });
+    return resultMap;
+  }
+
 
   Future<List<Map>> getDevInfo(FilmInfo queryInfo) async {
     final db = await _localDevDb;

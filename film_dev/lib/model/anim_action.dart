@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:film_dev/model/dev_detail.dart';
 import 'package:film_dev/model/dev_info.dart';
 import 'package:film_dev/model/fav_info.dart';
@@ -57,4 +59,19 @@ class FavInfoAnimAction{
     anim = "idle";
     loading = true;
   }
+}
+
+
+class FilmInfoListLoadingAnimAction{
+  LinkedHashMap<String,List<FilmInfo>> data;
+  String anim;
+  bool loading;
+
+  FilmInfoListLoadingAnimAction(this.data, this.anim, this.loading);
+  FilmInfoListLoadingAnimAction.empty(){
+    data = new LinkedHashMap();
+    anim = "idle";
+    loading = true;
+  }
+
 }

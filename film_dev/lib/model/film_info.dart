@@ -16,6 +16,13 @@ class FilmInfo {
     this.type = FilmType.thirtyFive;
     this.id = 0;
   }
+  FilmInfo.fromName(String name){
+    this.brand = FilmBrand.kodak;
+    this.name = name;
+    this.iso = FilmIso.iso100;
+    this.type = FilmType.thirtyFive;
+    this.id = 0;
+  }
   FilmInfo.fromMap(Map<String, dynamic> map):brand = map['ZFILMBRAND'], name = map['ZFILMNAME'], iso = map['ZFILMISO'],type = getType(map["ZFILMTYPE"]),id = map['_id'];
 
   static String getType(int type){
