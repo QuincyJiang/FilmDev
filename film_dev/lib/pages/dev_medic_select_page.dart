@@ -176,7 +176,9 @@ class _BlocDevPageState extends State<BlocDevPage> {
         children.add(DevEntry(dev,null));
       });
       DevEntry root = DevEntry(DevInfo.fromName(key),children);
-      listTiles.add(DevEntryItem(root));});
+      listTiles.add(DevEntryItem(root,(dev){
+        toSelectIsoPage(dev);
+      }));});
     return listTiles;
   }
   // 去下一页

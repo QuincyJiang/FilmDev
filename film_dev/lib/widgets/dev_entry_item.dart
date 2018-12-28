@@ -10,7 +10,8 @@ class DevEntry {
 }
 class DevEntryItem extends StatelessWidget {
   final DevEntry entry;
-  DevEntryItem(this.entry);
+  final OnDevItemClicked onClickedListener;
+  DevEntryItem(this.entry,this.onClickedListener);
 
   Widget _buildTiles(DevEntry root) {
     if (root.children ==null || root.children.isEmpty)
@@ -18,7 +19,7 @@ class DevEntryItem extends StatelessWidget {
           color: Colors.grey[800],
           child: new InkWell(
             onTap: (){
-//                  toSelectResultPage(root.title);
+              onClickedListener(root.title);
             },
             child:  MergeSemantics(
                 child: Padding(
@@ -47,3 +48,4 @@ class DevEntryItem extends StatelessWidget {
     return _buildTiles(entry);
   }
 }
+typedef OnDevItemClicked = void Function(DevInfo info);

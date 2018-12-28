@@ -155,7 +155,9 @@ class _BlocAllFilmPageState extends State<BlocAllFilmPage> {
         children.add(FilmEntry(film,null));
       });
       FilmEntry root = FilmEntry(FilmInfo.fromName(key),children);
-      listTiles.add(FilmEntryItem(root));
+      listTiles.add(FilmEntryItem(root,(film){
+        toSelectResultPage(film);
+      }));
     });
     return listTiles;
   }

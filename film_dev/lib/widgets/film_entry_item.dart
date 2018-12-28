@@ -3,13 +3,14 @@ import 'package:film_dev/pages/dev_medic_select_page.dart';
 import 'package:flutter/material.dart';
 
 class FilmEntry {
-  FilmEntry(this.title, [this.children = const <FilmEntry>[]]);
+  FilmEntry(this.title,[this.children = const <FilmEntry>[]]);
   final FilmInfo title;
   final List<FilmEntry> children;
 }
 class FilmEntryItem extends StatelessWidget {
   final FilmEntry entry;
-  FilmEntryItem(this.entry);
+  final OnFilmEntryItemClicked onItemClicked;
+  FilmEntryItem(this.entry,this.onItemClicked);
 
   Widget _buildTiles(FilmEntry root) {
     if (root.children ==null || root.children.isEmpty)
@@ -17,7 +18,7 @@ class FilmEntryItem extends StatelessWidget {
           color: Colors.grey[800],
           child: new InkWell(
             onTap: (){
-//                  toSelectResultPage(root.title);
+              onItemClicked(root.title);
             },
             child:  MergeSemantics(
                 child: Padding(
@@ -47,3 +48,5 @@ class FilmEntryItem extends StatelessWidget {
     return _buildTiles(entry);
   }
 }
+
+typedef OnFilmEntryItemClicked = void Function(FilmInfo info);
