@@ -1,9 +1,12 @@
+import 'dart:collection';
+
 import 'package:film_dev/bloc/dev_medic_bloc.dart';
 import 'package:film_dev/model/anim_action.dart';
 import 'package:film_dev/model/dev_info.dart';
 import 'package:film_dev/model/film_info.dart';
 import 'package:film_dev/pages/pushd_iso_confirm_page.dart';
 import 'package:film_dev/providers/bloc_provider.dart';
+import 'package:film_dev/widgets/dev_entry_item.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 
@@ -141,7 +144,7 @@ class _BlocDevPageState extends State<BlocDevPage> {
     }
       return Expanded(
       child:Card(
-        elevation: 3,
+        elevation: 1,
         margin: EdgeInsets.fromLTRB(0,10,0,20),
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
@@ -156,33 +159,25 @@ class _BlocDevPageState extends State<BlocDevPage> {
       );
   }
 
-  Widget buildMedicInfo(BuildContext context, List<DevInfo> datas){
-    Iterable<Widget> listTiles = datas.map<Widget>((DevInfo item) => buildItem(context, item));
-    listTiles = ListTile.divideTiles(context: context, tiles: listTiles);
+  Widget buildMedicInfo(BuildContext context, LinkedHashMap<String,List<DevInfo>> datas){
+    List<Widget> listTiles = buildItems(context,datas);
     return Scrollbar(
    child: ListView.builder(
         itemBuilder: (context,i){
           return listTiles.toList()[i];},
     itemCount: datas.length));
   }
-  Widget buildItem(BuildContext context,DevInfo info){
-    return Material(
-        color: Colors.grey[800],
-        child: new InkWell(
-          onTap: (){
-            toSelectIsoPage(info);
-          },
-          child:  MergeSemantics(
-              child: Padding(
-                padding: EdgeInsets.fromLTRB(8, 0.0, 0.0, 0.0),
-                child: ListTile(
-                  dense: false,
-                  title: Text('${info.medicName}  ${info.dilution}'),
-                  subtitle: Text("Film: ${info.filmInfo.name}"),
-                ),)
-          ),
-        )
-    );
+  List<Widget> buildItems(BuildContext context,LinkedHashMap<String,List<DevInfo>> datas){
+    List<Widget> listTiles = List();
+    if(datas!=null)
+      datas.forEach((key,value){
+      List<DevEntry> children = new List();
+      value.forEach((dev){
+        children.add(DevEntry(dev,null));
+      });
+      DevEntry root = DevEntry(DevInfo.fromName(key),children);
+      listTiles.add(DevEntryItem(root));});
+    return listTiles;
   }
   // 去下一页
   toSelectIsoPage(DevInfo info) {

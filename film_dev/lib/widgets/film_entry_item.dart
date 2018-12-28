@@ -2,16 +2,16 @@ import 'package:film_dev/model/film_info.dart';
 import 'package:film_dev/pages/dev_medic_select_page.dart';
 import 'package:flutter/material.dart';
 
-class Entry {
-  Entry(this.title, [this.children = const <Entry>[]]);
+class FilmEntry {
+  FilmEntry(this.title, [this.children = const <FilmEntry>[]]);
   final FilmInfo title;
-  final List<Entry> children;
+  final List<FilmEntry> children;
 }
-class EntryItem extends StatelessWidget {
-  final Entry entry;
-  EntryItem(this.entry);
+class FilmEntryItem extends StatelessWidget {
+  final FilmEntry entry;
+  FilmEntryItem(this.entry);
 
-  Widget _buildTiles(Entry root) {
+  Widget _buildTiles(FilmEntry root) {
     if (root.children ==null || root.children.isEmpty)
       return Material(
           color: Colors.grey[800],
@@ -32,7 +32,7 @@ class EntryItem extends StatelessWidget {
           )
       );
     return new ExpansionTile(
-      key: new PageStorageKey<Entry>(root),
+      key: new PageStorageKey<FilmEntry>(root),
       title: new Text(root.title.name),
       children: root.children.map(_buildTiles).toList(),
     );

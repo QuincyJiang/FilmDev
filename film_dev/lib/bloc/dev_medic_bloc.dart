@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:collection';
 
 import 'package:film_dev/dao/dao.dart';
 import 'package:film_dev/model/anim_action.dart';
@@ -27,23 +28,12 @@ class DevMedicBloc implements IBlocBase{
 
   void queryDev(FilmInfo info){
     updateQueryAnim(DevInfoAnimAction(null, "loading", true));
-    DbManager.instance.getDevInfo(info).then((List<Map> devs){
-      List<DevInfo> queryResults = new List();
+    DbManager.instance.getDevInfo(info).then((LinkedHashMap<String,List<DevInfo>> devs){
       if(devs == null || devs.length == 0){
         showEmpty();
         return;
       }
-      try{
-        for (var value in devs) {
-          DevInfo dev = DevInfo.fromMap(value);
-          dev.filmInfo = info;
-          queryResults.add(dev);
-        }
-      } catch(e){
-        showLoadErrorAnim();
-        return;
-      }
-      showLoadFinishAnim(queryResults);
+      showLoadFinishAnim(devs);
     }).catchError((){
       showLoadErrorAnim();
     }).timeout(Duration(seconds: 4),onTimeout:(){
@@ -61,7 +51,7 @@ class DevMedicBloc implements IBlocBase{
   void showLoadErrorAnim(){
     updateQueryAnim(DevInfoAnimAction(null, "error2", true));
   }
-  void showLoadFinishAnim(List<DevInfo> data){
+  void showLoadFinishAnim(LinkedHashMap<String,List<DevInfo>> data){
     updateQueryAnim(DevInfoAnimAction(data, "idle", false));
   }
   void showEmpty(){

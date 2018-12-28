@@ -37,13 +37,13 @@ class DevInfoLoadingAnimAction{
 }
 
 class DevInfoAnimAction{
-  List<DevInfo> data;
+  LinkedHashMap<String,List<DevInfo>> data;
   String anim;
   bool loading;
 
   DevInfoAnimAction(this.data, this.anim, this.loading);
   DevInfoAnimAction.empty(){
-    data = new List();
+    data = new LinkedHashMap();
     anim = "idle";
     loading = true;
   }

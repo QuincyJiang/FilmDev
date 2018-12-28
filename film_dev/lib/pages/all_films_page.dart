@@ -5,7 +5,7 @@ import 'package:film_dev/model/dev_info.dart';
 import 'package:film_dev/model/film_info.dart';
 import 'package:film_dev/pages/dev_medic_select_page.dart';
 import 'package:film_dev/providers/bloc_provider.dart';
-import 'package:film_dev/widgets/entry_item.dart';
+import 'package:film_dev/widgets/film_entry_item.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 
@@ -123,7 +123,7 @@ class _BlocAllFilmPageState extends State<BlocAllFilmPage> {
     }
     return Expanded(
         child:Card(
-            elevation: 3,
+            elevation: 1,
             margin: EdgeInsets.fromLTRB(0,10,0,20),
             shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.only(
@@ -140,7 +140,6 @@ class _BlocAllFilmPageState extends State<BlocAllFilmPage> {
 
   Widget buildFilmInfo(BuildContext context, LinkedHashMap<String,List<FilmInfo>> datas){
     List<Widget> listTiles = buildItems(datas);
-//    listTiles = ListTile.divideTiles(context: context, tiles: listTiles);
     return Scrollbar(
         child: ListView.builder(
             itemBuilder: (context,i) {
@@ -151,12 +150,12 @@ class _BlocAllFilmPageState extends State<BlocAllFilmPage> {
   List<Widget> buildItems(LinkedHashMap<String,List<FilmInfo>> datas){
     List<Widget> listTiles = List();
     datas.forEach((key,value){
-      List<Entry> children = new List();
+      List<FilmEntry> children = new List();
       value.forEach((film){
-        children.add(Entry(film,null));
+        children.add(FilmEntry(film,null));
       });
-      Entry root = Entry(FilmInfo.fromName(key),children);
-      listTiles.add(EntryItem(root));
+      FilmEntry root = FilmEntry(FilmInfo.fromName(key),children);
+      listTiles.add(FilmEntryItem(root));
     });
     return listTiles;
   }

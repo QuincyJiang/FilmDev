@@ -140,7 +140,7 @@ class _BlocDevPageState extends State<BlocDevPage> {
     }
     return Expanded(
         child:Card(
-            elevation: 3,
+            elevation: 1,
             margin: EdgeInsets.fromLTRB(0,10,0,20),
             shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.only(

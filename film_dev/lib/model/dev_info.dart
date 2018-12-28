@@ -35,6 +35,18 @@ setTotalVolumn(double total){
     diluNum = 5;
     concentrate = false;
   }
+  DevInfo.fromName(String name){
+    medicName = name;
+    dilution = "2:10";
+    filmId = 0;
+    devId = 0;
+    filmInfo = null;
+    waterVolume = 0;
+    totalVolume = 500;
+    medicVolume =1;
+    diluNum = 5;
+    concentrate = false;
+  }
   static String getIlution(String dilution){
     if(dilution.contains("stock")){
       return dilution.replaceAll('stock', "");

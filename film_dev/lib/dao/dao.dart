@@ -218,11 +218,12 @@ class DbManager {
   }
 
 
-  Future<List<Map>> getDevInfo(FilmInfo queryInfo) async {
+  Future<LinkedHashMap<String,List<DevInfo>>> getDevInfo(FilmInfo queryInfo) async {
     final db = await _localDevDb;
     int filmId = queryInfo.id;
     await Future<int>.delayed(Duration(milliseconds: 200));
-    return await db.rawQuery("Select * from ZDEVELOPER where ZFILM = ${filmId} ORDER BY ZDEVELOPERNAME");
+    List<Map> raw = await db.rawQuery("Select * from ZDEVELOPER where ZFILM = ${filmId} ORDER BY ZDEVELOPERNAME");
+    return parseDevInfoListMapToHashMap(queryInfo, raw);
   }
   Future<List<Map>> getDevDetails(DevInfo queryInfo) async {
     final db = await _localDevDb;
