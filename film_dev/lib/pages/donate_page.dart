@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class DonatePage extends StatelessWidget {
+  static const platform = const MethodChannel('com.jiangxq.filmdev/menu');
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,42 +22,44 @@ class DonatePage extends StatelessWidget {
                         bottomRight: Radius.circular(2.0),
                       ),
                     ),
-                    child: Column(
-                      children: <Widget>[
-                        Center(
-                          child: Padding(padding:EdgeInsets.fromLTRB(10,20,10,10),
-                            child: Text("如果觉得本应用帮到了你"
-                                "\n可以考虑给我买一杯咖啡  ",
-                              style: TextStyle(
-                                fontSize: Theme.of(context).textTheme.subhead.fontSize,
-                              ),
-                              textAlign: TextAlign.center,),
-                          ),
+                    child:
+                        Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: <Widget>[
+                            ListTile(
+                              leading: const Icon(Icons.mood),
+                              title: const Text('谢谢支持  ￥1'),
+                              onTap: donate,
+                            ),
+                            ListTile(
+                              leading: const Icon(Icons.local_drink),
+                              title: const Text('一杯可乐  ￥3'),
+                              onTap: donate,
+                            ),
+                            ListTile(
+                              leading: const Icon(Icons.fastfood),
+                              title: const Text('一份薯条  ￥5'),
+                              onTap: donate,
+                            ),
+                            ListTile(
+                              leading: const Icon(Icons.local_movies),
+                              title: const Text('一卷胶卷  ￥10'),
+                              onTap: donate,
+                            ),
+                            ListTile(
+                              leading: const Icon(Icons.local_cafe),
+                              title: const Text('一杯咖啡  ￥20'),
+                              onTap: donate,
+                            ),
+                          ],
                         ),
-                        Padding(
-                          padding: EdgeInsets.all(20),
-                          child:   Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: <Widget>[
-                              Expanded(
-                                child: Padding(padding:EdgeInsets.all(10),
-                                  child:Image.asset('assets/wechat.jpeg'),
-                                ),
-                              ),
-                              Expanded(
-                                child: Padding(padding:EdgeInsets.all(10),
-                                  child:Image.asset('assets/alipay.jpeg'),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.fromLTRB(0, 20, 0, 10),
                         )
-
-
-                      ],))))
+                )
+            )
     );
-  }
+    }
+    void donate(){
+      platform.invokeMethod("donate");
+    }
 }

@@ -6,6 +6,7 @@ import 'package:film_dev/model/fav_info.dart';
 import 'package:film_dev/model/film_info.dart';
 import 'package:film_dev/pages/confirm_page.dart';
 import 'package:film_dev/providers/bloc_provider.dart';
+import 'package:film_dev/utils/device_util.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 
@@ -15,6 +16,12 @@ class CollectionPage extends StatefulWidget {
 }
 
 class _CollectionPageState extends State<CollectionPage> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    DeviceUtil.instance.exitFullScreen();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

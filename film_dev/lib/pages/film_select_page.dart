@@ -93,7 +93,7 @@ class _FilmSelectPageState extends State<FilmSelectPage> with TickerProviderStat
                                   onTap: toCollectionPage,
                                 ),
                                 ListTile(
-                                  leading: const Icon(Icons.folder_open),
+                                  leading: const Icon(Icons.local_movies),
                                   title: const Text('更多'),
                                   onTap: toMorePage,
                                 ),
