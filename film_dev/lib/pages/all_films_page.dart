@@ -139,13 +139,12 @@ class _BlocAllFilmPageState extends State<BlocAllFilmPage> {
   }
 
   Widget buildFilmInfo(BuildContext context, LinkedHashMap<String,List<FilmInfo>> datas){
-    List<Widget> listTiles = buildItems(datas);
     return Scrollbar(
-        child: ListView.builder(
-            itemBuilder: (context,i) {
-              return listTiles[i];
-              },
-            itemCount: datas.length));
+        child: ListView(
+          padding: EdgeInsets.all(0),
+          children: buildItems(datas),
+        ),
+    );
   }
   List<Widget> buildItems(LinkedHashMap<String,List<FilmInfo>> datas){
     List<Widget> listTiles = List();

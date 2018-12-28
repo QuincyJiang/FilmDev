@@ -154,7 +154,7 @@ class _ConfirmPageState extends State<ConfirmPage> {
   Widget buildConfirmItem(DevDetails details,String title,String desc,bool showArrow){
     return MergeSemantics(
                 child: Padding(
-                  padding: EdgeInsets.fromLTRB(8, 0.0, 0.0, 0.0),
+                  padding: EdgeInsets.fromLTRB(8, 0.0, 0.0, 8),
                   child: ListTile(
                     dense: false,
                     title: Text(title),

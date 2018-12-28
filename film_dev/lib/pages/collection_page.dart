@@ -2,11 +2,9 @@ import 'package:film_dev/bloc/dev_medic_bloc.dart';
 import 'package:film_dev/bloc/my_fav_comb_bloc.dart';
 import 'package:film_dev/dao/dao.dart';
 import 'package:film_dev/model/anim_action.dart';
-import 'package:film_dev/model/dev_info.dart';
 import 'package:film_dev/model/fav_info.dart';
 import 'package:film_dev/model/film_info.dart';
 import 'package:film_dev/pages/confirm_page.dart';
-import 'package:film_dev/pages/pushd_iso_confirm_page.dart';
 import 'package:film_dev/providers/bloc_provider.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
@@ -159,10 +157,11 @@ class _BlocDevPageState extends State<BlocDevPage> {
     Iterable<Widget> listTiles = datas.map<Widget>((FavInfo item) => buildItem(favBloc,context, item));
     listTiles = ListTile.divideTiles(context: context, tiles: listTiles);
     return Scrollbar(
-        child: ListView.builder(
-            itemBuilder: (context,i){
-              return listTiles.toList()[i];},
-            itemCount: datas.length));
+          child: ListView(
+            children: listTiles.toList(),
+            padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+          ),
+    );
   }
   Widget buildItem(MyFavBloc favBloc,BuildContext context,FavInfo info){
     return Material(
@@ -176,7 +175,7 @@ class _BlocDevPageState extends State<BlocDevPage> {
           },
           child:  MergeSemantics(
               child: Padding(
-                padding: EdgeInsets.fromLTRB(8, 0.0, 0.0, 0.0),
+                padding: EdgeInsets.fromLTRB(8, 0.0, 0.0, 8),
                 child: ListTile(
                   dense: false,
                   title: Text('${info.name}'),

@@ -160,12 +160,12 @@ class _BlocDevPageState extends State<BlocDevPage> {
   }
 
   Widget buildMedicInfo(BuildContext context, LinkedHashMap<String,List<DevInfo>> datas){
-    List<Widget> listTiles = buildItems(context,datas);
     return Scrollbar(
-   child: ListView.builder(
-        itemBuilder: (context,i){
-          return listTiles.toList()[i];},
-    itemCount: datas.length));
+    child: ListView(
+      padding: EdgeInsets.all(0),
+      children: buildItems(context, datas),
+    ),
+    );
   }
   List<Widget> buildItems(BuildContext context,LinkedHashMap<String,List<DevInfo>> datas){
     List<Widget> listTiles = List();

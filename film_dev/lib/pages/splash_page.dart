@@ -1,7 +1,7 @@
 import 'package:film_dev/dao/dao.dart';
 import 'package:film_dev/pages/film_select_page.dart';
 import 'package:film_dev/utils/device_util.dart';
-import 'package:film_dev/widgets/splash_widget2.dart';
+import 'package:film_dev/widgets/splash_widget.dart';
 import 'package:flutter/material.dart';
 ///
 /// 闪屏页 在这里初始化数据库数据

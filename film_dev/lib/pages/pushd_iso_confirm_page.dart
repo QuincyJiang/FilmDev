@@ -160,10 +160,11 @@ class _BlocIsoPageState extends State<BlocIsoPage> {
     Iterable<Widget> listTiles = datas.map<Widget>((DevDetails item) => buildItem(context, item));
     listTiles = ListTile.divideTiles(context: context, tiles: listTiles);
     return Scrollbar(
-        child: ListView.builder(
-            itemBuilder: (context,i){
-              return listTiles.toList()[i];},
-            itemCount: datas.length));
+    child: ListView(
+      padding: EdgeInsets.fromLTRB(0,10,0,0),
+      children: listTiles.toList(),
+    ),
+    );
   }
   Widget buildItem(BuildContext context,DevDetails info){
     return Material(
@@ -174,7 +175,7 @@ class _BlocIsoPageState extends State<BlocIsoPage> {
           },
           child:  MergeSemantics(
               child: Padding(
-                padding: EdgeInsets.fromLTRB(8, 0.0, 0.0, 0.0),
+                padding: EdgeInsets.fromLTRB(8, 0.0, 0.0, 9),
                 child: ListTile(
                   dense: false,
                   title: Text('ISO ${info.iso}'),

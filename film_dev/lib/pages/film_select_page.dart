@@ -52,8 +52,8 @@ class _FilmSelectPageState extends State<FilmSelectPage> with TickerProviderStat
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      child: Scaffold(
-        key: _scaffoldKey,
+        child: Scaffold(
+          key: _scaffoldKey,
         body: BlocProvider(
           bloc: FilmInfoBloc(),
           child:BlocFilmSelectPage(),
@@ -138,13 +138,25 @@ class _FilmSelectPageState extends State<FilmSelectPage> with TickerProviderStat
             ],
           ),
         ),
+          appBar: AppBar(
+            leading: Padding(padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+              child: IconButton(
+                icon: Icon(Icons.menu),
+                alignment: Alignment.center,
+                onPressed: openDrawer,
+              ),),
+            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+            elevation: 0,
+          ),
       ),
       onWillPop: (){
         return showDeleteConfigDialog(context);
       }
     );
   }
-
+  void openDrawer(){
+    _scaffoldKey.currentState.openDrawer();
+  }
 
   void shareApp(){
     platform.invokeMethod("shareApp");
@@ -484,84 +496,76 @@ class _BlocFilmSelectPageState extends State<BlocFilmSelectPage> {
     return Scaffold(
       key: _scaffoldKey,
       body: SingleChildScrollView(
-        padding: EdgeInsets.fromLTRB(0.0, 30.0, 0.0, 0.0),
+        padding: EdgeInsets.fromLTRB(0.0, 0, 0.0, 0.0),
         child: SafeArea(
           top: false,
           bottom: false,
           child: Container(
-            margin: const EdgeInsets.fromLTRB(24,0,24.0,10),
-            child: Column(
-              children: <Widget>[
-                Stack(
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
-                      child: Icon(Icons.menu),
-                    ),
-                    StreamBuilder<String>(
-                        stream: infoBloc.outTitleAnim,
-                        initialData: "enter",
-                        builder: (BuildContext context,AsyncSnapshot<String> snapshot){
-                          return Container(
-                            child: new FlareActor("assets/film.flr",
-                                alignment:Alignment.center,
-                                fit:BoxFit.contain,
-                                callback: (status){
-                                  // 入场动画播放完毕后就开始播放水波纹动画
-                                  infoBloc.updateTitleAnim("jump");
-                                },
-                                animation:"${snapshot.data}"),
-                            constraints:  BoxConstraints.expand(height: 150),
-                          );
-                        }),
-                  ],
-                ),
-            Card(
-                elevation: 1,
-                margin: EdgeInsets.fromLTRB(0,10,0,10),
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(2.0),
-                    topRight: Radius.circular(2.0),
-                    bottomLeft: Radius.circular(2.0),
-                    bottomRight: Radius.circular(2.0),
+              margin: const EdgeInsets.fromLTRB(24,0,24.0,10),
+              child: Column(
+                children: <Widget>[
+                  StreamBuilder<String>(
+                      stream: infoBloc.outTitleAnim,
+                      initialData: "enter",
+                      builder: (BuildContext context,AsyncSnapshot<String> snapshot){
+                        return Container(
+                          child: new FlareActor("assets/film.flr",
+                              alignment:Alignment.center,
+                              fit:BoxFit.contain,
+                              callback: (status){
+                                // 入场动画播放完毕后就开始播放水波纹动画
+                                infoBloc.updateTitleAnim("jump");
+                              },
+                              animation:"${snapshot.data}"),
+                          constraints:  BoxConstraints.expand(height: 150),
+                        );
+                      }),
+                  Card(
+                      elevation: 1,
+                      margin: EdgeInsets.fromLTRB(0,10,0,10),
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(2.0),
+                          topRight: Radius.circular(2.0),
+                          bottomLeft: Radius.circular(2.0),
+                          bottomRight: Radius.circular(2.0),
+                        ),
+                      ),
+                      child:Center(
+                        child: Padding(padding:EdgeInsets.all(10),
+                          child: Text("选择胶片",
+                            style: TextStyle(
+                                fontSize: Theme.of(context).textTheme.subhead.fontSize
+                            ),),
+                        ),
+                      )
                   ),
-                ),
-                child:Center(
-                  child: Padding(padding:EdgeInsets.all(10),
-                    child: Text("选择胶片",
-                      style: TextStyle(
-                          fontSize: Theme.of(context).textTheme.subhead.fontSize
-                      ),),
+                  ExpansionPanelList(
+                      expansionCallback: (int index, bool isExpanded) {
+                        setState(() {
+                          expandedConfig[index] = !isExpanded;
+                        });
+                      },
+                      children: _configItems.map<ExpansionPanel>((ConfigItem<dynamic> item) {
+                        return ExpansionPanel(
+                            isExpanded: expandedConfig[_configItems.indexOf(item)],
+                            headerBuilder: item.headerBuilder,
+                            body: item.build()
+                        );
+                      }).toList()
                   ),
-                )
-            ),
-                ExpansionPanelList(
-                    expansionCallback: (int index, bool isExpanded) {
-                      setState(() {
-                        expandedConfig[index] = !isExpanded;
-                      });
-                    },
-                    children: _configItems.map<ExpansionPanel>((ConfigItem<dynamic> item) {
-                      return ExpansionPanel(
-                          isExpanded: expandedConfig[_configItems.indexOf(item)],
-                          headerBuilder: item.headerBuilder,
-                          body: item.build()
-                      );
-                    }).toList()
-                ),
-            StreamBuilder<LoadingAnimAction>(
-                stream: infoBloc.outLoadingStatus,
-                initialData: LoadingAnimAction.empty(),
-                builder: (BuildContext context,AsyncSnapshot<LoadingAnimAction> snapshot){
-                  if(snapshot.data.loading){
-                    return  buildLoadingView(infoBloc,snapshot);
-                  }else{
-                    return buildLoadingResultView(infoBloc, snapshot);
-                  }
-                }),
-              ],
-            )
+                  StreamBuilder<LoadingAnimAction>(
+                      stream: infoBloc.outLoadingStatus,
+                      initialData: LoadingAnimAction.empty(),
+                      builder: (BuildContext context,AsyncSnapshot<LoadingAnimAction> snapshot){
+                        if(snapshot.data.loading){
+                          return  buildLoadingView(infoBloc,snapshot);
+                        }else{
+                          return buildLoadingResultView(infoBloc, snapshot);
+                        }
+                      }),
+                ],
+              )
           ),
         ),
       ),
@@ -646,7 +650,7 @@ class _BlocFilmSelectPageState extends State<BlocFilmSelectPage> {
                 },
                 child:  MergeSemantics(
                     child: Padding(
-                      padding: EdgeInsets.fromLTRB(8, 0.0, 0.0, 0.0),
+                      padding: EdgeInsets.fromLTRB(8, 0.0, 0.0,8),
                       child: ListTile(
                         dense: false,
                         title: Text('${data.brand}  ${data.name}'),

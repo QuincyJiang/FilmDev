@@ -22,7 +22,7 @@ class FilmEntryItem extends StatelessWidget {
             },
             child:  MergeSemantics(
                 child: Padding(
-                  padding: EdgeInsets.fromLTRB(8, 0.0, 0.0, 0.0),
+                  padding: EdgeInsets.fromLTRB(8, 0.0, 0.0, 8),
                   child: ListTile(
                     dense: false,
                     title: Text('${root.title.brand}  ${root.title.name}'),
