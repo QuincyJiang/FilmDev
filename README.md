@@ -7,16 +7,19 @@
 
 使用了[2dimension](https://www.2dimensions.com/)的Flare工具制作过场动画
 
+已上架酷安 欢迎下载体验
+[FilmDev](https://www.coolapk.com/apk/com.jiangxq.filmdev)
+
 ![videotogif_2018.12.27_15.56.42](art/videotogif_2018.12.27_15.56.42.gif)
 ![videotogif_2018.12.27_15.57.55](art/videotogif_2018.12.27_15.57.55.gif)![videotogif_2018.12.22_20.16.07](art/videotogif_2018.12.22_20.16.07.gif)![videotogif_2018.12.27_15.59.12](art/videotogif_2018.12.27_15.59.12-1.gif)
 ![videotogif_2018.12.27_16.00.10](art/videotogif_2018.12.27_16.00.10.gif)
 ![videotogif_2018.12.27_16.01.13](art/videotogif_2018.12.27_16.01.13.gif)
 
+
 ## 迭代日志：
 >
 ###  **1.0.46**
-已上架酷安 欢迎下载体验
-[FilmDev](https://www.coolapk.com/apk/com.jiangxq.filmdev)
+已发布
 #### Feature：
 * 支持多种型号的底片
 * 支持查询迫冲数据
@@ -25,16 +28,20 @@
 * 支持收藏夹功能
 >
 ### **1.0.47**
+已发布
 #### BugFix：
 * 修正冲洗计时器暗房模式中弹出Dialog时暗房模式失效
 * 暗房模式采用沉浸式设计，隐藏状态栏和导航栏
 >
-### **1.0.x**
-#### TODO:
+### **1.0.61**
+已发布
+#### Feature:
 * 增加应用内更新，以支持灰度发布 ✅
 * 增加分享功能 ✅
-* 支持更多底片 
-* 药液选择页面优化 
+* 支持更多底片 ✅
+* 药液选择页面优化 ✅
+
+
 
 
 
