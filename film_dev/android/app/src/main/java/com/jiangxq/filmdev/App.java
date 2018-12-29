@@ -18,7 +18,9 @@ public class App extends FlutterApplication {
         initBugly();
     }
     void initBugly(){
-        Beta.autoCheckUpgrade = false;
+        Beta.autoCheckUpgrade = true;
+        Beta.upgradeCheckPeriod = 24*60*60 * 1000;
+        Beta.smallIconId = R.drawable.app_icon;
         Bugly.init(getApplicationContext(), "9af98f9c4f", false);
     }
 }
