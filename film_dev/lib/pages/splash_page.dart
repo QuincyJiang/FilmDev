@@ -1,5 +1,6 @@
 import 'package:film_dev/dao/dao.dart';
 import 'package:film_dev/pages/film_select_page.dart';
+import 'package:film_dev/pages/main_page.dart';
 import 'package:film_dev/utils/device_util.dart';
 import 'package:film_dev/widgets/splash_widget.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +23,7 @@ class _MyAppState extends State<AppSplashPage> {
   Widget build(BuildContext context) {
     return new SplashWidget2(
       seconds: 3,
-      navigateAfterSeconds: FilmSelectPage(),
+      navigateAfterSeconds: MainPage(),
       description: Container(),
       title: Container(
           decoration: new BoxDecoration(color: Colors.black),

@@ -23,198 +23,22 @@ class FilmSelectPage extends StatefulWidget {
   @override
   _FilmSelectPageState createState() => _FilmSelectPageState();
 }
-
 class _FilmSelectPageState extends State<FilmSelectPage> with TickerProviderStateMixin {
-  AnimationController _controller;
-  Animation<double> _drawerContentsOpacity;
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  static const platform = const MethodChannel('com.jiangxq.filmdev/menu');
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    _controller = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 200),
-    );
-    _drawerContentsOpacity = CurvedAnimation(
-      parent: ReverseAnimation(_controller),
-      curve: Curves.fastOutSlowIn,
-    );
-  }
-
   @override
   void dispose() {
-    _controller.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-        child: Scaffold(
-          key: _scaffoldKey,
+    return Scaffold(
         body: BlocProvider(
           bloc: FilmInfoBloc(),
           child:BlocFilmSelectPage(),
         ),
-        drawer: Drawer(
-          child: Column(
-            children: <Widget>[
-              DrawerHeader(
-                child: Container(
-                  child: new FlareActor("assets/title.flr",
-                      alignment:Alignment.center,
-                      fit:BoxFit.contain,
-                      animation:"enter"),
-                  constraints:  BoxConstraints.expand(height: 150),
-                ),
-              ),
-              MediaQuery.removePadding(
-                context: context,
-                // DrawerHeader consumes top MediaQuery padding.
-                removeTop: true,
-                child: Expanded(
-                  child: ListView(
-                    padding: const EdgeInsets.all(8.0),
-                    children: <Widget>[
-                      Stack(
-                        children: <Widget>[
-                          // The initial contents of the drawer.
-                          FadeTransition(
-                            opacity: _drawerContentsOpacity,
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              children: <Widget>[
-                                ListTile(
-                                  leading: const Icon(Icons.favorite),
-                                  title: const Text('收藏'),
-                                  onTap: toCollectionPage,
-                                ),
-                                ListTile(
-                                  leading: const Icon(Icons.local_movies),
-                                  title: const Text('更多'),
-                                  onTap: toMorePage,
-                                ),
-                                ListTile(
-                                  leading: const Icon(Icons.help),
-                                  title: const Text('帮助'),
-                                  onTap: toHelpPage,
-                                ),
-                                ListTile(
-                                  leading: const Icon(Icons.camera),
-                                  title: const Text('Tips'),
-                                  onTap: toTipsPage,
-                                ),
-                                ListTile(
-                                  leading: const Icon(Icons.info),
-                                  title: const Text('关于'),
-                                  onTap: toAboutPage,
-                                ),
-                                ListTile(
-                                  leading: const Icon(Icons.monetization_on),
-                                  title: const Text('捐赠'),
-                                  onTap: toDonatePage,
-                                ),ListTile(
-                                  leading: const Icon(Icons.share),
-                                  title: const Text('分享'),
-                                  onTap: shareApp,
-                                ),
-                                ListTile(
-                                  leading: const Icon(Icons.update),
-                                  title: const Text('更新'),
-                                  onTap: checkUpdate,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-          appBar: AppBar(
-            leading: Padding(padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-              child: IconButton(
-                icon: Icon(Icons.menu),
-                alignment: Alignment.center,
-                onPressed: openDrawer,
-              ),),
-            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-            elevation: 0,
-          ),
-      ),
-      onWillPop: (){
-        return showDeleteConfigDialog(context);
-      }
-    );
+      );
   }
-  void openDrawer(){
-    _scaffoldKey.currentState.openDrawer();
-  }
-
-  void shareApp(){
-    platform.invokeMethod("shareApp");
-  }
-  void checkUpdate(){
-    platform.invokeMethod("checkUpdate");
-  }
-  toMorePage(){
-    Navigator.of(_scaffoldKey.currentState.context).push(new MaterialPageRoute(
-        builder: (BuildContext context) => AllFilmSelectPage()));
-  }
-
-  Future<bool> showDeleteConfigDialog(BuildContext context){
-    return showDialog(
-      context: context,
-      builder: (BuildContext context) => AlertDialog(
-          title: const Text('要退出吗？'),
-          actions: <Widget>[
-            FlatButton(
-                child: const Text('取消'),
-                onPressed: () { Navigator.pop(context); }
-            ),
-            FlatButton(
-                child: const Text('确认'),
-                onPressed: () {
-                  Navigator.pop(context);
-                  exit(0);
-                }
-            )
-          ]
-      ),
-    );
-  }
-
-  void toCollectionPage(){
-    Navigator.of(_scaffoldKey.currentState.context).push(new MaterialPageRoute(
-        builder: (BuildContext context) => CollectionPage()));
-  }
-  void toHelpPage(){
-    Navigator.of(_scaffoldKey.currentState.context).push(new MaterialPageRoute(
-        builder: (BuildContext context) => HelpPage()));
-  }
-  void toAboutPage(){
-    Navigator.of(_scaffoldKey.currentState.context).push(new MaterialPageRoute(
-        builder: (BuildContext context) => AboutPage()));
-  }
-  void toTipsPage(){
-    Navigator.of(_scaffoldKey.currentState.context).push(new MaterialPageRoute(
-        builder: (BuildContext context) => TipsPage()));
-  }
-  void toDonatePage(){
-    Navigator.of(_scaffoldKey.currentState.context).push(new MaterialPageRoute(
-        builder: (BuildContext context) => DonatePage()));
-  }
-
 }
-
-
 // 表单标题
 class DualHeaderWithHint extends StatelessWidget {
   const DualHeaderWithHint({
