@@ -8,7 +8,6 @@ import 'package:film_dev/pages/tips_page.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'dart:io';
 
 
 class MainPage extends StatefulWidget {
@@ -26,8 +25,7 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin{
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-        child:  DefaultTabController(
+    return DefaultTabController(
           length: 4,
           child: Scaffold(
             key: _scaffoldKey,
@@ -132,12 +130,7 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin{
               ),
             ),
           ),
-        ),
-        onWillPop: (){
-          return showDeleteConfigDialog(context);
-        }
-    );
-
+        );
   }
   @override
   void initState() {
@@ -169,27 +162,7 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin{
     platform.invokeMethod("checkUpdate");
   }
 
-  Future<bool> showDeleteConfigDialog(BuildContext context){
-    return showDialog(
-      context: context,
-      builder: (BuildContext context) => AlertDialog(
-          title: const Text('要退出吗？'),
-          actions: <Widget>[
-            FlatButton(
-                child: const Text('取消'),
-                onPressed: () { Navigator.pop(context); }
-            ),
-            FlatButton(
-                child: const Text('确认'),
-                onPressed: () {
-                  exit(0);
-                  Navigator.pop(context);
-                }
-            )
-          ]
-      ),
-    );
-  }
+
   void toCollectionPage(){
     Navigator.of(_scaffoldKey.currentState.context).push(new MaterialPageRoute(
         builder: (BuildContext context) => CollectionPage()));
