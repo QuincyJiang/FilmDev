@@ -1,8 +1,8 @@
 import 'package:film_dev/pages/about_page.dart';
 import 'package:film_dev/pages/all_films_page.dart';
+import 'package:film_dev/pages/c41_select_page.dart';
 import 'package:film_dev/pages/collection_page.dart';
 import 'package:film_dev/pages/donate_page.dart';
-import 'package:film_dev/pages/film_select_page.dart';
 import 'package:film_dev/pages/help_page.dart';
 import 'package:film_dev/pages/tips_page.dart';
 import 'package:flare_flutter/flare_actor.dart';
@@ -50,10 +50,10 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin{
             ),
             body: TabBarView(
               children: [
-                FilmSelectPage(),
-                Icon(Icons.directions_transit),
-                Icon(Icons.directions_bike),
-                Icon(Icons.directions_bike),
+                AllFilmSelectPage(),
+                C41SelectPage(),
+                C41SelectPage(),
+                C41SelectPage(),
               ],
             ),
             drawer: Drawer(
@@ -89,11 +89,6 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin{
                                       leading: const Icon(Icons.favorite),
                                       title: const Text('收藏'),
                                       onTap: toCollectionPage,
-                                    ),
-                                    ListTile(
-                                      leading: const Icon(Icons.local_movies),
-                                      title: const Text('更多'),
-                                      onTap: toMorePage,
                                     ),
                                     ListTile(
                                       leading: const Icon(Icons.help),
@@ -172,10 +167,6 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin{
   }
   void checkUpdate(){
     platform.invokeMethod("checkUpdate");
-  }
-  toMorePage(){
-    Navigator.of(_scaffoldKey.currentState.context).push(new MaterialPageRoute(
-        builder: (BuildContext context) => AllFilmSelectPage()));
   }
 
   Future<bool> showDeleteConfigDialog(BuildContext context){

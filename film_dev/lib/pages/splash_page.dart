@@ -1,5 +1,4 @@
 import 'package:film_dev/dao/dao.dart';
-import 'package:film_dev/pages/film_select_page.dart';
 import 'package:film_dev/pages/main_page.dart';
 import 'package:film_dev/utils/device_util.dart';
 import 'package:film_dev/widgets/splash_widget.dart';

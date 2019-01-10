@@ -1,20 +1,11 @@
 import 'package:film_dev/bloc/film_brand_bloc.dart';
 import 'package:film_dev/model/anim_action.dart';
 import 'package:film_dev/model/film_info.dart';
-import 'package:film_dev/pages/about_page.dart';
-import 'package:film_dev/pages/all_films_page.dart';
-import 'package:film_dev/pages/collection_page.dart';
 import 'package:film_dev/pages/dev_medic_select_page.dart';
-import 'package:film_dev/pages/donate_page.dart';
-import 'package:film_dev/pages/help_page.dart';
-import 'package:film_dev/pages/tips_page.dart';
 import 'package:film_dev/providers/bloc_provider.dart';
 import 'package:flutter/material.dart';
 import 'dart:core';
 import 'package:flare_flutter/flare_actor.dart';
-import 'dart:io';
-
-import 'package:flutter/services.dart';
 
 typedef ConfigItemBodyBuilder<T> = Widget Function(ConfigItem<T> item);
 typedef ValueToString<T> = String Function(T value);

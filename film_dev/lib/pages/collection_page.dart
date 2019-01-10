@@ -1,9 +1,7 @@
-import 'package:film_dev/bloc/dev_medic_bloc.dart';
 import 'package:film_dev/bloc/my_fav_comb_bloc.dart';
 import 'package:film_dev/dao/dao.dart';
 import 'package:film_dev/model/anim_action.dart';
 import 'package:film_dev/model/fav_info.dart';
-import 'package:film_dev/model/film_info.dart';
 import 'package:film_dev/pages/confirm_page.dart';
 import 'package:film_dev/providers/bloc_provider.dart';
 import 'package:film_dev/utils/device_util.dart';
@@ -27,15 +25,14 @@ class _CollectionPageState extends State<CollectionPage> {
     return Scaffold(
       body: BlocProvider(
         bloc: MyFavBloc(),
-        child:BlocDevPage(new FilmInfo("Kodak", "Tmax", 200, "", 233)),
+        child:BlocDevPage(),
       ),
     );
   }
 }
 
 class BlocDevPage extends StatefulWidget {
-  final FilmInfo _filmInfo;
-  BlocDevPage(this._filmInfo);
+  BlocDevPage();
 
   @override
   _BlocDevPageState createState() => _BlocDevPageState();

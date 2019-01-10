@@ -36,6 +36,7 @@ class FilmInfoBloc implements IBlocBase{
     _updateLoadingStatus.close();
     _titieAnimController.close();
     _titleHintController.close();
+    _loadingResultController.close();
     _changedFilmInfoController.close();
   }
 
