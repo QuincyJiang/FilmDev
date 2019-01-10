@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flare_flutter/flare_actor.dart';
 
 class DevPageCustom extends StatefulWidget {
-  final List<ProcedureItem> procedures;
+  final Process procedures;
   DevPageCustom(this.procedures);
   @override
   _DevPageCustomState createState() => _DevPageCustomState();
@@ -105,7 +105,7 @@ class _DevPageCustomState extends State<DevPageCustom> {
                             ),
                             child:Center(
                               child: Padding(padding:EdgeInsets.all(10),
-                                child: Text(isDarkMode?"暗房模式":"开始冲洗",
+                                child: Text(isDarkMode?"暗房模式":widget.procedures.name,
                                   style: TextStyle(
                                     color: isDarkMode? Colors.grey[900]:Colors.white,
                                     fontSize: Theme.of(context).textTheme.subhead.fontSize
@@ -118,7 +118,7 @@ class _DevPageCustomState extends State<DevPageCustom> {
                         new Material(
                           color: isDarkMode ? Colors.black : Colors.yellow[900],
                           child: new InkWell(onTap: () {
-                            showSaveDialog(context, widget.procedures);
+                            showSaveDialog(context, widget.procedures.procedure);
                           },
                               child: Center(child: Padding(
                                 padding: EdgeInsets.all(10),
@@ -151,8 +151,8 @@ class _DevPageCustomState extends State<DevPageCustom> {
 
   List<Widget> buildItems(){
     List<Widget> widgets = new List();
-    widget.procedures.forEach((procedure){
-      widgets.add(buildTimerItem(procedure.procedureName, procedure.procedureDescription, procedure.devTime,true,widget.procedures.indexOf(procedure)));
+    widget.procedures.procedure.forEach((procedure){
+      widgets.add(buildTimerItem(procedure.procedureName, procedure.procedureDescription, procedure.devTime,true,widget.procedures.procedure.indexOf(procedure)));
     });
     return widgets;
   }
@@ -241,7 +241,7 @@ class _DevPageCustomState extends State<DevPageCustom> {
               maxLines: 3,
               onSaved: (value){
                 setState(() {
-                 widget.procedures[index].devTime = int.parse(value);
+                 widget.procedures.procedure[index].devTime = int.parse(value);
                 }
                 );
               },
@@ -329,7 +329,7 @@ class _DevPageCustomState extends State<DevPageCustom> {
         color: isDarkMode?Colors.black:Colors.grey[800],
         child: new InkWell(
             onTap: (){
-              showTimerConfigDialog(context,widget.procedures[index],index);
+              showTimerConfigDialog(context,widget.procedures.procedure[index],index);
             },
             child:MergeSemantics(
                 child: Padding(
