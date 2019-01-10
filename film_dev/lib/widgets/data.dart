@@ -11,8 +11,8 @@ class IntroItem {
 }
 
 final sampleItems = <IntroItem>[
-  new IntroItem(title: '黑白负片', category: 'BLACK & WHITE', imageUrl: 'assets/splash.jpg',),
-  new IntroItem(title: '彩色负片', category: 'COLOR NEGATIVE', imageUrl: 'assets/splash2.jpg',),
-  new IntroItem(title: '彩色正片', category: 'COLOR POSITIVE', imageUrl: 'assets/splash2',),
-  new IntroItem(title: '电影胶片', category: 'MOVIE FILM', imageUrl: 'assets/splash2',),
+  new IntroItem(title: '黑白负片', category: 'BLACK & WHITE FILM', imageUrl: 'assets/pic1.jpg',),
+  new IntroItem(title: '彩色负片', category: 'COLOR NEGATIVE FILM', imageUrl: 'assets/pic2.jpg',),
+  new IntroItem(title: '彩色正片', category: 'COLOR POSITIVE FILM', imageUrl: 'assets/pic3.jpg',),
+  new IntroItem(title: '电影负片', category: 'MOVIE NEGATIVE FILM', imageUrl: 'assets/pic4.jpg',),
 ];
