@@ -23,7 +23,7 @@ class _MyAppState extends State<AppSplashPage> {
   Widget build(BuildContext context) {
     return new SplashWidget2(
       seconds: 3,
-      navigateAfterSeconds: ProcedureSelectPage(),
+      navigateAfterSeconds: MainPage(),
       description: Container(),
       title: Container(
           decoration: new BoxDecoration(color: Colors.black),

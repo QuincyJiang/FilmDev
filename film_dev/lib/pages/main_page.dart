@@ -3,11 +3,14 @@ import 'package:film_dev/pages/all_films_page.dart';
 import 'package:film_dev/pages/c41_select_page.dart';
 import 'package:film_dev/pages/collection_page.dart';
 import 'package:film_dev/pages/donate_page.dart';
+import 'package:film_dev/pages/film_select_page.dart';
 import 'package:film_dev/pages/help_page.dart';
 import 'package:film_dev/pages/tips_page.dart';
+import 'package:film_dev/widgets/intro_page_view.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'dart:io';
 
 
 class MainPage extends StatefulWidget {
@@ -25,7 +28,8 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin{
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
+    return WillPopScope(
+        child:  DefaultTabController(
           length: 4,
           child: Scaffold(
             key: _scaffoldKey,
@@ -37,23 +41,8 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin{
                   onPressed: openDrawer,
                 ),),
               backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-              title: TabBar(
-                tabs: [
-                  Tab(text: "BW"),
-                  Tab(text: "C41"),
-                  Tab(text: "E6"),
-                  Tab(text: "ECN2"),
-                ],
-              ),
             ),
-            body: TabBarView(
-              children: [
-                AllFilmSelectPage(),
-                C41SelectPage(),
-                C41SelectPage(),
-                C41SelectPage(),
-              ],
-            ),
+            body: FilmSelectPage(),
             drawer: Drawer(
               child: Column(
                 children: <Widget>[
@@ -87,6 +76,16 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin{
                                       leading: const Icon(Icons.favorite),
                                       title: const Text('收藏'),
                                       onTap: toCollectionPage,
+                                    ),
+                                    ListTile(
+                                      leading: const Icon(Icons.favorite),
+                                      title: const Text('更多'),
+                                      onTap: toAllFilmPage,
+                                    ),
+                                    ListTile(
+                                      leading: const Icon(Icons.format_color_fill),
+                                      title: const Text('工艺'),
+                                      onTap: toSelectProcedurePage,
                                     ),
                                     ListTile(
                                       leading: const Icon(Icons.help),
@@ -130,7 +129,12 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin{
               ),
             ),
           ),
-        );
+        ),
+        onWillPop: (){
+          return showDeleteConfigDialog(context);
+        }
+    );
+
   }
   @override
   void initState() {
@@ -162,10 +166,38 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin{
     platform.invokeMethod("checkUpdate");
   }
 
-
+  Future<bool> showDeleteConfigDialog(BuildContext context){
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+          title: const Text('要退出吗？'),
+          actions: <Widget>[
+            FlatButton(
+                child: const Text('取消'),
+                onPressed: () { Navigator.pop(context); }
+            ),
+            FlatButton(
+                child: const Text('确认'),
+                onPressed: () {
+                  exit(0);
+                  Navigator.pop(context);
+                }
+            )
+          ]
+      ),
+    );
+  }
   void toCollectionPage(){
     Navigator.of(_scaffoldKey.currentState.context).push(new MaterialPageRoute(
         builder: (BuildContext context) => CollectionPage()));
+  }
+  void toAllFilmPage(){
+    Navigator.of(_scaffoldKey.currentState.context).push(new MaterialPageRoute(
+        builder: (BuildContext context) => AllFilmSelectPage()));
+  }
+  void toSelectProcedurePage(){
+    Navigator.of(_scaffoldKey.currentState.context).push(new MaterialPageRoute(
+        builder: (BuildContext context) => IntroPageView()));
   }
   void toHelpPage(){
     Navigator.of(_scaffoldKey.currentState.context).push(new MaterialPageRoute(

@@ -47,6 +47,7 @@ class _BlocAllFilmPageState extends State<BlocAllFilmPage> {
     return Scaffold(
       key: _scaffoldKey,
       body: Container(
+        padding: EdgeInsets.fromLTRB(0.0, 30.0, 0.0, 0.0),
         child: SafeArea(
           top: false,
           bottom: false,
@@ -67,7 +68,7 @@ class _BlocAllFilmPageState extends State<BlocAllFilmPage> {
                       ),
                       child:Center(
                         child: Padding(padding:EdgeInsets.all(10),
-                          child: Text("选择底片",
+                          child: Text("所有底片",
                             style: TextStyle(
                                 fontSize: Theme.of(context).textTheme.subhead.fontSize
                             ),),
