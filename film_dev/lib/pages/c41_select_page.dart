@@ -3,6 +3,7 @@ import 'package:film_dev/bloc/dev_detail_bloc.dart';
 import 'package:film_dev/model/config.dart';
 import 'package:film_dev/pages/dev_page_custom_dart.dart';
 import 'package:film_dev/providers/bloc_provider.dart';
+import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 
 class C41SelectPage extends StatefulWidget {
@@ -45,31 +46,45 @@ class _BlocC41PageState extends State<BlocC41Page> {
           top: false,
           bottom: false,
           child: Container(
-              margin: const EdgeInsets.fromLTRB(24,0,24.0,10),
-              child: Column(
-                children: <Widget>[
-                  Card(
-                      elevation: 1,
-                      margin: EdgeInsets.fromLTRB(0,10,0,0),
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(2.0),
-                          topRight: Radius.circular(2.0),
-                          bottomLeft: Radius.circular(2.0),
-                          bottomRight: Radius.circular(2.0),
-                        ),
-                      ),
-                      child:Center(
-                        child: Padding(padding:EdgeInsets.all(10),
-                          child: Text("选择冲洗药水",
-                            style: TextStyle(
-                                fontSize: Theme.of(context).textTheme.subhead.fontSize
-                            ),),
-                        ),
-                      )
-                  ),
-                    buildLoadingResultView(),
-                ],
+              padding:EdgeInsets.fromLTRB(0.0, 30.0, 0.0, 0.0),
+              child:SafeArea(
+                top: false,
+                bottom: false,
+                child: Container(
+                    margin: const EdgeInsets.fromLTRB(24,0,24.0,10),
+                    child: Column(
+                        children: <Widget>[
+                    Container(
+                    child: new FlareActor("assets/iso.flr",
+                        alignment:Alignment.center,
+                        fit:BoxFit.contain,
+                        callback: (status){
+                          // 入场动画播放完毕后就开始播放跳动动画
+                        },
+                        animation:"enter"),
+                  constraints:  BoxConstraints.expand(height: 150),
+                ),
+                          Card(
+                              elevation: 1,
+                              margin: EdgeInsets.fromLTRB(0,10,0,0),
+                              shape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(2.0),
+                                  topRight: Radius.circular(2.0),
+                                  bottomLeft: Radius.circular(2.0),
+                                  bottomRight: Radius.circular(2.0),
+                                ),
+                              ),
+                              child:Center(
+                                child: Padding(padding:EdgeInsets.all(10),
+                                  child: Text("选择冲洗药水",
+                                    style: TextStyle(
+                                        fontSize: Theme.of(context).textTheme.subhead.fontSize
+                                    ),),
+                                ),
+                              )
+                          ),buildLoadingResultView(),
+                        ])),
               )
           ),
         ),
@@ -126,9 +141,8 @@ class _BlocC41PageState extends State<BlocC41Page> {
   }
   // 展示查询结果
   Widget buildLoadingResultView(){
-    return Expanded(
-        child:Card(
-            elevation: 3,
+    return Card(
+            elevation: 1,
             margin: EdgeInsets.fromLTRB(0,10,0,20),
             shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.only(
@@ -138,21 +152,57 @@ class _BlocC41PageState extends State<BlocC41Page> {
                 bottomRight: Radius.circular(2.0),
               ),
             ),
-            child:buildMedicInfo(context)
-        )
-    );
+            child:Column(mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: buildMedicInfo(context))
+        );
   }
 
-  Widget buildMedicInfo(BuildContext context){
-    Iterable<Widget> listTiles = process.map<Widget>((Process item) => buildItem(context, item));
-    listTiles = ListTile.divideTiles(context: context, tiles: listTiles);
-    return Scrollbar(
-    child: ListView(
-      padding: EdgeInsets.fromLTRB(0,10,0,0),
-      children: listTiles.toList(),
-    ),
+  List<Widget> buildMedicInfo(BuildContext context) {
+    List<Widget> widgets = new List();
+    int i = 0;
+    if (process != null) process.forEach((data){
+      widgets.add(
+          Material(
+              color: Colors.grey[800],
+              child: new InkWell(
+                onTap: (){
+                  toCustomDevPage(data);
+                },
+                child:  MergeSemantics(
+                    child: Padding(
+                      padding: EdgeInsets.fromLTRB(8, 8, 8, 8),
+                      child: ListTile(
+                        dense: false,
+                        title: Text(data.name),
+                      ),)
+                ),
+              )
+          )
+      );
+      // 添加分割线
+      if(i!= process.length-1){
+        widgets.add(Container(
+          constraints: BoxConstraints(maxHeight: 1),
+          decoration: BoxDecoration(color: Colors.grey[700]),
+        ));
+      }
+      i++;
+    }
     );
+    return widgets;
   }
+
+//  Widget buildMedicInfo(BuildContext context){
+//    Iterable<Widget> listTiles = process.map<Widget>((Process item) => buildItem(context, item));
+//    listTiles = ListTile.divideTiles(context: context, tiles: listTiles);
+//    return Scrollbar(
+//    child: ListView(
+//      padding: EdgeInsets.fromLTRB(0,10,0,0),
+//      children: listTiles.toList(),
+//    ),
+//    );
+//  }
   Widget buildItem(BuildContext context,Process info){
     return Material(
         color: Colors.grey[800],

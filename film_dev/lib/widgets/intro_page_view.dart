@@ -1,5 +1,6 @@
 import 'package:film_dev/pages/c41_select_page.dart';
 import 'package:film_dev/pages/film_select_page.dart';
+import 'package:film_dev/pages/main_page.dart';
 import 'package:film_dev/widgets/data.dart';
 import 'package:film_dev/widgets/intro_page_item.dart';
 import 'package:film_dev/widgets/page_transformer.dart';
@@ -41,7 +42,7 @@ class IntroPageView extends StatelessWidget {
     switch (title) {
       case "黑白负片":
         Navigator.of(_scaffoldKey.currentState.context).push(new MaterialPageRoute(
-            builder: (BuildContext context) => FilmSelectPage()));
+            builder: (BuildContext context) => MainPage()));
         break;
       case "彩色负片":
         Navigator.of(_scaffoldKey.currentState.context).push(
