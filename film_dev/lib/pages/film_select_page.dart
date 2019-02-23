@@ -410,7 +410,7 @@ class _BlocFilmSelectPageState extends State<BlocFilmSelectPage> {
       return buildEmptyPage();
     }
     return Card(
-        elevation: 3,
+        elevation: 1,
         margin: EdgeInsets.fromLTRB(0,10,0,20),
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
@@ -465,7 +465,7 @@ class _BlocFilmSelectPageState extends State<BlocFilmSelectPage> {
                 },
                 child:  MergeSemantics(
                     child: Padding(
-                      padding: EdgeInsets.fromLTRB(8, 0.0, 0.0,8),
+                      padding: EdgeInsets.fromLTRB(8, 0.0, 8,0),
                       child: ListTile(
                         dense: false,
                         title: Text('${data.brand}  ${data.name}'),

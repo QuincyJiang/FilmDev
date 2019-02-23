@@ -31,13 +31,13 @@ class _ConfirmPageState extends State<ConfirmPage> {
     child: Column(
     children: <Widget>[
       Container(
-        child: new FlareActor("assets/list.flr",
+        child: new FlareActor("assets/file.flr",
             alignment:Alignment.center,
             fit:BoxFit.contain,
             callback: (status){
               // 入场动画播放完毕后就开始播放跳动动画
              setState(() {
-               anim = "show";
+               anim = "enter";
              });
             },
             animation:anim),

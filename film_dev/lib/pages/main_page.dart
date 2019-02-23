@@ -33,16 +33,24 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin{
           length: 4,
           child: Scaffold(
             key: _scaffoldKey,
-            appBar: AppBar(
-              leading: Padding(padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                child: IconButton(
-                  icon: Icon(Icons.menu),
-                  alignment: Alignment.center,
-                  onPressed: openDrawer,
-                ),),
-              backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-            ),
-            body: FilmSelectPage(),
+            body:Container(
+              padding: EdgeInsets.fromLTRB(0.0, 30.0, 0.0, 0.0),
+              child: SafeArea(
+                  top: false,
+                  bottom: false,
+                  child:Stack(
+              children: <Widget>[
+                FilmSelectPage(),
+                Padding(
+                  padding: EdgeInsets.fromLTRB(25,20,0,0),
+                  child: GestureDetector(
+                    onTap: (){openDrawer();},
+                    child: Icon(Icons.menu),
+                  ),
+                )
+              ],
+            ),)),
+//            body: FilmSelectPage(),
             drawer: Drawer(
               child: Column(
                 children: <Widget>[

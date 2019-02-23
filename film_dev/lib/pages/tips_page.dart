@@ -24,7 +24,7 @@ class TipsPage extends StatelessWidget {
                     child: Column(
                       children: <Widget>[
                         Container(
-                          child: new FlareActor("assets/tips.flr",
+                          child: new FlareActor("assets/file.flr",
                               alignment:Alignment.center,
                               fit:BoxFit.contain,
                               animation:"enter"),

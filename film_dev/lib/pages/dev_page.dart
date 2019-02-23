@@ -361,7 +361,7 @@ class _DevPageState extends State<DevPage> {
             },
             child:MergeSemantics(
                 child: Padding(
-                  padding: EdgeInsets.fromLTRB(8, 0.0, 0.0, 8),
+                  padding: EdgeInsets.fromLTRB(8, 8,8, 8),
                   child: ListTile(
                     dense: false,
                     title: Text(title),
@@ -375,7 +375,7 @@ class _DevPageState extends State<DevPage> {
             }
     return MergeSemantics(
         child: Padding(
-          padding: EdgeInsets.fromLTRB(8, 0.0, 0.0, 8),
+          padding: EdgeInsets.fromLTRB(8, 8, 8, 8),
           child: ListTile(
             dense: false,
             title: Text(title),

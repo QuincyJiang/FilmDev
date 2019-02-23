@@ -139,9 +139,8 @@ class _BlocIsoPageState extends State<BlocIsoPage> {
     if(snapshot.data.data.length == 0){
       return buildEmptyPage();
     }
-    return Expanded(
-        child:Card(
-            elevation: 3,
+    return Card(
+            elevation: 1,
             margin: EdgeInsets.fromLTRB(0,10,0,20),
             shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.only(
@@ -151,39 +150,76 @@ class _BlocIsoPageState extends State<BlocIsoPage> {
                 bottomRight: Radius.circular(2.0),
               ),
             ),
-            child:buildMedicInfo(context, snapshot.data.data)
-        )
-    );
+            child:Column(mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: buildISOList(context, snapshot.data.data))
+        );
   }
 
-  Widget buildMedicInfo(BuildContext context, List<DevDetails> datas){
-    Iterable<Widget> listTiles = datas.map<Widget>((DevDetails item) => buildItem(context, item));
-    listTiles = ListTile.divideTiles(context: context, tiles: listTiles);
-    return Scrollbar(
-    child: ListView(
-      padding: EdgeInsets.fromLTRB(0,10,0,0),
-      children: listTiles.toList(),
-    ),
+//  Widget buildMedicInfo(BuildContext context, List<DevDetails> datas){
+//    Iterable<Widget> listTiles = datas.map<Widget>((DevDetails item) => buildItem(context, item));
+//    listTiles = ListTile.divideTiles(context: context, tiles: listTiles);
+//    return Scrollbar(
+//    child: ListView(
+//      padding: EdgeInsets.fromLTRB(0,10,0,0),
+//      children: listTiles.toList(),
+//    ),
+//    );
+//  }
+//  Widget buildItem(BuildContext context,DevDetails info){
+//    return Material(
+//        color: Colors.grey[800],
+//        child: new InkWell(
+//          onTap: (){
+//            toConfirmPage(info);
+//          },
+//          child:  MergeSemantics(
+//              child: Padding(
+//                padding: EdgeInsets.fromLTRB(8, 0.0, 0.0, 9),
+//                child: ListTile(
+//                  dense: false,
+//                  title: Text('ISO ${info.iso}'),
+//                  subtitle: Text("Film: ${info.medic.filmInfo.name} \nDeveloper: ${info.medic.medicName}"),
+//                ),)
+//          ),
+//        )
+//    );
+//  }
+  // 构建查找结果条目
+  List<Widget> buildISOList(BuildContext context, List<DevDetails> datas) {
+    List<Widget> widgets = new List();
+    int i = 0;
+    if (datas != null) datas.forEach((data){
+      widgets.add(
+          Material(
+              color: Colors.grey[800],
+              child: new InkWell(
+                onTap: (){
+                  toConfirmPage(data);
+                },
+                child:  MergeSemantics(
+                    child: Padding(
+                      padding: EdgeInsets.fromLTRB(8, 8, 8, 8),
+                      child: ListTile(
+                        dense: false,
+                        title: Text('ISO ${data.iso}'),
+                        subtitle: Text("Film: ${data.medic.filmInfo.name} \nDeveloper: ${data.medic.medicName}"),
+                      ),)
+                ),
+              )
+          )
+      );
+      // 添加分割线
+      if(i!= datas.length-1){
+        widgets.add(Container(
+          constraints: BoxConstraints(maxHeight: 1),
+          decoration: BoxDecoration(color: Colors.grey[700]),
+        ));
+      }
+      i++;
+    }
     );
-  }
-  Widget buildItem(BuildContext context,DevDetails info){
-    return Material(
-        color: Colors.grey[800],
-        child: new InkWell(
-          onTap: (){
-            toConfirmPage(info);
-          },
-          child:  MergeSemantics(
-              child: Padding(
-                padding: EdgeInsets.fromLTRB(8, 0.0, 0.0, 9),
-                child: ListTile(
-                  dense: false,
-                  title: Text('ISO ${info.iso}'),
-                  subtitle: Text("Film: ${info.medic.filmInfo.name} \nDeveloper: ${info.medic.medicName}"),
-                ),)
-          ),
-        )
-    );
+    return widgets;
   }
   // 去下一页
   toConfirmPage(DevDetails info) {
