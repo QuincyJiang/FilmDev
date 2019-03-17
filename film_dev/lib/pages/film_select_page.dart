@@ -319,22 +319,37 @@ class _BlocFilmSelectPageState extends State<BlocFilmSelectPage> {
               margin: const EdgeInsets.fromLTRB(24,0,24.0,10),
               child: Column(
                 children: <Widget>[
-                  StreamBuilder<String>(
-                      stream: infoBloc.outTitleAnim,
-                      initialData: "enter",
-                      builder: (BuildContext context,AsyncSnapshot<String> snapshot){
-                        return Container(
-                          child: new FlareActor("assets/film.flr",
-                              alignment:Alignment.center,
-                              fit:BoxFit.contain,
-                              callback: (status){
-                                // 入场动画播放完毕后就开始播放水波纹动画
-                                infoBloc.updateTitleAnim("jump");
-                              },
-                              animation:"${snapshot.data}"),
-                          constraints:  BoxConstraints.expand(height: 150),
-                        );
-                      }),
+//                  StreamBuilder<String>(
+//                      stream: infoBloc.outTitleAnim,
+//                      initialData: "enter",
+//                      builder: (BuildContext context,AsyncSnapshot<String> snapshot){
+//                        return Container(
+//                          child: new FlareActor("assets/film.flr",
+//                              alignment:Alignment.center,
+//                              fit:BoxFit.contain,
+//                              callback: (status){
+//                                // 入场动画播放完毕后就开始播放水波纹动画
+//                                infoBloc.updateTitleAnim("jump");
+//                              },
+//                              animation:"${snapshot.data}"),
+//                          constraints:  BoxConstraints.expand(height: 150),
+//                        );
+//                      }),
+                  Container(
+                    child:Center(
+                      child: Text(
+                        "B/W",
+                        style: Theme.of(context).textTheme.caption.copyWith(
+                          color: Colors.white70,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 2.0,
+                          fontSize: 70,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    constraints:  BoxConstraints.expand(height: 150),
+                  ),
                   Card(
                       elevation: 1,
                       margin: EdgeInsets.fromLTRB(0,10,0,10),

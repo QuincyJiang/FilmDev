@@ -5,14 +5,14 @@ import 'package:film_dev/pages/dev_page_custom_dart.dart';
 import 'package:film_dev/providers/bloc_provider.dart';
 import 'package:flutter/material.dart';
 
-class C41SelectPage extends StatefulWidget {
-  C41SelectPage();
+class ECN2SelectPage extends StatefulWidget {
+  ECN2SelectPage();
 
   @override
-  _C41SelectPageState createState() => _C41SelectPageState();
+  _ECN2SelectPageState createState() => _ECN2SelectPageState();
 }
 
-class _C41SelectPageState extends State<C41SelectPage> {
+class _ECN2SelectPageState extends State<ECN2SelectPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,7 +57,7 @@ class _BlocC41PageState extends State<BlocC41Page> {
                     Container(
                     child:Center(
                         child: Text(
-                      "C41",
+                      "ENC2",
                       style: textTheme.caption.copyWith(
                         color: Colors.white70,
                         fontWeight: FontWeight.bold,
@@ -99,7 +99,6 @@ class _BlocC41PageState extends State<BlocC41Page> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     List<ProcedureItem> c41Common = new List();
     List<ProcedureItem> c41AristaLiquid = new List();

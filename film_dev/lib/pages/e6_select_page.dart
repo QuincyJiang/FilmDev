@@ -5,14 +5,14 @@ import 'package:film_dev/pages/dev_page_custom_dart.dart';
 import 'package:film_dev/providers/bloc_provider.dart';
 import 'package:flutter/material.dart';
 
-class C41SelectPage extends StatefulWidget {
-  C41SelectPage();
+class E6SelectPage extends StatefulWidget {
+  E6SelectPage();
 
   @override
-  _C41SelectPageState createState() => _C41SelectPageState();
+  _E6SelectPageState createState() => _E6SelectPageState();
 }
 
-class _C41SelectPageState extends State<C41SelectPage> {
+class _E6SelectPageState extends State<E6SelectPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,7 +57,7 @@ class _BlocC41PageState extends State<BlocC41Page> {
                     Container(
                     child:Center(
                         child: Text(
-                      "C41",
+                      "E6",
                       style: textTheme.caption.copyWith(
                         color: Colors.white70,
                         fontWeight: FontWeight.bold,
@@ -99,50 +99,23 @@ class _BlocC41PageState extends State<BlocC41Page> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    List<ProcedureItem> c41Common = new List();
-    List<ProcedureItem> c41AristaLiquid = new List();
-    List<ProcedureItem> c41TetenalColortec = new List();
-    List<ProcedureItem> c41UniColorPower = new List();
-    List<ProcedureItem> c41RolleiDigitalBase = new List();
-    c41Common.add(ProcedureItem("彩显", 195, "温度 37.8 ± 0.15 ℃ "));
-    c41Common.add(ProcedureItem("漂白", 260, "温度 38 ± 3 ℃ "));
-    c41Common.add(ProcedureItem("水洗", 65, "温度 38 ± 3 ℃ "));
-    c41Common.add(ProcedureItem("定影", 260, "温度 38 ± 3 ℃ "));
-    c41Common.add(ProcedureItem("水洗", 195, "温度 38 ± 3 ℃ "));
-    c41Common.add(ProcedureItem("稳定", 65, "温度 24 ℃ "));
+    List<ProcedureItem> e6Common = new List();
+    e6Common.add(ProcedureItem("首显", 360, "温度 37.8 ℃ \n"
+        "注意：首显对时间和温度敏感，时间和显影温度会影响反差"));
+    e6Common.add(ProcedureItem("水洗", 120, "温度 37.8 ℃ "));
+    e6Common.add(ProcedureItem("反转", 120, "温度 35.6-39.4 °C "));
+    e6Common.add(ProcedureItem("彩显", 360, "温度 35.6-39.4 °C  "));
+    e6Common.add(ProcedureItem("预漂白", 120, "温度 32.2-39.4 °C "));
+    e6Common.add(ProcedureItem("漂白", 360, "温度 33.3-39.4 °C "));
+    e6Common.add(ProcedureItem("水洗[可选]", 120, "温度 33.3-39.4 °C "));
+    e6Common.add(ProcedureItem("定影", 240, "温度 33.3-39.4 °C "));
+    e6Common.add(ProcedureItem("二次定影[可选]", 240, "温度 33.3-39.4 °C "));
+    e6Common.add(ProcedureItem("水洗", 240, "温度 33.3-39.4 °C "));
+    e6Common.add(ProcedureItem("稳定", 60, "温度 26.7-39.4 °C "));
+    e6Common.add(ProcedureItem("干燥", 300, "温度 室温 "));
 
-    c41AristaLiquid.add(ProcedureItem("前浴",60,"温度 38.9 ℃"));
-    c41AristaLiquid.add(ProcedureItem("彩显",240,"温度 38.9 ℃ \n前10s持续搅拌，之后每30s上下翻转冲洗罐4次，翻转后可轻碰冲洗罐底部以移除附着在片轴上的气泡"));
-    c41AristaLiquid.add(ProcedureItem("漂白",390,"温度 35.0 - 40.5 ℃ \n前10s持续搅拌，之后每30s上下翻转冲洗罐4次，翻转后可轻碰冲洗罐底部以移除附着在片轴上的气泡"));
-    c41AristaLiquid.add(ProcedureItem("水洗",180,"温度 35.0 - 40.5 ℃ \n使用流动清水持续冲洗" ));
-    c41AristaLiquid.add(ProcedureItem("稳定",60,"温度 24 ℃ \n前15s持续搅拌"));
-
-    c41TetenalColortec.add(ProcedureItem("前浴", 60, "温度 38 ± 0.5 ℃"));
-    c41TetenalColortec.add(ProcedureItem("彩显", 195, "温度 38 ± 0.3 ℃"));
-    c41TetenalColortec.add(ProcedureItem("漂白定影", 240, "温度 38 ± 1.0 ℃"));
-    c41TetenalColortec.add(ProcedureItem("水洗", 180, "温度 30 - 40 ℃ \n使用流动清水持续冲洗，每30s换一次水 或者延长冲洗时间"));
-    c41TetenalColortec.add(ProcedureItem("稳定", 60, "温度 20 - 40 ℃"));
-
-    c41RolleiDigitalBase.add(ProcedureItem("前浴", 120, "温度 25 ℃"));
-    c41RolleiDigitalBase.add(ProcedureItem("彩显", 780, "温度 25 ℃ \n前15s 翻转一次冲洗罐，之后每30s搅拌一次"));
-    c41RolleiDigitalBase.add(ProcedureItem("漂白", 360, "温度 25 ℃ \n前15s 翻转一次冲洗罐，之后每30s搅拌一次"));
-    c41RolleiDigitalBase.add(ProcedureItem("定影", 420, "温度 25 ℃\n前15s 翻转一次冲洗罐，之后每30s搅拌一次"));
-    c41RolleiDigitalBase.add(ProcedureItem("水洗", 180, "温度 25 ℃\n使用流动清水持续冲洗"));
-    c41RolleiDigitalBase.add(ProcedureItem("稳定", 90, "温度 25 ℃ \n前15s 翻转一次冲洗罐，之后每30s搅拌一次"));
-
-    c41UniColorPower.add(ProcedureItem("前浴", 60, "温度 38.8 ℃"));
-    c41UniColorPower.add(ProcedureItem("彩显", 210, "温度 38.8 ℃ \n前15s 翻转一次冲洗罐，之后每30s上下翻转冲洗罐4次，翻转后可轻碰冲洗罐底部以移除附着在片轴上的气泡"));
-    c41UniColorPower.add(ProcedureItem("漂白定影", 390, "温度 38.8 ℃ \n前15s 翻转一次冲洗罐，之后每30s上下翻转冲洗罐4次，翻转后可轻碰冲洗罐底部以移除附着在片轴上的气泡"));
-    c41UniColorPower.add(ProcedureItem("水洗", 180, "温度 35 - 40.5 ℃ \n使用清水浸泡3分钟后倒出"));
-    c41UniColorPower.add(ProcedureItem("稳定", 75, "温度 35 - 40.5 ℃ \n前15s持续搅拌，之后静置一分钟"));
-
-    process.add(Process(Constant.DEV_C41_COMMON, "C41罐冲通用程序",c41Common));
-    process.add(Process(Constant.DEV_C41_ARISTA_LIQUID, "Arista Liquid C41罐冲",c41AristaLiquid));
-    process.add(Process(Constant.DEV_C41_ROLLEI_DIGIBASE, "RolleiDigitalBase C41 罐冲",c41RolleiDigitalBase));
-    process.add(Process(Constant.DEV_C41_TETENAL_COLORTEC, "Tetenal Colortec C41 滚冲",c41TetenalColortec));
-    process.add(Process(Constant.DEV_C41_UNICOLOR_POWER, "UniColorPower 罐冲",c41UniColorPower));
+    process.add(Process(Constant.DEV_E6_COMMON, "E6标准程序",e6Common));
   }
   // 展示查询结果
   Widget buildLoadingResultView(){
@@ -198,16 +171,6 @@ class _BlocC41PageState extends State<BlocC41Page> {
     return widgets;
   }
 
-//  Widget buildMedicInfo(BuildContext context){
-//    Iterable<Widget> listTiles = process.map<Widget>((Process item) => buildItem(context, item));
-//    listTiles = ListTile.divideTiles(context: context, tiles: listTiles);
-//    return Scrollbar(
-//    child: ListView(
-//      padding: EdgeInsets.fromLTRB(0,10,0,0),
-//      children: listTiles.toList(),
-//    ),
-//    );
-//  }
   Widget buildItem(BuildContext context,Process info){
     return Material(
         color: Colors.grey[800],

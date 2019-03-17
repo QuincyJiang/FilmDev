@@ -1,5 +1,5 @@
 import 'package:film_dev/pages/c41_select_page.dart';
-import 'package:film_dev/pages/film_select_page.dart';
+import 'package:film_dev/pages/e6_select_page.dart';
 import 'package:film_dev/pages/main_page.dart';
 import 'package:film_dev/widgets/data.dart';
 import 'package:film_dev/widgets/intro_page_item.dart';
@@ -52,13 +52,13 @@ class IntroPageView extends StatelessWidget {
       case "彩色正片":
         Navigator.of(_scaffoldKey.currentState.context).push(
             new MaterialPageRoute(
-                builder: (BuildContext context) => C41SelectPage()));
+                builder: (BuildContext context) => E6SelectPage()));
         break;
-      case "电影负片":
-        Navigator.of(_scaffoldKey.currentState.context).push(
-            new MaterialPageRoute(
-                builder: (BuildContext context) => C41SelectPage()));
-        break;
+//      case "电影负片":
+//        Navigator.of(_scaffoldKey.currentState.context).push(
+//            new MaterialPageRoute(
+//                builder: (BuildContext context) => ECN2SelectPage()));
+//        break;
     }
   }
 }
