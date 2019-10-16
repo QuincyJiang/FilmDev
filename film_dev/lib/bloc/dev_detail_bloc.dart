@@ -44,7 +44,7 @@ class DevDetailBloc implements IBlocBase{
         return;
       }
       showLoadFinishAnim(queryResults);
-    }).catchError((){
+    }).catchError((Object exception){
       showLoadErrorAnim();
     }).timeout(Duration(seconds: 4),onTimeout:(){
       showEmpty();

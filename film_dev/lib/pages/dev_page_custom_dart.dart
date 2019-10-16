@@ -115,22 +115,6 @@ class _DevPageCustomState extends State<DevPageCustom> {
                             )
                         ),
                         Column(children: buildItems(),),
-                        new Material(
-                          color: isDarkMode ? Colors.black : Colors.yellow[900],
-                          child: new InkWell(onTap: () {
-                            showSaveDialog(context, widget.procedures.procedure);
-                          },
-                              child: Center(child: Padding(
-                                padding: EdgeInsets.all(10),
-                                child: Text(
-                                  "添加收藏", style: TextStyle(fontSize: Theme
-                                    .of(context)
-                                    .textTheme
-                                    .subhead
-                                    .fontSize,
-                                    color: isDarkMode
-                                        ? Colors.grey[900]
-                                        : Colors.white),),),)),),
                         Padding(padding: EdgeInsets.fromLTRB(0, 0, 0, 30)),
                       ],))))));
   }
@@ -263,42 +247,6 @@ class _DevPageCustomState extends State<DevPageCustom> {
       ),
     );
   }
-  void showSaveDialog(BuildContext context, List<ProcedureItem> data){
-    showDialog(
-      context: context,
-      builder: (BuildContext context) => AlertDialog(
-          title:  Text('输入收藏名'),
-          content:Form(
-            key: _formKey,
-            child: TextFormField(
-              decoration:InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: '为你的收藏取个名字',
-                labelText: "为你的收藏取个名字",
-              ),
-              keyboardType: TextInputType.text,
-              maxLines: 2,
-              onSaved: (value){
-                save(value,data);
-              },
-            ),
-          ),
-          actions: <Widget>[
-            FlatButton(
-                child: const Text('取消'),
-                onPressed: () { Navigator.pop(context); }
-            ),
-            FlatButton(
-                child: const Text('确认'),
-                onPressed: () {
-                  _handleSubmitted();
-                }
-            )
-          ]
-      ),
-    );
-  }
-
   void _handleSubmitted() {
     final FormState form = _formKey.currentState;
     if (form.validate()) {

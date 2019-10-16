@@ -86,7 +86,7 @@ class _MainPageState extends State<MainPage> with TickerProviderStateMixin{
                                       onTap: toCollectionPage,
                                     ),
                                     ListTile(
-                                      leading: const Icon(Icons.favorite),
+                                      leading: const Icon(Icons.all_inclusive),
                                       title: const Text('更多'),
                                       onTap: toAllFilmPage,
                                     ),

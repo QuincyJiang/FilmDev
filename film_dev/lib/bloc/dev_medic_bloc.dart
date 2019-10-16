@@ -34,7 +34,7 @@ class DevMedicBloc implements IBlocBase{
         return;
       }
       showLoadFinishAnim(devs);
-    }).catchError((){
+    }).catchError((Object exception){
       showLoadErrorAnim();
     }).timeout(Duration(seconds: 4),onTimeout:(){
       showEmpty();

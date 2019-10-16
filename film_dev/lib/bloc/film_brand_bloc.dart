@@ -66,7 +66,7 @@ class FilmInfoBloc implements IBlocBase{
         return;
       }
       showLoadFinishAnim(queryResults);
-    }).catchError((){
+    }).catchError((Object exception){
       showLoadErrorAnim();
     }).timeout(Duration(seconds: 4),onTimeout:(){
       showEmpty();
@@ -82,7 +82,7 @@ class FilmInfoBloc implements IBlocBase{
         return;
       }
       showFilmListLoadingFinish(films);
-    }).catchError((){
+    }).catchError((Object exception){
       showFilmListLoadingError();
     }).timeout(Duration(seconds: 4),onTimeout:(){
       showFilmListEmpty();
